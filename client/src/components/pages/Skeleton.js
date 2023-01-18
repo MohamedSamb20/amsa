@@ -1,6 +1,9 @@
 import React from "react";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 
+import PreLoginNavbar from "../modules/PreLoginNavbar";
+import PostLoginNavbar from "../modules/PostLoginNavbar";
+
 import "../../utilities.css";
 import "./Skeleton.css";
 
@@ -10,18 +13,7 @@ const GOOGLE_CLIENT_ID = "FILL ME IN";
 const Skeleton = ({ userId, handleLogin, handleLogout }) => {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      {userId ? (
-        <button
-          onClick={() => {
-            googleLogout();
-            handleLogout();
-          }}
-        >
-          Logout
-        </button>
-      ) : (
-        <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
-      )}
+      {userId ? (<PostLoginNavbar handleLogout={handleLogout}/>) : (<PreLoginNavbar handleLogin={handleLogin}/>)}
       <h1>Good luck on your project :)</h1>
       <h2> What you need to change in this skeleton</h2>
       <ul>

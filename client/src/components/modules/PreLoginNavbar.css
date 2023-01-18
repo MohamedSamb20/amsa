@@ -1,0 +1,23 @@
+.Navbar-container {
+    background-color: rgb(28, 27, 27);
+    display: flex;
+    color: white;
+    border-bottom: 2px gray;
+}
+
+.Navbar-image {
+    flex: 1;
+}
+
+.Navbar-name {
+    flex: 3;
+    align-self: center;
+}
+
+.Navbar-button {
+    flex: 3;
+    margin: 4px;
+    border: none;
+    background-color: rgb(28, 27, 27);
+    color: white;
+}
