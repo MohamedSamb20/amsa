@@ -12,7 +12,7 @@ const HomePage = () => {
             </div>
             <div className="HomePage-rightside">
                 <div className="HomePage-motto">
-                    <h2>STAY MOTIVATED</h2>
+                    <h2>STAY MOTIVATE</h2>
                     <h2>STAY ACTIVE</h2>
                     <h2>TAKE CONTROL</h2>
                 </div>
