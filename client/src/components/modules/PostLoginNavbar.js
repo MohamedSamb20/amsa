@@ -2,7 +2,7 @@ import React from "react";
 import {googleLogout } from "@react-oauth/google";
 import "../../utilities.css";
 
-const PostLoginNavbar = (handleLogout) => {
+const PostLoginNavbar = (props) => {
     return (
         <nav>
             <img />
@@ -13,7 +13,7 @@ const PostLoginNavbar = (handleLogout) => {
             <button>Settings</button>
             <button onClick={() => {
                 googleLogout();
-                handleLogout();
+                props.handleLogout();
             }}>Logout</button>
         </nav>
     )
