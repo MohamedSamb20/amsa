@@ -10,6 +10,7 @@ import "../utilities.css";
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
+import LogWorkout from "./pages/LogWorkout.js";
 
 /**
  * Define the "App" component
@@ -46,6 +47,7 @@ const App = () => {
       <Router>
         <Skeleton path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
         <NotFound default />
+        <LogWorkout path='/logworkout' />
       </Router>
     </>
   );
