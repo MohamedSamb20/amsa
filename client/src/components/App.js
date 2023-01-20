@@ -17,6 +17,7 @@ import LogWorkout from "./pages/LogWorkout.js";
  */
 const App = () => {
   const [userId, setUserId] = useState(undefined);
+  const [page, setPage] = useState("Home");
 
   useEffect(() => {
     get("/api/whoami").then((user) => {
@@ -35,17 +36,19 @@ const App = () => {
       setUserId(user._id);
       post("/api/initsocket", { socketid: socket.id });
     });
+    setPage("Profile");
   };
 
   const handleLogout = () => {
     setUserId(undefined);
     post("/api/logout");
+    setPage("Home");
   };
 
   return (
     <>
       <Router>
-        <Skeleton path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+        <Skeleton path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} page={page} setPage={setPage} />
         <NotFound default />
         <LogWorkout path='/logworkout' />
       </Router>

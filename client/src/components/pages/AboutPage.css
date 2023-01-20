@@ -1,0 +1,6 @@
+.AboutPage-container {
+    background-image: linear-gradient(#1e1e1e, gray);
+    padding: 8px;
+    height: 92vh;
+    color: white;
+}
