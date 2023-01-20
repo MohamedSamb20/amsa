@@ -5,6 +5,7 @@ import PreLoginNavbar from "../modules/PreLoginNavbar";
 import PostLoginNavbar from "../modules/PostLoginNavbar";
 import HomePage from "./HomePage";
 import AboutPage from "./AboutPage";
+import ProfilePage from "./ProfilePage"
 
 import "../../utilities.css";
 import "./Skeleton.css";
@@ -18,7 +19,9 @@ const Skeleton = ({ userId, handleLogin, handleLogout, page, setPage}) => {
     currentPage = (<HomePage />)
   } else if(page === "About"){
     currentPage = (<AboutPage />)
-  } else {
+  } else if(page === "Profile"){
+    currentPage = (<ProfilePage />)
+  }else {
     currentPage = (<div>Error</div>)
   }
   return (
