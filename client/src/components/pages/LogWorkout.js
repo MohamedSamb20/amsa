@@ -4,7 +4,7 @@ import "../../utilities.css";
 import PostLoginNavbar from "../modules/PostLoginNavbar";
 import "./HomePage.css"
 
-const LogWorkout = () => {
+const LogWorkout = (props) => {
     // const [exerciseName, setExericseName] = useState("");
     // const [numSets, setNumSets] = useState(0);
     // const [numReps, setNumReps] = useState(0);
@@ -28,7 +28,7 @@ const LogWorkout = () => {
       };
     const sendData = (e) => {
         e.preventDefault();
-        const body = {exercise: data.exercise, sets: data.sets, reps:data.reps};
+        const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps};
         console.log(body);
         post('/api/exercise', body).then((res) => console.log(res));
         
@@ -37,7 +37,7 @@ const LogWorkout = () => {
     };
     return (
         <div className="HomePage-container">
-            <PostLoginNavbar />
+        
         <form onSubmit={sendData}>
 
             <div className='category-container'>
