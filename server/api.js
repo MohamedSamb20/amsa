@@ -44,14 +44,7 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
-
-// anything else falls to this "not found" case
-router.all("*", (req, res) => {
-  console.log(`API route not found: ${req.method} ${req.url}`);
-  res.status(404).send({ msg: "API route not found" });
-});
-
-router.post("/workout", auth.ensureLoggedIn, (req, res) => {
+router.post("/workout", (req, res) => {
   const newWorkout = new Workout({
     user: req.user._id,
     username: req.user.name,
@@ -61,16 +54,26 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   newWorkout.save().then((workout) => res.send(workout));
 });
 
-router.post("/exercise", auth.ensureLoggedIn, (req, res) => {
+router.post("/exercise", (req, res) => {
+  console.log(req.body);
   const newExercise = new Exercise({
     user: "bob",
     username: "bbb",
-    exericse: req.body.exercise,
+    exercise: req.body.exercise,
     sets: req.body.sets,
     reps: req.body.reps,
   });
 
   newExercise.save().then((exercise) => res.send(exercise));
 });
+
+
+
+// anything else falls to this "not found" case
+router.all("*", (req, res) => {
+  console.log(`API route not found: ${req.method} ${req.url}`);
+  res.status(404).send({ msg: "API route not found" });
+});
+
 
 module.exports = router;
