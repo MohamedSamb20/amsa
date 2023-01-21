@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Router} from "@reach/router";
 import jwt_decode from "jwt-decode";
 import { GoogleOAuthProvider} from "@react-oauth/google";
+import { navigate } from "@reach/router";
 
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
@@ -41,13 +42,14 @@ const App = () => {
     post("/api/login", { token: userToken }).then((user) => {
       setUserId(user._id);
       post("/api/initsocket", { socketid: socket.id });
+      navigate(`/profile/${user._id}`);
     });
   };
 
   const handleLogout = () => {
     setUserId(undefined);
     post("/api/logout");
-    console.log("Logged out?");
+    navigate("/");
   };
 
   return (
@@ -56,9 +58,9 @@ const App = () => {
         {userId ? (<PostLoginNavbar handleLogout={handleLogout}/>) : (<PreLoginNavbar handleLogin={handleLogin}/>)}
       </GoogleOAuthProvider>
       <Router>
-        <HomePage path="/" handleLogin={handleLogin} userId={userId}/>
-        <AboutPage path="/about" handleLogin={handleLogin} userId={userId}/>
-        <ProfilePage path="/profile/:userId" userId={userId}/>
+        <HomePage exact path="/" handleLogin={handleLogin} userId={userId}/>
+        <AboutPage exact path="/about" handleLogin={handleLogin} userId={userId}/>
+        <ProfilePage exact path="/profile/:userId" userId={userId}/>
         <NotFound default />
       </Router>
     </>

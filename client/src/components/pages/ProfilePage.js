@@ -1,11 +1,12 @@
-import React from "react";
-import { Redirect } from "@reach/router";
+import React, {useState} from "react";
+import { navigate } from "@reach/router";
 
 import "../../utilities.css";
 import "./ProfilePage.css"
 
 const ProfilePage = (props) => {
-    return props.userId === undefined?(<Redirect to="/"/>) : (
+    console.log(props.userId);
+    return (
         <div className="ProfilePage-container">
             <div className="ProfilePage-chart">
                 Insert Chart

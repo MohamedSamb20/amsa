@@ -5,7 +5,7 @@ import "../../utilities.css";
 import "./HomePage.css"
 
 const HomePage = (props) => {
-    return props.userId? (<Redirect to={`/profile/${props.userId}`}/>) : (
+    return props.userId? (<Redirect to={`/profile/${props.userId}`} noThrow/>) : (
         <div className="HomePage-container">
             <div className="HomePage-leftside">
                 <div className="HomePage-circle">
