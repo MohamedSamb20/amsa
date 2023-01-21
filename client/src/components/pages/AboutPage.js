@@ -1,9 +1,11 @@
 import React from "react";
-import "../../utilities.css";
-import "./AboutPage.css"
+import { Redirect } from "@reach/router";
 
-const AboutPage = () => {
-    return (
+import "../../utilities.css";
+import "./AboutPage.css";
+
+const AboutPage = (props) => {
+    return props.userId? (<Redirect to={`/profile/${props.userId}`}/>) : (
         <div className="AboutPage-container">
             <h1>The Problem</h1>
             <div>Working out is an experience that requires consistency, and for many people, that consistency 
@@ -25,7 +27,7 @@ const AboutPage = () => {
                 <li>Much More</li>
             </ul>
         </div>
-    )
+    );
 }
 
 export default AboutPage;

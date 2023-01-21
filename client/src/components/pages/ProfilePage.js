@@ -1,9 +1,11 @@
 import React from "react";
+import { Redirect } from "@reach/router";
+
 import "../../utilities.css";
 import "./ProfilePage.css"
 
-const HomePage = () => {
-    return (
+const ProfilePage = (props) => {
+    return props.userId === undefined?(<Redirect to="/"/>) : (
         <div className="ProfilePage-container">
             <div className="ProfilePage-chart">
                 Insert Chart
@@ -18,7 +20,7 @@ const HomePage = () => {
                 Insert Friends
             </div>
         </div>
-    )
+    );
 }
 
-export default HomePage;
+export default ProfilePage;
