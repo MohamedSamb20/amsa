@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
+import { navigate } from "@reach/router";
+
 import "../../utilities.css";
 import "./ProfilePage.css"
 
-const HomePage = () => {
+const ProfilePage = (props) => {
+    console.log(props.userId);
     return (
         <div className="ProfilePage-container">
             <div className="ProfilePage-chart">
@@ -18,7 +21,7 @@ const HomePage = () => {
                 Insert Friends
             </div>
         </div>
-    )
+    );
 }
 
-export default HomePage;
+export default ProfilePage;

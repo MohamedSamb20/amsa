@@ -1,9 +1,11 @@
 import React from "react";
+import { Redirect } from "@reach/router";
+
 import "../../utilities.css";
 import "./HomePage.css"
 
-const HomePage = () => {
-    return (
+const HomePage = (props) => {
+    return props.userId? (<Redirect to={`/profile/${props.userId}`} noThrow/>) : (
         <div className="HomePage-container">
             <div className="HomePage-leftside">
                 <div className="HomePage-circle">
@@ -18,7 +20,7 @@ const HomePage = () => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default HomePage;
