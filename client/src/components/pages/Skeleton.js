@@ -9,6 +9,7 @@ import ProfilePage from "./ProfilePage"
 
 import "../../utilities.css";
 import "./Skeleton.css";
+import LogWorkout from "./LogWorkout";
 
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "451813111049-optth6tpncstfk4gp8mshtofm008h353.apps.googleusercontent.com";
@@ -21,6 +22,8 @@ const Skeleton = ({ userId, handleLogin, handleLogout, page, setPage}) => {
     currentPage = (<AboutPage />)
   } else if(page === "Profile"){
     currentPage = (<ProfilePage />)
+  }else if(page === "logworkout"){
+    currentPage = (<LogWorkout />)
   }else {
     currentPage = (<div>Error</div>)
   }

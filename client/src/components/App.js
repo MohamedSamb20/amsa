@@ -17,6 +17,7 @@ import "../utilities.css";
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
+import LogWorkout from "./pages/LogWorkout.js";
 
 const GOOGLE_CLIENT_ID = "451813111049-optth6tpncstfk4gp8mshtofm008h353.apps.googleusercontent.com";
 
@@ -52,6 +53,8 @@ const App = () => {
     navigate("/");
   };
 
+  
+
   return (
     <>
       <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
@@ -62,6 +65,7 @@ const App = () => {
         <AboutPage exact path="/about" handleLogin={handleLogin} userId={userId}/>
         <ProfilePage exact path="/profile/:userId" userId={userId}/>
         <NotFound default />
+        <LogWorkout path='/logworkout' userId={userId} />
       </Router>
     </>
   );
