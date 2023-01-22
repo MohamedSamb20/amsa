@@ -1,13 +1,15 @@
 import React from "react";
+import { Redirect } from "@reach/router";
+
 import "../../utilities.css";
 import "./HomePage.css"
-
-const HomePage = () => {
-    return (
+import logo from "../../public/logo.png";
+const HomePage = (props) => {
+    return props.userId? (<Redirect to={`/profile/${props.userId}`} noThrow/>) : (
         <div className="HomePage-container">
             <div className="HomePage-leftside">
                 <div className="HomePage-circle">
-                    <img src="../../logo.png" />
+                    <img src={logo} />
                 </div>
             </div>
             <div className="HomePage-rightside">
@@ -18,7 +20,7 @@ const HomePage = () => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default HomePage;

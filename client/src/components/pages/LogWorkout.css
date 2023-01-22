@@ -1,0 +1,24 @@
+.HomePage-container {
+    background-image: linear-gradient(#1e1e1e, gray);
+    display: flex;
+    padding: 8px;
+    height: 92vh;
+}
+
+.category-container {
+    box-sizing: border-box;
+
+position: absolute;
+width: 224px;
+height: 31px;
+left: 36px;
+top: 229px;
+
+
+}
+.second-box{
+    width: 224px;
+height: 34px;
+left: 86px;
+top: 480px;
+}

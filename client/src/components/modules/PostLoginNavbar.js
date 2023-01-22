@@ -1,19 +1,21 @@
 import React from "react";
+import { Link } from "@reach/router";
 import {googleLogout } from "@react-oauth/google";
 import "../../utilities.css";
+import "./PostLoginNavbar.css"
 
-const PostLoginNavbar = (handleLogout) => {
+const PostLoginNavbar = (props) => {
     return (
-        <nav>
-            <img />
-            <div>Name</div>
-            <button>Profile</button>
-            <button>Log Workout</button>
-            <button>Edit Stats</button>
-            <button>Settings</button>
-            <button onClick={() => {
+        <nav className="Navbar-container">
+            <img className="Navbar-image"/>
+            <div className="Navbar-name">Name</div>
+            <Link className="Navbar-button" to={`/`}>Profile</Link>
+            <Link className="Navbar-button" to="/logworkout">Log Workout</Link>
+            <Link className="Navbar-button" to="/stats">Edit Stats</Link>
+            <Link className="Navbar-button" to="/settings">Settings</Link>
+            <button className="Navbar-logout" to="/" onClick={() => {
                 googleLogout();
-                handleLogout();
+                props.handleLogout();
             }}>Logout</button>
         </nav>
     )

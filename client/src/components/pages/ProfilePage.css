@@ -1,0 +1,27 @@
+.ProfilePage-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background-image: linear-gradient(#1e1e1e, gray);
+    padding: 8px;
+    height: 93vh;
+}
+
+.ProfilePage-chart {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.ProfilePage-progression {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.ProfilePage-bio {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.ProfilePage-friends {
+    grid-column: 2;
+    grid-row: 2;
+}
