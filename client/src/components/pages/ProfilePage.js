@@ -1,15 +1,15 @@
 import React, {useState} from "react";
-import { navigate } from "@reach/router";
+
+import WeightChart from "../modules/WeightChart";
 
 import "../../utilities.css";
 import "./ProfilePage.css"
 
 const ProfilePage = (props) => {
-    console.log(props.userId);
     return (
         <div className="ProfilePage-container">
             <div className="ProfilePage-chart">
-                Insert Chart
+                <WeightChart />
             </div>
             <div className="ProfilePage-progression">
                 Insert Progressions

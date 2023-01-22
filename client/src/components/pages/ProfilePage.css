@@ -9,6 +9,7 @@
 .ProfilePage-chart {
     grid-column: 1;
     grid-row: 1;
+    padding: 8px;
 }
 
 .ProfilePage-progression {
