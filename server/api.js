@@ -13,7 +13,8 @@ const express = require("express");
 const User = require("./models/user");
 const Workout = require("./models/workout");
 const Exercise = require("./models/exercise");
-const Setting = require("./models/settings")
+const Setting = require("./models/settings");
+const Friendship = require("./models/friendship")
 
 // import authentication library
 const auth = require("./auth");
@@ -49,7 +50,7 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   const newWorkout = new Workout({
     user: req.user._id,
     username: req.user.name,
-    exericse: req.body.exercise,
+    exercise: req.body.exercise,
   });
 
   newWorkout.save().then((workout) => res.send(workout));
@@ -70,7 +71,7 @@ router.post("/exercise", auth.ensureLoggedIn, (req, res) => {
 });
 
 router.get("/settings", (req, res) => {
-  Settings.find({ userId: req.query.userId }).then((settings) => res.send(settings));
+  Setting.find({ userId: req.query.userId }).then((settings) => res.send(settings));
 });
 
 router.post("/settings", auth.ensureLoggedIn, (req, res) => {
@@ -86,6 +87,22 @@ router.post("/settings", auth.ensureLoggedIn, (req, res) => {
 
   newSettings.save().then((settings) => res.send(settings));
 });
+router.get("/friends", (req, res) => {
+  Friendship.find({ userId: req.query.userId }).then((friendships) => res.send(friendships));
+});
+
+router.post("/friends", auth.ensureLoggedIn, (req, res) => {
+  console.log(req.body);
+
+  const newFriendship = new Friendship({
+    userId: req.body.userId,
+    friendId: req.friendId,
+  });
+
+  newFriendship.save().then((friendship) => res.send(friendship));
+});
+
+
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

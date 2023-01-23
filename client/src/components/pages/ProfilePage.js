@@ -1,9 +1,7 @@
 import React, {useState} from "react";
-
-import WeightChart from "../modules/WeightChart";
-
 import "../../utilities.css";
 import "./ProfilePage.css"
+import Friends from "../modules/FriendsComponent.js"
 
 const ProfilePage = (props) => {
     return (
@@ -18,7 +16,7 @@ const ProfilePage = (props) => {
                 Insert Bio+Calendar
             </div>
             <div className="ProfilePage-friends">
-                Insert Friends
+                <Friends userId = {props.userId} />
             </div>
         </div>
     );
