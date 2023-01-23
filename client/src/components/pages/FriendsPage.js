@@ -1,12 +1,14 @@
 import React from "react";
 
+import FriendSearch from "../modules/FriendSearch";
+
 import "../../utilities.css";
 import "./FriendsPage.css"
 
 const FriendsPage = (props) => {
     return (<div className="FriendsPage-container">
                 <div className="FriendsPage-search">
-                    Insert search for friends
+                    <FriendSearch />
                 </div>
                 <div className="FriendsPage-requests">
                     Insert friend request
