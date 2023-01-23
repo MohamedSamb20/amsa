@@ -71,7 +71,9 @@ router.post("/exercise", auth.ensureLoggedIn, (req, res) => {
 });
 
 router.get("/settings", (req, res) => {
-  Setting.find({ userId: req.query.userId }).then((settings) => res.send(settings));
+  Setting.findOne({ userId: req.query.userId}).then((setting) => {
+    res.send(setting);
+  });
 });
 
 router.post("/settings", auth.ensureLoggedIn, (req, res) => {
@@ -88,7 +90,9 @@ router.post("/settings", auth.ensureLoggedIn, (req, res) => {
   newSettings.save().then((settings) => res.send(settings));
 });
 router.get("/friends", (req, res) => {
-  Friendship.find({ userId: req.query.userId }).then((friendships) => res.send(friendships));
+  Friendship.find({ userId: req.query.userId }).then((friendships) => {
+    res.send(friendships);
+  });
 });
 
 router.post("/friends", auth.ensureLoggedIn, (req, res) => {

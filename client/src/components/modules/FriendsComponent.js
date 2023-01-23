@@ -8,7 +8,7 @@ const Friends = (props) =>  {
     const [friends, setFriends] = useState([]);
 
   useEffect(() => {
-    get("/api/friends", props.userId).then((friends) => {
+    get("/api/friends", {userId : props.userId}).then((friends) => {
       setFriends(friends);
     });
   }, []);
