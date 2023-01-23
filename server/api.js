@@ -68,7 +68,13 @@ router.post("/exercise",auth.ensureLoggedIn, (req, res) => {
   newExercise.save().then((exercise) => res.send(exercise));
 });
 
-
+router.get("/people", (req, res) => {
+  console.log("We got here");
+  User.find({ name : new RegExp(req.query.value, "i") }).then((people) => {
+    console.log(people)
+    res.send(people);
+  });
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
