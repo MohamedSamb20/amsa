@@ -78,16 +78,14 @@ router.get("/settings", (req, res) => {
 
 router.post("/settings", auth.ensureLoggedIn, (req, res) => {
   console.log(req.body);
-
-  const newSettings = new Setting({
+  Setting.findOneAndUpdate({ userId: req.body.userId}, {
     userId: req.body.userId,
     weightUnit: req.body.weightUnit,
     heightUnit: req.body.heightUnit,
     height: req.body.height,
     weight: req.body.weight,
-  });
-
-  newSettings.save().then((settings) => res.send(settings));
+  },{new:true, }).then((setting) => {setting.save().then((setting) => res.send(setting));})
+  
 });
 router.get("/friends", (req, res) => {
   Friendship.find({ userId: req.query.userId }).then((friendships) => {
