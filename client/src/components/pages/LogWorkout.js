@@ -16,8 +16,11 @@ const LogWorkout = (props) => {
     const [data,setData] = useState(
     {
         exercise:'',
+        workoutType:'',
         sets:0,
-        reps:0,        
+        reps:0,
+        weightUsed:0,
+                
     });
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -25,33 +28,51 @@ const LogWorkout = (props) => {
           ...prevProps,
           [name]: value
         }));
+        
       };
+  
     const sendData = (e) => {
         e.preventDefault();
-        const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps};
+        const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps, weightUsed: data.weightUsed};
         console.log(body);
         post('/api/exercise', body).then((res) => console.log(res));
+        post('/api/workout', {userId: props.userId, workoutType: data.workoutType}).then((res) => console.log(res));
         
         
         console.log('done');
     };
+    const handSubmit = () => {
+        
+        <Link to={`/profile/${props.userId}`} ></Link>
+
+    };
     return (
         <div className="HomePage-container">
+        {props.userId ? 
         
-        <form onSubmit={sendData}>
+        (
+            <div>
+            <form onSubmit={sendData}>
 
             <div className='category-container'>
-                <p>Select Exercise</p>
+
+        
+            <p>Exercise Type (push,pull, etc)</p>
+            <input type='text' name='workoutType' value={data.workoutType}
+            onChange={handleInputChange}
+            />
+
+            <p>Select Exercise</p>
             <input type='text' name='exercise' value={data.exercise}
             onChange={handleInputChange}
             />
 
             <div className='second-box'> 
-                <p>Sets</p>
+            <p>Sets</p>
             <input type='text' name='sets'  value={data.sets} 
             onChange={handleInputChange}
             />   
-               
+
             </div>
 
             <div>
@@ -59,10 +80,32 @@ const LogWorkout = (props) => {
             <input type='text' name='reps' value={data.reps}
             onChange={handleInputChange}/> 
             </div>
-            <button type='submit'>Submit</button>
+
+            <div>
+            <p>Weight Used (lbs)</p>
+            <input type="text" name='weightUsed' value={data.weightUsed}
+            onChange={handleInputChange}/> 
             </div>
 
-        </form>
+            <button type='submit'>Submit</button>
+
+            </div>
+            
+
+            </form>
+            <button type='submit' onClick={handSubmit} >Log Workout</button>
+        </div>
+        
+            
+
+    )
+     
+    
+    : <div>logged out</div>}
+        
+        
+       
+    
             
 
             
