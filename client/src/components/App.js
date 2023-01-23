@@ -18,6 +18,8 @@ import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
 import LogWorkout from "./pages/LogWorkout.js";
+import Settings from "./pages/SettingsPage.js"
+
 
 const GOOGLE_CLIENT_ID = "451813111049-optth6tpncstfk4gp8mshtofm008h353.apps.googleusercontent.com";
 
@@ -65,6 +67,7 @@ const App = () => {
         <AboutPage exact path="/about" handleLogin={handleLogin} userId={userId}/>
         <ProfilePage exact path="/profile/:userId" userId={userId}/>
         <NotFound default />
+        <Settings exact path="/settings" userId={userId}/>
         <LogWorkout path='/logworkout' userId={userId} />
       </Router>
     </>

@@ -13,6 +13,7 @@ const express = require("express");
 const User = require("./models/user");
 const Workout = require("./models/workout");
 const Exercise = require("./models/exercise");
+const Setting = require("./models/settings")
 
 // import authentication library
 const auth = require("./auth");
@@ -54,12 +55,12 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   newWorkout.save().then((workout) => res.send(workout));
 });
 
-router.post("/exercise",auth.ensureLoggedIn, (req, res) => {
+router.post("/exercise", auth.ensureLoggedIn, (req, res) => {
   console.log(req.body);
   //get userid from props, pass in to body, wrap func below with then (User.find(id).then(exercise stuff))
   const newExercise = new Exercise({
     userId: req.body.userId,
-    
+
     exercise: req.body.exercise,
     sets: req.body.sets,
     reps: req.body.reps,
@@ -68,13 +69,28 @@ router.post("/exercise",auth.ensureLoggedIn, (req, res) => {
   newExercise.save().then((exercise) => res.send(exercise));
 });
 
+router.get("/settings", (req, res) => {
+  Settings.find({ userId: req.query.userId }).then((settings) => res.send(settings));
+});
 
+router.post("/settings", auth.ensureLoggedIn, (req, res) => {
+  console.log(req.body);
+
+  const newSettings = new Setting({
+    userId: req.body.userId,
+    weightUnit: req.body.weightUnit,
+    heightUnit: req.body.heightUnit,
+    height: req.body.height,
+    weight: req.body.weight,
+  });
+
+  newSettings.save().then((settings) => res.send(settings));
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
   res.status(404).send({ msg: "API route not found" });
 });
-
 
 module.exports = router;

@@ -9,7 +9,7 @@ const ProfilePage = (props) => {
     return (
         <div className="ProfilePage-container">
             <div className="ProfilePage-chart">
-                <WeightChart />
+                Nothiing
             </div>
             <div className="ProfilePage-progression">
                 Insert Progressions
