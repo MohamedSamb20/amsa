@@ -23,15 +23,19 @@ const FriendRequests = (props) => {
         });
     }, [props.friendsNumber]);
     const addFriendship = (event) => {
-        post("/api/friend", { userId: props.userId, friendId: event.target.id});
-        post("/api/friend", { friendId: props.userId, userId: event.target.id});
-        post("api/removefriendrequest", { userId: props.userId, requester: event.target.id});
-        props.setFriendsNumber(props.friendsNumber + 1);
+        const promise1 = post("/api/friend", { userId: props.userId, friendId: event.target.id});
+        const promise2 = post("/api/friend", { friendId: props.userId, userId: event.target.id});
+        const promise3 = post("api/removefriendrequest", { userId: props.userId, requester: event.target.id});
+        Promise.all([promise1, promise2, promise3]).then(() => {
+            props.setFriendsNumber(props.FriendsNumber+1);
+        });
     }
     const deleteRequest = (event) => {
         const body = { requester: props.userId, userId: event.target.id};
-        post("api/removefriendrequest", body);
-        props.setFriendsNumber(props.friendsNumber + 1);
+        const promise1 = post("api/removefriendrequest", body);
+        Promise.all([promise1]).then(() => {
+            props.setFriendsNumber(props.FriendsNumber+1);
+        });
     }
     return (<div className="FriendRequest-container">
                 <div >Incoming Requests:</div>
