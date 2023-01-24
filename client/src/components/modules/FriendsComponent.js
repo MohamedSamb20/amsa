@@ -7,10 +7,13 @@ import SingleFriend from "./SingleFriend.js"
 const Friends = (props) =>  {
     const [friends, setFriends] = useState([]);
 
-  useEffect(() => {
-    get("/api/friends", {userId : props.userId}).then((friends) => {
-      setFriends(friends);
-    });
+    useEffect(() => {
+      get("/api/friends", {userId : props.userId})
+      .then((friendsList) => friendsList.map((friendship) => get("/api/user", {userId: friendship.friendId})))
+      .then(async (users) => {
+          const friendsUsers = await Promise.all(users);
+          setFriends( friendsUsers);
+      });
   }, []);
 
   // this gets called when the user pushes "Submit", so their
@@ -21,7 +24,8 @@ const Friends = (props) =>  {
   if (hasFriends) {
     friendsList = friends.map((friend) => (
         <SingleFriend
-          userId = {friend}
+          userId = {friend._id}
+          name = {friend.name}
         />
       ));
   } else {

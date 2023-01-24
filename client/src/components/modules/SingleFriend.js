@@ -4,7 +4,7 @@ import React from "react";
 const SingleFriend = (props) => {
     return (
         <div>
-            Nothing
+            {props.name}
         </div>
     )
 }
