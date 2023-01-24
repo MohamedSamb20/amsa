@@ -96,8 +96,10 @@ router.get("/friends", (req, res) => {
 });
 
 router.post("/friend", auth.ensureLoggedIn, async (req, res) => {
-  const previousFriends = await Friendship.find({userId: req.body.requestee, friendId: req.body.user}).count()
-  if(previousFriends > 0){
+  const previousFriends = await Promise.all([
+    Friendship.find({userId: req.body.userId, friendId: req.body.friendId}).count(),
+  ])
+  if(previousFriends[0] > 0){
     res.send({});
   } else {
     const newFriendship = new Friendship({
