@@ -78,6 +78,9 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   newWorkout.save().then((workout) => res.send(workout));
 
 });
+// router.get('/workout', (req,res) => {
+//   Workout.find().sort({timestamp:-1})
+// });
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

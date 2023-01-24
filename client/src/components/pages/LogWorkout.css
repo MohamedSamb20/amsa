@@ -43,3 +43,13 @@ th,td {
     padding: 10px;
     width: 90px;
 }
+.Log-position{
+position: absolute;
+width: 235px;
+height: 44px;
+left: 1124px;
+top: 924px;
+
+background: #35C454;
+border-radius: 16px;
+}

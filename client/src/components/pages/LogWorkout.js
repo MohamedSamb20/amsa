@@ -75,14 +75,14 @@ const LogWorkout = (props) => {
             onChange={handleInputChange}
             />
 
-            <p>Select Exercise</p>
+            <p>Enter Exercise</p>
             <input type='text' name='exercise' value={data.exercise}
             onChange={handleInputChange}
             />
 
             <div className='second-box'> 
             <p>Sets</p>
-            <input type='text' name='sets'  value={data.sets} 
+            <input type='number' name='sets'  value={data.sets} 
             onChange={handleInputChange}
             />   
 
@@ -90,23 +90,23 @@ const LogWorkout = (props) => {
 
             <div>
             <p>Reps</p>
-            <input type='text' name='reps' value={data.reps}
+            <input type='number' name='reps' value={data.reps}
             onChange={handleInputChange}/> 
             </div>
 
             <div>
             <p>Weight Used (lbs)</p>
-            <input type="text" name='weightUsed' value={data.weightUsed}
+            <input type="number" name='weightUsed' value={data.weightUsed}
             onChange={handleInputChange}/> 
             </div>
 
-            <button type='submit'>Submit</button>
+            <button type='submit'>Add to List</button>
 
             </div>
             
 
             </form>
-            <button type='submit' onClick={handleSubmit} >Log Workout</button>
+            
             <div className="table-container">
                 <table className='th,td'>
                     <tbody>
@@ -124,6 +124,9 @@ const LogWorkout = (props) => {
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div className= 'Log-position'>
+                <button type='submit' onClick={handleSubmit} >Log Workout</button>
             </div>
         </div>
     )
