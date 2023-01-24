@@ -13,6 +13,9 @@ const express = require("express");
 const User = require("./models/user");
 const Workout = require("./models/workout");
 const Exercise = require("./models/exercise");
+const Setting = require("./models/settings");
+const Friendship = require("./models/friendship");
+const Friendrequest = require("./models/friendrequest");
 
 // import authentication library
 const auth = require("./auth");
@@ -45,8 +48,20 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.post("/exercise",auth.ensureLoggedIn, (req, res) => {
+router.post("/workout", auth.ensureLoggedIn, (req, res) => {
+  const newWorkout = new Workout({
+    user: req.user._id,
+    username: req.user.name,
+    exercise: req.body.exercise,
+  });
+
+  newWorkout.save().then((workout) => res.send(workout));
+});
+
+
+router.post("/exercise", auth.ensureLoggedIn, (req, res) => {
   console.log(req.body);
+
   console.log(req.user);
   const username = User.find(req.body.userId)
   console.log(username);
@@ -63,6 +78,7 @@ router.post("/exercise",auth.ensureLoggedIn, (req, res) => {
     newExercise.save().then((exercise) => res.send(exercise)); 
  
 
+
 });
 
 router.post("/workout", auth.ensureLoggedIn, (req, res) => {
@@ -77,16 +93,107 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
 
   newWorkout.save().then((workout) => res.send(workout));
 
+
+router.get("/settings", (req, res) => {
+  Setting.findOne({ userId: req.query.userId}).then((setting) => {
+    res.send(setting);
+  });
+});
+
+router.post("/settings", auth.ensureLoggedIn, (req, res) => {
+  console.log(req.body);
+  Setting.findOneAndUpdate({ userId: req.body.userId}, {
+    userId: req.body.userId,
+    weightUnit: req.body.weightUnit,
+    heightUnit: req.body.heightUnit,
+    height: req.body.height,
+    weight: req.body.weight,
+  },{new:true, }).then((setting) => {setting.save().then((setting) => res.send(setting));})
+  
+});
+router.get("/friends", (req, res) => {
+  Friendship.find({ userId: req.query.userId }).then((friendships) => {
+    res.send(friendships);
+  }); 
+});
+
+router.post("/friend", auth.ensureLoggedIn, async (req, res) => {
+  const previousFriends = await Promise.all([
+    Friendship.find({userId: req.body.userId, friendId: req.body.friendId}).count(),
+  ])
+  if(previousFriends[0] > 0){
+    res.send({});
+  } else {
+    const newFriendship = new Friendship({
+      userId: req.body.userId,
+      friendId: req.body.friendId,
+    });
+  
+    newFriendship.save().then((friendship) => res.send(friendship));
+  }
+});
+
+router.get("/people", (req, res) => {
+  User.find({ name : new RegExp(req.query.value, "i") }).then((people) => {
+    res.send(people);
+  });
+});
+
+router.post("/friendrequest", auth.ensureLoggedIn, async (req, res) => {
+  const previousRelations = await Promise.all([
+    Friendrequest.find({userId: req.body.requestee, requester: req.body.user}).count(),
+    Friendship.find({userId: req.body.requestee, friendId: req.body.user}).count(),
+    Friendrequest.find({requester: req.body.requestee, userId: req.body.user}).count(),]);
+  if(previousRelations[0] + previousRelations[1] + previousRelations[2] > 0){
+        res.send({});
+  } else {
+    const newFriendrequest = new Friendrequest({
+      userId: req.body.requestee,
+      requester: req.body.user,
+    });
+  
+    newFriendrequest.save().then((friendrequest) => res.send(friendrequest));
+  }
+});
+
+router.post("/removefriendrequest", auth.ensureLoggedIn, (req, res) => {
+  Friendrequest.deleteOne({
+    userId: req.body.userId,
+    requester: req.body.requester,
+  }).then((response) => res.send(response));
+});
+
+router.post("/removefriend", auth.ensureLoggedIn, (req, res) => {
+  Friendship.deleteOne({
+    userId: req.body.userId,
+    requester: req.body.requester,
+  }).then((response) => res.send(response));
+});
+
+router.get("/friendrequests", (req, res) => {
+  const friendRequests = Friendrequest.find({userId: req.query.userId}).then((request) => res.send(request));
+});
+
+router.get("/outgoingrequests", (req, res) => {
+  Friendrequest.find({requester: req.query.userId}).then((requests) => res.send(requests));
+});
+
+router.get("/user", (req, res) => {
+  User.findOne({_id: req.query.userId}).catch((err) => {
+    console.log(`Failed to fetch friend requests: ${err}`);
+  }).then((request) => res.send(request));
+});
+=======
 });
 // router.get('/workout', (req,res) => {
 //   Workout.find().sort({timestamp:-1})
 // });
+
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
   res.status(404).send({ msg: "API route not found" });
 });
-
 
 module.exports = router;

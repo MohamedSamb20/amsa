@@ -5,9 +5,6 @@ const UserSchema = new mongoose.Schema({
   googleid: String,
   weight: Number,
   height: Number,
-  streak: Number,
-  friends: [String]
-  // [{name:Joe, streak: 4, workout: legs}]
 });
 
 // compile model from schema

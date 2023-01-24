@@ -6,7 +6,9 @@ import "./HomePage.css"
 import { Link } from "@reach/router";
 import { navigate } from "@reach/router";
 const LogWorkout = (props) => {
-   
+
+    document.title = 'Log Workout'
+ 
     const [data,setData] = useState(
     {
         exercise:'',

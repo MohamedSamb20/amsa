@@ -5,6 +5,7 @@ import "../../utilities.css";
 import "./HomePage.css"
 import logo from "../../public/logo.png";
 const HomePage = (props) => {
+    document.title = 'AMSA';
     return props.userId? (<Redirect to={`/profile/${props.userId}`} noThrow/>) : (
         <div className="HomePage-container">
             <div className="HomePage-leftside">
