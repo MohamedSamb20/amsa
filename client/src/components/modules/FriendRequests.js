@@ -13,7 +13,7 @@ const FriendRequests = (props) => {
         .then((requestsList) => requestsList.map((request) => get("/api/user", {userId: request.userId})))
         .then(async (users) => {
             const requestingUsers = await Promise.all(users);
-            setPendingRequests( requestingUsers);
+            setRequests( requestingUsers);
         });
         get("/api/outgoingrequests", {userId: props.userId})
         .then((requestsList) => requestsList.map((request) => get("/api/user", {userId: request.userId})))
@@ -21,20 +21,29 @@ const FriendRequests = (props) => {
             const requestingUsers = await Promise.all(users);
             setPendingRequests( requestingUsers);
         });
-      }, []);
+    }, []);
+    const addFriendship = (event) => {
+        post("/api/friend", { userId: props.userId, friendId: event.target.id});
+        post("/api/friend", { friendId: props.userId, userId: event.target.id});
+        post("api/removefriendrequest", { userId: props.userId, requester: event.target.id});
+    }
+    const deleteRequest = (event) => {
+        const body = { requester: props.userId, userId: event.target.id};
+        post("api/removefriendrequest", body);
+    }
     return (<div className="FriendRequest-container">
                 <div >Incoming Requests:</div>
                 {requests.map((person) => {
                     return (<div>
                             {person.name} 
-                            <button id={person._id} >Accept</button>
+                            <button id={person._id} onClick={addFriendship}>Accept</button>
                         </div>)
                 })}
                 <div >Pending Requests:</div>
                 {pendingRequests.map((person) => {
                     return (<div>
                             {person.name} 
-                            <button id={person._id}>Cancel</button>
+                            <button id={person._id} onClick={deleteRequest}>Cancel</button>
                         </div>)
                 })}
         </div>

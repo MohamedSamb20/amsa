@@ -95,12 +95,10 @@ router.get("/friends", (req, res) => {
   });
 });
 
-router.post("/friends", auth.ensureLoggedIn, (req, res) => {
-  console.log(req.body);
-
+router.post("/friend", auth.ensureLoggedIn, (req, res) => {
   const newFriendship = new Friendship({
     userId: req.body.userId,
-    friendId: req.friendId,
+    friendId: req.body.friendId,
   });
 
   newFriendship.save().then((friendship) => res.send(friendship));
@@ -119,6 +117,13 @@ router.post("/friendrequest", auth.ensureLoggedIn, (req, res) => {
   });
 
   newFriendrequest.save().then((friendrequest) => res.send(friendrequest));
+});
+
+router.post("/removefriendrequest", auth.ensureLoggedIn, (req, res) => {
+  Friendrequest.deleteOne({
+    userId: req.body.userId,
+    requester: req.body.requester,
+  }).then((response) => res.send(response));
 });
 
 router.get("/friendrequests", (req, res) => {

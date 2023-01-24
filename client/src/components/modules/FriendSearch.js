@@ -16,12 +16,10 @@ const FriendSearch = (props) => {
         const body = {value: value};
         get("/api/people", body).then((searchResult)=>{
             setPeople(searchResult);
-            console.log(searchResult)
         });
         setValue("");
       };
     const handleFriendRequest = (event)=>{
-        console.log(`I will send ${event.target.id} a request`);
         const body = {
             user: props.userId,
             requestee: event.target.id,
