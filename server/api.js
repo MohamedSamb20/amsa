@@ -92,6 +92,7 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   });
 
   newWorkout.save().then((workout) => res.send(workout));
+});
 
 
 router.get("/settings", (req, res) => {
@@ -184,7 +185,7 @@ router.get("/user", (req, res) => {
   }).then((request) => res.send(request));
 });
 
-});
+
 // router.get('/workout', (req,res) => {
 //   Workout.find().sort({timestamp:-1})
 // });
