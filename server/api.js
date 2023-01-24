@@ -126,6 +126,13 @@ router.post("/removefriendrequest", auth.ensureLoggedIn, (req, res) => {
   }).then((response) => res.send(response));
 });
 
+router.post("/removefriend", auth.ensureLoggedIn, (req, res) => {
+  Friendship.deleteOne({
+    userId: req.body.userId,
+    requester: req.body.requester,
+  }).then((response) => res.send(response));
+});
+
 router.get("/friendrequests", (req, res) => {
   const friendRequests = Friendrequest.find({userId: req.query.userId}).then((request) => res.send(request));
 });

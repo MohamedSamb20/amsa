@@ -16,6 +16,11 @@ const CurrentFriends = (props) =>  {
             setFriends( friendsUsers);
         });
     }, []);
+
+    const deleteFriendship = (event) => {
+      post("/api/removefriend", { userId: props.userId, friendId: event.target.id});
+      post("/api/removefriend", { friendId: props.userId, userId: event.target.id});
+  }
   return (
     <div className="CurrentFriends-container">
       <div>Current Friends:</div>
@@ -23,7 +28,7 @@ const CurrentFriends = (props) =>  {
                     return (<div>
                             {person.name} 
                             <button id={person._id} >Request Workout</button>
-                            <button id={person._id} >Delete Friend</button>
+                            <button id={person._id} onClick ={deleteFriendship} >Delete Friend</button>
                         </div>)
                 })}
     </div>
