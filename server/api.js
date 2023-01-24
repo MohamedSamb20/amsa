@@ -48,15 +48,8 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.post("/workout", auth.ensureLoggedIn, (req, res) => {
-  const newWorkout = new Workout({
-    user: req.user._id,
-    username: req.user.name,
-    exercise: req.body.exercise,
-  });
 
-  newWorkout.save().then((workout) => res.send(workout));
-});
+
 
 
 router.post("/exercise", auth.ensureLoggedIn, (req, res) => {
@@ -92,6 +85,7 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   });
 
   newWorkout.save().then((workout) => res.send(workout));
+});
 
 
 router.get("/settings", (req, res) => {
@@ -183,8 +177,8 @@ router.get("/user", (req, res) => {
     console.log(`Failed to fetch friend requests: ${err}`);
   }).then((request) => res.send(request));
 });
-=======
-});
+
+
 // router.get('/workout', (req,res) => {
 //   Workout.find().sort({timestamp:-1})
 // });
