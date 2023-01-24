@@ -29,14 +29,12 @@ const GOOGLE_CLIENT_ID = "451813111049-optth6tpncstfk4gp8mshtofm008h353.apps.goo
  */
 const App = () => {
   const [userId, setUserId] = useState(undefined);
-  const [name, setName] = useState(undefined);
 
   useEffect(() => {
     get("/api/whoami").then((user) => {
       if (user._id) {
         // they are registed in the database, and currently logged in.
         setUserId(user._id);
-        setName(user.name);
       }
     });
   }, []);
@@ -63,7 +61,7 @@ const App = () => {
   return (
     <>
       <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-        {userId ? (<PostLoginNavbar handleLogout={handleLogout} name={name}/>) : (<PreLoginNavbar handleLogin={handleLogin}/>)}
+        {userId ? (<PostLoginNavbar handleLogout={handleLogout}/>) : (<PreLoginNavbar handleLogin={handleLogin}/>)}
       </GoogleOAuthProvider>
       <Router>
         <HomePage exact path="/" handleLogin={handleLogin} userId={userId}/>

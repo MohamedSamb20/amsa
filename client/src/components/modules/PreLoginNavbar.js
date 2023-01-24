@@ -8,7 +8,7 @@ const PreLoginNavbar = (props) => {
     return (
         <nav className="Navbar-container">
             {/* <img className="Navbar-image" src={logo}/> make img smaller */}
-            <div className="Navbar-name">NEEDNAME</div>
+            <div className="Navbar-name">AMSA</div>
             <Link className="Navbar-home Navbar-button" to="/">Home</Link>
             <Link className="Navbar-about Navbar-button" to="/about">About</Link>
             <GoogleLogin className="Navbar-login Navbar-button" onSuccess={props.handleLogin} onError={(err) => console.log(err)} />
