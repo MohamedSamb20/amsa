@@ -116,7 +116,8 @@ router.get("/people", (req, res) => {
 
 router.post("/friendrequest", auth.ensureLoggedIn, (req, res) => {
   if(Friendrequest.find({userId: req.body.requestee, requester: req.body.user}).count()
-      + Friendship.find({userId: req.body.requestee, friendId: req.body.user}).count() > 0){
+      + Friendship.find({userId: req.body.requestee, friendId: req.body.user}).count()
+      + Friendrequest.find({requester: req.body.requestee, userId: req.body.user}).count() > 0){
         res.send({});
   } else {
     const newFriendrequest = new Friendrequest({
