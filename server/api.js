@@ -14,7 +14,8 @@ const User = require("./models/user");
 const Workout = require("./models/workout");
 const Exercise = require("./models/exercise");
 const Setting = require("./models/settings");
-const Friendship = require("./models/friendship")
+const Friendship = require("./models/friendship");
+const Friendrequest = require("./models/friendrequest");
 
 // import authentication library
 const auth = require("./auth");
@@ -106,13 +107,28 @@ router.post("/friends", auth.ensureLoggedIn, (req, res) => {
 });
 
 router.get("/people", (req, res) => {
-  console.log("We got here");
   User.find({ name : new RegExp(req.query.value, "i") }).then((people) => {
-    console.log(people)
     res.send(people);
   });
 });
 
+router.post("/friendrequest", auth.ensureLoggedIn, (req, res) => {
+  const newFriendrequest = new Friendrequest({
+    userId: req.body.requestee,
+    requester: req.body.user,
+  });
+
+  newFriendrequest.save().then((friendrequest) => res.send(friendrequest));
+});
+
+router.get("/friendrequests", (req, res) => {
+  Friendrequest.find({ userId : req.query.userId }).then((requests) => {
+    const userRequests = requests.map((requestId) => {
+        return User.findOne({_id: requestId})
+    });
+    res.send(userRequests);
+  });
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
