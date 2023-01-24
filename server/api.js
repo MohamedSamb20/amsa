@@ -47,6 +47,7 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+
 router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   const newWorkout = new Workout({
     user: req.user._id,
@@ -57,19 +58,40 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   newWorkout.save().then((workout) => res.send(workout));
 });
 
+
 router.post("/exercise", auth.ensureLoggedIn, (req, res) => {
   console.log(req.body);
-  //get userid from props, pass in to body, wrap func below with then (User.find(id).then(exercise stuff))
-  const newExercise = new Exercise({
-    userId: req.body.userId,
 
-    exercise: req.body.exercise,
-    sets: req.body.sets,
-    reps: req.body.reps,
+  console.log(req.user);
+  const username = User.find(req.body.userId)
+  console.log(username);
+
+  
+    const newExercise = new Exercise({
+      userId: req.body.userId,
+      
+      exercise: req.body.exercise,
+      sets: req.body.sets,
+      reps: req.body.reps,
+      weightUsed: req.body.weightUsed,
+    });
+    newExercise.save().then((exercise) => res.send(exercise)); 
+ 
+
+
+});
+
+router.post("/workout", auth.ensureLoggedIn, (req, res) => {
+  
+    
+    const newWorkout = new Workout({
+    username: req.user.name,
+    workoutType: req.body.workoutType,
+    exerciseIds: req.body.exerciseIds,
+    
   });
 
-  newExercise.save().then((exercise) => res.send(exercise));
-});
+  newWorkout.save().then((workout) => res.send(workout));
 
 
 router.get("/settings", (req, res) => {
@@ -161,6 +183,12 @@ router.get("/user", (req, res) => {
     console.log(`Failed to fetch friend requests: ${err}`);
   }).then((request) => res.send(request));
 });
+=======
+});
+// router.get('/workout', (req,res) => {
+//   Workout.find().sort({timestamp:-1})
+// });
+
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

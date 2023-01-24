@@ -3,6 +3,7 @@
     display: flex;
     padding: 8px;
     height: 92vh;
+
 }
 
 .category-container {
@@ -21,4 +22,34 @@ top: 229px;
 height: 34px;
 left: 86px;
 top: 480px;
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+th,td {
+    border: 1pm solid black;
+    padding: 10px;
+}
+
+#data {
+    margin-bottom: 10px;
+}
+#data input, button {
+    padding: 10px;
+    width: 90px;
+}
+.Log-position{
+position: absolute;
+width: 235px;
+height: 44px;
+left: 1124px;
+top: 924px;
+
+background: #35C454;
+border-radius: 16px;
 }
