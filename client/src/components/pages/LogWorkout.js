@@ -32,6 +32,35 @@ const LogWorkout = (props) => {
         }));
         
       };
+      const addTable = (e) => {
+        let btnAdd = document.querySelector('button');
+        let table = document.querySelector('table');
+
+        let exerciseInput = document.querySelector('#exercise');
+        let setsInput = document.querySelector('#sets');
+        let repsInput = document.querySelector('#reps');
+        let weightsInput = document.querySelector('#weightUsed');
+
+        btnAdd.addEventListener(e, () => {
+            let exercise = exerciseInput.value;
+            let sets = setsInput.value;
+            let reps = repsInput.value;
+            let weight = weightsInput.value;
+
+            let template = `<tr>
+                                <td>${exercise}</td>
+                                <td>${sets}</td>
+                                <td>${reps}</td>
+                                <td>${weight}</td>
+                            </tr>
+                            `;
+            table.innerHTML += template;
+        });
+
+
+
+
+      };
   
     const sendData = (e) => {
         e.preventDefault();
@@ -41,8 +70,8 @@ const LogWorkout = (props) => {
         post('/api/exercise', body).then((res) => data.exerciseList.push(res._id));
         // data.exerciseList.push(props._id);
         console.log(data.exerciseList);
+        addTable(e);
 
-        <div>add</div>
 
         // get('/api/exercise', {_id: props._id}).then((res) => data.exerciseList.push(res));
         
@@ -104,6 +133,24 @@ const LogWorkout = (props) => {
 
             </form>
             <button type='submit' onClick={handleSubmit} >Log Workout</button>
+            <div className="table-container">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Exercise</th>
+                            <th>Sets</th>
+                            <th>Reps</th>
+                            <th>Weight Used (lbs)</th>
+                        </tr>
+                        <tr>
+                            <td>{data.exercise}</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>135</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
    
