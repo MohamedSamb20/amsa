@@ -6,17 +6,15 @@ import "../../utilities.css";
 
 const Bio = (props) =>  {
   const [settings, setSettings] = useState({
-    weight : 100,
-    height :180,
+    weight : 'Loading...',
+    height : 'Loading...',
     heightUnit : 'cm',
     weightUnit : 'kg',
   });
-  console.log('Goooo')
   useEffect(() => {
     get("/api/settings", {userId :props.userId}).then((setting) => {
       setSettings(setting);
     });
-    console.log('Nope')
   }, []);
 
 

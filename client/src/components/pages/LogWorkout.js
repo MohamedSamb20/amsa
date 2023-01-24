@@ -5,6 +5,7 @@ import PostLoginNavbar from "../modules/PostLoginNavbar";
 import "./HomePage.css"
 
 const LogWorkout = (props) => {
+    document.title = 'Log Workout'
     // const [exerciseName, setExericseName] = useState("");
     // const [numSets, setNumSets] = useState(0);
     // const [numReps, setNumReps] = useState(0);

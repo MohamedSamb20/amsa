@@ -4,6 +4,7 @@ import "../../utilities.css";
 import "./HomePage.css";
 
 const Settings = (props) => {
+  document.title = 'Settings'
   const [data, setData] = useState({
     weightUnit: "",
     heightUnit: "",

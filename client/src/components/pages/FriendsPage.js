@@ -7,6 +7,7 @@ import "../../utilities.css";
 import "./FriendsPage.css"
 
 const FriendsPage = (props) => {
+    document.title = 'Friends'
     return (<div className="FriendsPage-container">
                 <div className="FriendsPage-search">
                     <FriendSearch userId={props.userId}/>
