@@ -95,13 +95,20 @@ router.get("/friends", (req, res) => {
   }); 
 });
 
-router.post("/friend", auth.ensureLoggedIn, (req, res) => {
-  const newFriendship = new Friendship({
-    userId: req.body.userId,
-    friendId: req.body.friendId,
-  });
-
-  newFriendship.save().then((friendship) => res.send(friendship));
+router.post("/friend", auth.ensureLoggedIn, async (req, res) => {
+  const previousFriends = await Promise.all([
+    Friendship.find({userId: req.body.userId, friendId: req.body.friendId}).count(),
+  ])
+  if(previousFriends[0] > 0){
+    res.send({});
+  } else {
+    const newFriendship = new Friendship({
+      userId: req.body.userId,
+      friendId: req.body.friendId,
+    });
+  
+    newFriendship.save().then((friendship) => res.send(friendship));
+  }
 });
 
 router.get("/people", (req, res) => {
@@ -110,13 +117,21 @@ router.get("/people", (req, res) => {
   });
 });
 
-router.post("/friendrequest", auth.ensureLoggedIn, (req, res) => {
-  const newFriendrequest = new Friendrequest({
-    userId: req.body.requestee,
-    requester: req.body.user,
-  });
-
-  newFriendrequest.save().then((friendrequest) => res.send(friendrequest));
+router.post("/friendrequest", auth.ensureLoggedIn, async (req, res) => {
+  const previousRelations = await Promise.all([
+    Friendrequest.find({userId: req.body.requestee, requester: req.body.user}).count(),
+    Friendship.find({userId: req.body.requestee, friendId: req.body.user}).count(),
+    Friendrequest.find({requester: req.body.requestee, userId: req.body.user}).count(),]);
+  if(previousRelations[0] + previousRelations[1] + previousRelations[2] > 0){
+        res.send({});
+  } else {
+    const newFriendrequest = new Friendrequest({
+      userId: req.body.requestee,
+      requester: req.body.user,
+    });
+  
+    newFriendrequest.save().then((friendrequest) => res.send(friendrequest));
+  }
 });
 
 router.post("/removefriendrequest", auth.ensureLoggedIn, (req, res) => {
