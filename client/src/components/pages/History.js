@@ -5,57 +5,8 @@ import PostLoginNavbar from "../modules/PostLoginNavbar";
 import "./HomePage.css"
 import { Link } from "@reach/router";
 import { navigate } from "@reach/router";
-const LogWorkout = (props) => {
-    // const [exerciseName, setExericseName] = useState("");
-    // const [numSets, setNumSets] = useState(0);
-    // const [numReps, setNumReps] = useState(0);
-    // useEffect(() => {
-    //     get("/api/test").then((res) => console.log(res));
-    //     // post("/api/exercise", {exercise: '', sets: 19, reps: 10}).then((res) => console.log(res));
-    // }, [])
 
-    const [data,setData] = useState(
-    {
-        exercise:'',
-        workoutType:'',
-        sets:0,
-        reps:0,
-        weightUsed:0,
-        exerciseList:[String]
-                
-    });
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setData((prevProps) => ({
-          ...prevProps,
-          [name]: value
-        }));
-        
-      };
-  
-    const sendData = (e) => {
-        e.preventDefault();
-        const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps, weightUsed: data.weightUsed};
-        console.log(body);
-        
-        post('/api/exercise', body).then((res) => data.exerciseList.push(res._id));
-        // data.exerciseList.push(props._id);
-        console.log(data.exerciseList);
-
-        <div>add</div>
-
-        // get('/api/exercise', {_id: props._id}).then((res) => data.exerciseList.push(res));
-        
-        
-        console.log('done');
-    };
-    const handleSubmit = () => {
-        post('/api/workout', {workoutType: data.workoutType, exerciseIds: data.exerciseList}).then((res)=>console.log(res));
-     
-        alert("Workout has been logged");
-        (navigate('/'));
-
-    };
+const History = (props) => {
     return (
         <div className="HomePage-container">
         {props.userId ? 
@@ -105,13 +56,22 @@ const LogWorkout = (props) => {
             </form>
             <button type='submit' onClick={handleSubmit} >Log Workout</button>
         </div>
+        
+            
+
     )
-   
+     
+    
     : <div>logged out</div>}
         
-      
+        
+       
+    
+            
+
+            
         </div>
     )
-}
+};
 
-export default LogWorkout;
+export default History;

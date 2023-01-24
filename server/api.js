@@ -44,20 +44,15 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
-router.post("/workout", auth.ensureLoggedIn, (req, res) => {
-  User.findById(req.body.userId).then((user)=> {const newWorkout = new Workout({
-    username: user,
-    workoutType: req.body.workoutType,
-    
-  });
+// router.get('/exercise', (req,res) => {
+//   Exercise.findById(res._id).then((ex) => res.send(ex))
 
-  newWorkout.save().then((workout) => res.send(workout));});
-
-});
+// });
 
 router.post("/exercise",auth.ensureLoggedIn, (req, res) => {
   console.log(req.body);
-  const username = User.findById(req.body.userId)
+  console.log(req.user);
+  const username = User.find(req.body.userId)
   console.log(username);
   
   //get userid from props, pass in to body, wrap func below with then (User.find(id).then(exercise stuff))
@@ -70,19 +65,24 @@ router.post("/exercise",auth.ensureLoggedIn, (req, res) => {
       reps: req.body.reps,
       weightUsed: req.body.weightUsed,
     });
-    const newWorkout = new Workout({
-      username: username,
-      exercises: exercises.push(req.body._id),
-
-
-    });
-
     newExercise.save().then((exercise) => res.send(exercise)); 
-    newWorkout.save().then((workout) => res.send(workout)); 
+    // newWorkout.save().then((workout) => res.send(workout)); 
 
 });
 
+router.post("/workout", auth.ensureLoggedIn, (req, res) => {
+  
+    
+    const newWorkout = new Workout({
+    username: req.user.name,
+    workoutType: req.body.workoutType,
+    exerciseIds: req.body.exerciseList,
+    
+  });
 
+  newWorkout.save().then((workout) => res.send(workout));
+
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

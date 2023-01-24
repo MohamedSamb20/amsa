@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const ExerciseSchema = new mongoose.Schema({
   userId: String,
-  username: String,
   exercise: String, //list
   sets: Number,
   reps: Number,
