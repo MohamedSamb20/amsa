@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-import { get } from "../../utilities";
+import { get, post } from "../../utilities";
 
 import "../../utilities.css";
 import "./FriendSearch.css"
@@ -16,10 +16,16 @@ const FriendSearch = (props) => {
         const body = {value: value};
         get("/api/people", body).then((searchResult)=>{
             setPeople(searchResult);
-            console.log(searchResult)
         });
         setValue("");
       };
+    const handleFriendRequest = (event)=>{
+        const body = {
+            user: props.userId,
+            requestee: event.target.id,
+        }
+        post("/api/friendrequest", body)
+    }
 
     return (<div className="FriendSearch-container">
                 <div >Search the site:</div>
@@ -34,8 +40,11 @@ const FriendSearch = (props) => {
                     value="Submit"
                     onClick={handleSubmit}
                 >Search</button>
-                {people.map((person) => {
-                    return (<div>{person.name}</div>)
+                {people.filter((person) => person._id !== props.userId).map((person) => {
+                    return (<div>
+                            {person.name}
+                            <button id={person._id} onClick={handleFriendRequest}>Request</button>
+                        </div>)
                 })}
         </div>
     );

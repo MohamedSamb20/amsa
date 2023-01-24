@@ -8,7 +8,7 @@ const PostLoginNavbar = (props) => {
     return (
         <nav className="Navbar-container">
             <img className="Navbar-image"/>
-            <div className="Navbar-name">{props.name}</div>
+            <div className="Navbar-name">NEEDNAME</div>
             <Link className="Navbar-button" to={`/`}>Profile</Link>
             <Link className="Navbar-button" to="/logworkout">Log Workout</Link>
             <Link className="Navbar-button" to="/settings">Settings</Link>

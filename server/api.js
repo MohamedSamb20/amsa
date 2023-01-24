@@ -14,7 +14,8 @@ const User = require("./models/user");
 const Workout = require("./models/workout");
 const Exercise = require("./models/exercise");
 const Setting = require("./models/settings");
-const Friendship = require("./models/friendship")
+const Friendship = require("./models/friendship");
+const Friendrequest = require("./models/friendrequest");
 
 // import authentication library
 const auth = require("./auth");
@@ -94,25 +95,50 @@ router.get("/friends", (req, res) => {
   });
 });
 
-router.post("/friends", auth.ensureLoggedIn, (req, res) => {
-  console.log(req.body);
-
+router.post("/friend", auth.ensureLoggedIn, (req, res) => {
   const newFriendship = new Friendship({
     userId: req.body.userId,
-    friendId: req.friendId,
+    friendId: req.body.friendId,
   });
 
   newFriendship.save().then((friendship) => res.send(friendship));
 });
 
 router.get("/people", (req, res) => {
-  console.log("We got here");
   User.find({ name : new RegExp(req.query.value, "i") }).then((people) => {
-    console.log(people)
     res.send(people);
   });
 });
 
+router.post("/friendrequest", auth.ensureLoggedIn, (req, res) => {
+  const newFriendrequest = new Friendrequest({
+    userId: req.body.requestee,
+    requester: req.body.user,
+  });
+
+  newFriendrequest.save().then((friendrequest) => res.send(friendrequest));
+});
+
+router.post("/removefriendrequest", auth.ensureLoggedIn, (req, res) => {
+  Friendrequest.deleteOne({
+    userId: req.body.userId,
+    requester: req.body.requester,
+  }).then((response) => res.send(response));
+});
+
+router.get("/friendrequests", (req, res) => {
+  const friendRequests = Friendrequest.find({userId: req.query.userId}).then((request) => res.send(request));
+});
+
+router.get("/outgoingrequests", (req, res) => {
+  Friendrequest.find({requester: req.query.userId}).then((requests) => res.send(requests));
+});
+
+router.get("/user", (req, res) => {
+  User.findOne({_id: req.query.userId}).catch((err) => {
+    console.log(`Failed to fetch friend requests: ${err}`);
+  }).then((request) => res.send(request));
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
