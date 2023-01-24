@@ -15,11 +15,13 @@ const CurrentFriends = (props) =>  {
             const friendsUsers = await Promise.all(users);
             setFriends( friendsUsers);
         });
-    }, []);
+        console.log('stuff')
+    }, [props.friendsNumber]);
 
     const deleteFriendship = (event) => {
       post("/api/removefriend", { userId: props.userId, friendId: event.target.id});
       post("/api/removefriend", { friendId: props.userId, userId: event.target.id});
+      props.setFriendsNumber(props.FriendNumber+1);
   }
   return (
     <div className="CurrentFriends-container">
