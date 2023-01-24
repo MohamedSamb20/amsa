@@ -10,7 +10,7 @@ const FriendRequests = (props) => {
     const [pendingRequests, setPendingRequests] = useState([]);
     useEffect(() => {
         get("/api/friendrequests", {userId: props.userId})
-        .then((requestsList) => requestsList.map((request) => get("/api/user", {userId: request.userId})))
+        .then((requestsList) => requestsList.map((request) => get("/api/user", {userId: request.requester})))
         .then(async (users) => {
             const requestingUsers = await Promise.all(users);
             setRequests( requestingUsers);

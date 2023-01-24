@@ -10,10 +10,10 @@ const CurrentFriends = (props) =>  {
     const [friends, setFriends] = useState([]);
     useEffect(() => {
         get("/api/friends", {userId : props.userId})
-        .then((friendsList) => friendsList.map((request) => get("/api/user", {userId: request.userId})))
+        .then((friendsList) => friendsList.map((friendship) => get("/api/user", {userId: friendship.friendId})))
         .then(async (users) => {
-            const requestingUsers = await Promise.all(users);
-            setPendingRequests( requestingUsers);
+            const friendsUsers = await Promise.all(users);
+            setFriends( friendsUsers);
         });
     }, []);
   return (
@@ -23,6 +23,7 @@ const CurrentFriends = (props) =>  {
                     return (<div>
                             {person.name} 
                             <button id={person._id} >Request Workout</button>
+                            <button id={person._id} >Delete Friend</button>
                         </div>)
                 })}
     </div>
