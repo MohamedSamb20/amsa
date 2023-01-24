@@ -66,7 +66,6 @@ const App = () => {
         <ProfilePage exact path="/profile/:userId" userId={userId}/>
         <NotFound default />
         <LogWorkout path='/logworkout' userId={userId} />
-        <History path='/history' userId={userId} />
       </Router>
     </>
   );

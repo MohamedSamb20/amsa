@@ -6,9 +6,7 @@ const WorkoutSchema = new mongoose.Schema({
   userId: String,
   username: String,
   workoutType: String,
-  exerciseIds: [String],
-//   exercises: [exercise],
-//   exercise: Array<ExerciseSchema>, [{name: bench, sets:5 ...}, {name:squat ..}]
+  exerciseIds: [],
   timestamp: { type: Date, default: Date.now },
 });
 

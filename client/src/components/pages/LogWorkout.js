@@ -6,14 +6,7 @@ import "./HomePage.css"
 import { Link } from "@reach/router";
 import { navigate } from "@reach/router";
 const LogWorkout = (props) => {
-    // const [exerciseName, setExericseName] = useState("");
-    // const [numSets, setNumSets] = useState(0);
-    // const [numReps, setNumReps] = useState(0);
-    // useEffect(() => {
-    //     get("/api/test").then((res) => console.log(res));
-    //     // post("/api/exercise", {exercise: '', sets: 19, reps: 10}).then((res) => console.log(res));
-    // }, [])
-
+   
     const [data,setData] = useState(
     {
         exercise:'',
@@ -38,22 +31,9 @@ const LogWorkout = (props) => {
         e.preventDefault();
         const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps, weightUsed: data.weightUsed};
         console.log(body);
-        
-        // post('/api/exercise', body).then((res) => {
-        //     const newdata = 
-        //         {
-        //             exercise:data.exercise,
-        //             workoutType:data.workoutType,
-        //             sets:data.sets,
-        //             reps:data.reps,
-        //             weightUsed:data.weightUsed,
-        //             exerciseList: data.exerciseList + [res._id]
-                            
-        //         };
-        //     setData(newdata);
-        // });
+      
         post('/api/exercise', body).then((res) => {data.exerciseList.push(res._id)});
-        // data.exerciseList.push(props._id);
+     
         console.log(data.exerciseList);
         const formEl = document.querySelector('form');
         const tbodyEl = document.querySelector('tbody');
@@ -69,12 +49,6 @@ const LogWorkout = (props) => {
                         </tr>
                         `;
         tbodyEl.innerHTML += template;
-        
-        // addTable(e);
-
-
-        // get('/api/exercise', {_id: props._id}).then((res) => data.exerciseList.push(res));
-        
         
         console.log('done');
     };
