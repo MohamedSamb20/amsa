@@ -24,7 +24,6 @@ const Bio = (props) =>  {
     <>
       <p> Weight: {settings.weight} {settings.weightUnit}</p>
       <p> Height: {settings.height} {settings.heightUnit}</p>
-      <p> Today's Workout: No idea bro</p>
       <p> Your Workout Streak: 0</p>
       <button type='Change' Link = "/settings"> Change Settings </button>
     </>
