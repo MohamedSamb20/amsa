@@ -92,6 +92,7 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   });
 
   newWorkout.save().then((workout) => res.send(workout));
+});
 
 
 router.get("/settings", (req, res) => {
@@ -183,8 +184,8 @@ router.get("/user", (req, res) => {
     console.log(`Failed to fetch friend requests: ${err}`);
   }).then((request) => res.send(request));
 });
-=======
-});
+
+
 // router.get('/workout', (req,res) => {
 //   Workout.find().sort({timestamp:-1})
 // });
