@@ -21,15 +21,17 @@ const FriendRequests = (props) => {
             const requestingUsers = await Promise.all(users);
             setPendingRequests( requestingUsers);
         });
-    }, []);
+    }, [props.friendsNumber]);
     const addFriendship = (event) => {
         post("/api/friend", { userId: props.userId, friendId: event.target.id});
         post("/api/friend", { friendId: props.userId, userId: event.target.id});
         post("api/removefriendrequest", { userId: props.userId, requester: event.target.id});
+        props.setFriendsNumber(props.friendsNumber + 1);
     }
     const deleteRequest = (event) => {
         const body = { requester: props.userId, userId: event.target.id};
         post("api/removefriendrequest", body);
+        props.setFriendsNumber(props.friendsNumber + 1);
     }
     return (<div className="FriendRequest-container">
                 <div >Incoming Requests:</div>
