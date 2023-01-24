@@ -14,8 +14,8 @@ const AboutPage = (props) => {
                 routines and motivates us to maximize our workouts. Life is unpredictable though, and being unable 
                 to fit in some workouts with your normal gym buddy often means losing the motivation to stay consistent 
                 to your workout routine</div>
-            <h1>The Solution: NEEDNAME</h1>
-            <div>NEEDNAME is a web application that allows users to track their workouts and progress. What makes NEEDNAME 
+            <h1>The Solution: AMSA</h1>
+            <div>AMSA is a web application that allows users to track their workouts and progress. What makes AMSA 
                 unique is its social features. Users are able to see their friends streaks and daily workouts. If a user is 
                 looking for someone to workout with, they can choose from a list of friends who are also planning on working 
                 out that day and set up a group workout session</div>

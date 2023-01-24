@@ -30,7 +30,7 @@ const CurrentFriends = (props) =>  {
       {friends.map((person) => {
                     return (<div>
                             {person.name} 
-                            <button id={person._id} >Request Workout</button>
+                            {/* <button id={person._id} >Request Workout</button> */}
                             <button id={person._id} onClick ={deleteFriendship} >Delete Friend</button>
                         </div>)
                 })}
