@@ -21,7 +21,7 @@ const LogWorkout = (props) => {
         sets:0,
         reps:0,
         weightUsed:0,
-        exerciseList:[String]
+        exerciseList: []
                 
     });
     const handleInputChange = (event) => {
@@ -32,45 +32,45 @@ const LogWorkout = (props) => {
         }));
         
       };
-      const addTable = (e) => {
-        let btnAdd = document.querySelector('button');
-        let table = document.querySelector('table');
-
-        let exerciseInput = document.querySelector('#exercise');
-        let setsInput = document.querySelector('#sets');
-        let repsInput = document.querySelector('#reps');
-        let weightsInput = document.querySelector('#weightUsed');
-
-        btnAdd.addEventListener(e, () => {
-            let exercise = exerciseInput.value;
-            let sets = setsInput.value;
-            let reps = repsInput.value;
-            let weight = weightsInput.value;
-
-            let template = `<tr>
-                                <td>${exercise}</td>
-                                <td>${sets}</td>
-                                <td>${reps}</td>
-                                <td>${weight}</td>
-                            </tr>
-                            `;
-            table.innerHTML += template;
-        });
-
-
-
-
-      };
+  
   
     const sendData = (e) => {
         e.preventDefault();
         const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps, weightUsed: data.weightUsed};
         console.log(body);
         
-        post('/api/exercise', body).then((res) => data.exerciseList.push(res._id));
+        // post('/api/exercise', body).then((res) => {
+        //     const newdata = 
+        //         {
+        //             exercise:data.exercise,
+        //             workoutType:data.workoutType,
+        //             sets:data.sets,
+        //             reps:data.reps,
+        //             weightUsed:data.weightUsed,
+        //             exerciseList: data.exerciseList + [res._id]
+                            
+        //         };
+        //     setData(newdata);
+        // });
+        post('/api/exercise', body).then((res) => {data.exerciseList.push(res._id)});
         // data.exerciseList.push(props._id);
         console.log(data.exerciseList);
-        addTable(e);
+        const formEl = document.querySelector('form');
+        const tbodyEl = document.querySelector('tbody');
+        const tableEl = document.querySelector('table');
+
+        
+        e.preventDefault();
+        let template = `<tr>
+                            <td>${data.exercise}</td>
+                            <td>${data.sets}</td>
+                            <td>${data.reps}</td>
+                            <td>${data.weightUsed}</td>
+                        </tr>
+                        `;
+        tbodyEl.innerHTML += template;
+        
+        // addTable(e);
 
 
         // get('/api/exercise', {_id: props._id}).then((res) => data.exerciseList.push(res));
@@ -134,7 +134,7 @@ const LogWorkout = (props) => {
             </form>
             <button type='submit' onClick={handleSubmit} >Log Workout</button>
             <div className="table-container">
-                <table>
+                <table className='th,td'>
                     <tbody>
                         <tr>
                             <th>Exercise</th>
@@ -143,10 +143,10 @@ const LogWorkout = (props) => {
                             <th>Weight Used (lbs)</th>
                         </tr>
                         <tr>
-                            <td>{data.exercise}</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>135</td>
+                            {/* <td>{data.exercise}</td>
+                            <td>{data.sets}</td>
+                            <td>{data.reps}</td>
+                            <td>{data.weightUsed}</td> */}
                         </tr>
                     </tbody>
                 </table>
