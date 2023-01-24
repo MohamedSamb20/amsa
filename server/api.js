@@ -95,9 +95,10 @@ router.get("/friends", (req, res) => {
   }); 
 });
 
-router.post("/friend", auth.ensureLoggedIn, (req, res) => {
-  if(Friendship.find({userId: req.body.requestee, friendId: req.body.user}).count() > 0){
-        res.send({});
+router.post("/friend", auth.ensureLoggedIn, async (req, res) => {
+  const previousFriends = await Friendship.find({userId: req.body.requestee, friendId: req.body.user}).count()
+  if(previousFriends > 0){
+    res.send({});
   } else {
     const newFriendship = new Friendship({
       userId: req.body.userId,
@@ -114,10 +115,12 @@ router.get("/people", (req, res) => {
   });
 });
 
-router.post("/friendrequest", auth.ensureLoggedIn, (req, res) => {
-  if(Friendrequest.find({userId: req.body.requestee, requester: req.body.user}).count()
-      + Friendship.find({userId: req.body.requestee, friendId: req.body.user}).count()
-      + Friendrequest.find({requester: req.body.requestee, userId: req.body.user}).count() > 0){
+router.post("/friendrequest", auth.ensureLoggedIn, async (req, res) => {
+  const previousRelations = await Promise.all([
+    Friendrequest.find({userId: req.body.requestee, requester: req.body.user}).count(),
+    Friendship.find({userId: req.body.requestee, friendId: req.body.user}).count(),
+    Friendrequest.find({requester: req.body.requestee, userId: req.body.user}).count(),]);
+  if(previousRelations[0] + previousRelations[1] + previousRelations[2] > 0){
         res.send({});
   } else {
     const newFriendrequest = new Friendrequest({
