@@ -122,12 +122,17 @@ router.post("/friendrequest", auth.ensureLoggedIn, (req, res) => {
 });
 
 router.get("/friendrequests", (req, res) => {
-  Friendrequest.find({ userId : req.query.userId }).then((requests) => {
-    const userRequests = requests.map((requestId) => {
-        return User.findOne({_id: requestId})
-    });
-    res.send(userRequests);
-  });
+  const friendRequests = Friendrequest.find({userId: req.query.userId}).then((request) => res.send(request));
+});
+
+router.get("/outgoingrequests", (req, res) => {
+  Friendrequest.find({requester: req.query.userId}).then((requests) => res.send(requests));
+});
+
+router.get("/user", (req, res) => {
+  User.findOne({_id: req.query.userId}).catch((err) => {
+    console.log(`Failed to fetch friend requests: ${err}`);
+  }).then((request) => res.send(request));
 });
 
 // anything else falls to this "not found" case
