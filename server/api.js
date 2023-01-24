@@ -92,7 +92,7 @@ router.post("/settings", auth.ensureLoggedIn, (req, res) => {
 router.get("/friends", (req, res) => {
   Friendship.find({ userId: req.query.userId }).then((friendships) => {
     res.send(friendships);
-  });
+  }); 
 });
 
 router.post("/friend", auth.ensureLoggedIn, (req, res) => {
