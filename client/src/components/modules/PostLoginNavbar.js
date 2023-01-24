@@ -11,7 +11,6 @@ const PostLoginNavbar = (props) => {
             <div className="Navbar-name">Name</div>
             <Link className="Navbar-button" to={`/`}>Profile</Link>
             <Link className="Navbar-button" to="/logworkout">Log Workout</Link>
-            <Link className="Navbar-button" to="/stats">Edit Stats</Link>
             <Link className="Navbar-button" to="/settings">Settings</Link>
             <Link className="Navbar-button" to="/friends">Friends</Link>
             <button className="Navbar-logout" to="/" onClick={() => {
