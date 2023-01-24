@@ -6,6 +6,7 @@ import Bio from "../modules/Bio.js"
 import WeightChart from "../modules/WeightChart.js"
 
 const ProfilePage = (props) => {
+    document.title = 'Profile'
     return (
         <div className="ProfilePage-container">
             <div className="ProfilePage-chart">
