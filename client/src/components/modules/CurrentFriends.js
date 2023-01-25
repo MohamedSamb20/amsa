@@ -21,7 +21,7 @@ const CurrentFriends = (props) =>  {
       const promise1 = post("/api/removefriend", { userId: props.userId, friendId: event.target.id});
       const promise2 = post("/api/removefriend", { friendId: props.userId, userId: event.target.id});
       Promise.all([promise1, promise2]).then(() => {
-        props.setFriendsNumber(props.FriendsNumber+1);
+        props.setFriendsNumber((prevFriendsNumber) => prevFriendsNumber + 1);
       });
   }
   return (
