@@ -90,21 +90,33 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
 
 router.get("/settings", (req, res) => {
   Setting.findOne({ userId: req.query.userId}).then((setting) => {
+    if (setting === null) {setting = false}
     res.send(setting);
   });
 });
 
 router.post("/settings", auth.ensureLoggedIn, (req, res) => {
   console.log(req.body);
-  Setting.findOneAndUpdate({ userId: req.body.userId}, {
+  const posted = {
     userId: req.body.userId,
     weightUnit: req.body.weightUnit,
     heightUnit: req.body.heightUnit,
     height: req.body.height,
     weight: req.body.weight,
-  },{new:true, }).then((setting) => {setting.save().then((setting) => res.send(setting));})
-  
+  };
+  Setting.findOne({ userId: req.body.userId}).then((setting) =>{
+    if (setting === null) {
+      const newSetting = new Setting(posted);
+      newSetting.save().then((setting) => res.send(setting));
+    } else {
+      Setting.findOneAndUpdate({ userId: req.body.userId}, posted,{new:true, }).then((setting) => {
+          setting.save().then((setting) => res.send(setting));
+        })
+    };
+  })
 });
+
+
 router.get("/friends", (req, res) => {
   Friendship.find({ userId: req.query.userId }).then((friendships) => {
     res.send(friendships);
