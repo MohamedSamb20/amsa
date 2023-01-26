@@ -8,8 +8,8 @@ const Settings = (props) => {
   const set = {
     weightUnit: "",
     heightUnit: "",
-    weight: 0,
-    height: 0,
+    weight: '',
+    height: '',
   };
   const [data, setData] = useState(set);
 
@@ -41,13 +41,14 @@ const Settings = (props) => {
   };
   return (
     <div className="HomePage-container">
-      <form onSubmit={sendData}>
+      <form onSubmit={sendData} onReset = {handleReset}>
         <div className="category-container">
           <p>Select Height Unit</p>
           <input
             type="text"
             name="heightUnit"
             value={data.heightUnit}
+            placeholder='Enter a Height Unit'
             onChange={handleInputChange}
           />
 
@@ -57,6 +58,7 @@ const Settings = (props) => {
               type="text"
               name="weightUnit"
               value={data.weightUnit}
+              placeholder='Enter a Weight Unit'
               onChange={handleInputChange}
             />
           </div>
@@ -64,26 +66,28 @@ const Settings = (props) => {
           <div>
             <p>Set Height</p>
             <input
-              type="text"
+              type="number"
               name="height"
               value={data.height}
               onChange={handleInputChange}
+              placeholder='Enter a Number'
             />
           </div>
           <div>
             <p>Set Weight</p>
             <input
-              type="text"
+              type="number"
               name="weight"
               value={data.weight}
               onChange={handleInputChange}
+              placeholder="Enter a Number"
             />
           </div>
 
           <button type="submit">Save</button>
+          <button type = 'reset'> Reset </button>
         </div>
       </form>
-      <button type = 'reset' onClick = {handleReset}> Reset </button>
     </div>
   );
 };
