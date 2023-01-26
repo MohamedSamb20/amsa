@@ -5,12 +5,13 @@ import "./HomePage.css";
 
 const Settings = (props) => {
   document.title = 'Settings'
-  const [data, setData] = useState({
+  const set = {
     weightUnit: "",
     heightUnit: "",
     weight: 0,
     height: 0,
-  });
+  };
+  const [data, setData] = useState(set);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -18,6 +19,10 @@ const Settings = (props) => {
       ...prevProps,
       [name]: value,
     }));
+  };
+
+  const handleReset = (event) => {
+    setData(set);
   };
 
   const sendData = (e) => {
@@ -51,7 +56,7 @@ const Settings = (props) => {
             <input
               type="text"
               name="weightUnit"
-              value={data.weight.Unit}
+              value={data.weightUnit}
               onChange={handleInputChange}
             />
           </div>
@@ -75,9 +80,10 @@ const Settings = (props) => {
             />
           </div>
 
-          <button type="submit">Confirm</button>
+          <button type="submit">Save</button>
         </div>
       </form>
+      <button type = 'reset' onClick = {handleReset}> Reset </button>
     </div>
   );
 };
