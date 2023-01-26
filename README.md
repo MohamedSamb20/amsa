@@ -89,6 +89,7 @@ client/src/client-socket.js
 server/validator.js
 server/server-socket.js
 .babelrc
+.env
 .npmrc
 .prettierrc
 package-lock.json
