@@ -80,12 +80,20 @@ router.get("/settings", (req, res) => {
 
 router.post("/settings", auth.ensureLoggedIn, (req, res) => {
   console.log(req.body);
+  // let weights = []
+  // Setting.findOne({ userId: req.body.userId}).then((set) => {
+  //   weights = set.weightHistory
+  // })
+  // const currentDate = new Date();
+  // const dateInString = `${currentDate.getMonth()}-${currentDate.getDate()}-${currentDate.getYear()}`;
+  // weights.push([dateInString, req.body.weight]);
   Setting.findOneAndUpdate({ userId: req.body.userId}, {
     userId: req.body.userId,
     weightUnit: req.body.weightUnit,
     heightUnit: req.body.heightUnit,
     height: req.body.height,
     weight: req.body.weight,
+    // weightHistory: weights,
   },{new:true, }).then((setting) => {setting.save().then((setting) => res.send(setting));})
   
 });

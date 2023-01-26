@@ -10,7 +10,7 @@ const ProfilePage = (props) => {
     return (
         <div className="ProfilePage-container">
             <div className="ProfilePage-chart">
-                <WeightChart/>
+                <WeightChart userId = {props.userId}/>
             </div>
             <div className="ProfilePage-progression">
                 Insert Progressions
