@@ -8,11 +8,17 @@ const Bio = (props) =>  {
   const [settings, setSettings] = useState({
     weight : 'Loading...',
     height : 'Loading...',
-    heightUnit : 'cm',
-    weightUnit : 'kg',
+    heightUnit : '',
+    weightUnit : '',
   });
   useEffect(() => {
     get("/api/settings", {userId :props.userId}).then((setting) => {
+      if (setting === false) {setting = {
+        weight: 'Not set',
+        height : 'Not set',
+        heightUnit : '',
+        weightUnit : ''
+      }};
       setSettings(setting);
     });
   }, []);

@@ -5,7 +5,7 @@ import "../../utilities.css";
 import "./AboutPage.css";
 
 const AboutPage = (props) => {
-    document.title = 'Friends'
+    document.title = 'About'
     return props.userId? (<Redirect to={`/profile/${props.userId}`}/>) : (
         <div className="AboutPage-container">
             <h1>The Problem</h1>
