@@ -6,6 +6,7 @@ import Routine from "../modules/RoutineComponent.js";
 
 const RoutinePage = (props) => {
     document.title = 'Routine';
+    const [message, setMessage] = useState('')
     const listOfWeeks = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const [data, setData] = useState({
         userId : props.userId,
@@ -29,6 +30,7 @@ const RoutinePage = (props) => {
         e.preventDefault();
         const body = data;
         post("/api/routine", body).then((res) => console.log(res));
+        setMessage('Routine saved!')
     })
 
     return(
@@ -44,6 +46,7 @@ const RoutinePage = (props) => {
                 )
                 })}
           <button type="submit">Save</button>
+          {message}
       </form>
     </div>
     )
