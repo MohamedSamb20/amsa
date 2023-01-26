@@ -4,7 +4,8 @@ import "../../utilities.css";
 import "./HomePage.css";
 
 const Settings = (props) => {
-  document.title = 'Settings'
+  document.title = 'Settings';
+  const [message, setMessage] = useState('')
   const set = {
     weightUnit: "",
     heightUnit: "",
@@ -23,6 +24,7 @@ const Settings = (props) => {
 
   const handleReset = (event) => {
     setData(set);
+    setMessage('Settings Reset!')
   };
 
   const sendData = (e) => {
@@ -38,6 +40,7 @@ const Settings = (props) => {
     post("/api/settings", body).then((res) => console.log(res));
 
     console.log("done");
+    setMessage('Saved!')
   };
   return (
     <div className="HomePage-container">
@@ -70,7 +73,7 @@ const Settings = (props) => {
               name="height"
               value={data.height}
               onChange={handleInputChange}
-              placeholder='Enter a Number'
+              placeholder='Enter your height'
             />
           </div>
           <div>
@@ -80,12 +83,13 @@ const Settings = (props) => {
               name="weight"
               value={data.weight}
               onChange={handleInputChange}
-              placeholder="Enter a Number"
+              placeholder="Enter your weight"
             />
           </div>
 
           <button type="submit">Save</button>
           <button type = 'reset'> Reset </button>
+          <p>{message}</p>
         </div>
       </form>
     </div>
