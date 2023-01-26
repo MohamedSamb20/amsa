@@ -15,13 +15,14 @@ const CurrentFriends = (props) =>  {
             const friendsUsers = await Promise.all(users);
             setFriends( friendsUsers);
         });
-        console.log('stuff')
     }, [props.friendsNumber]);
 
     const deleteFriendship = (event) => {
-      post("/api/removefriend", { userId: props.userId, friendId: event.target.id});
-      post("/api/removefriend", { friendId: props.userId, userId: event.target.id});
-      props.setFriendsNumber(props.FriendNumber+1);
+      const promise1 = post("/api/removefriend", { userId: props.userId, friendId: event.target.id});
+      const promise2 = post("/api/removefriend", { friendId: props.userId, userId: event.target.id});
+      Promise.all([promise1, promise2]).then(() => {
+        props.setFriendsNumber((prevFriendsNumber) => prevFriendsNumber + 1);
+      });
   }
   return (
     <div className="CurrentFriends-container">
@@ -29,7 +30,7 @@ const CurrentFriends = (props) =>  {
       {friends.map((person) => {
                     return (<div>
                             {person.name} 
-                            <button id={person._id} >Request Workout</button>
+                            {/* <button id={person._id} >Request Workout</button> */}
                             <button id={person._id} onClick ={deleteFriendship} >Delete Friend</button>
                         </div>)
                 })}

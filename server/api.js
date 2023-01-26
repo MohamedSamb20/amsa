@@ -47,33 +47,50 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+
+
+
+
+
+router.post("/exercise", auth.ensureLoggedIn, (req, res) => {
+  console.log(req.body);
+
+  console.log(req.user);
+  const username = User.find(req.body.userId)
+  console.log(username);
+
+  
+    const newExercise = new Exercise({
+      userId: req.body.userId,
+      
+      exercise: req.body.exercise,
+      sets: req.body.sets,
+      reps: req.body.reps,
+      weightUsed: req.body.weightUsed,
+    });
+    newExercise.save().then((exercise) => res.send(exercise)); 
+ 
+
+
+});
+
 router.post("/workout", auth.ensureLoggedIn, (req, res) => {
-  const newWorkout = new Workout({
-    user: req.user._id,
+  
+    
+    const newWorkout = new Workout({
     username: req.user.name,
-    exercise: req.body.exercise,
+    workoutType: req.body.workoutType,
+    exerciseIds: req.body.exerciseIds,
+    
   });
 
   newWorkout.save().then((workout) => res.send(workout));
 });
 
-router.post("/exercise", auth.ensureLoggedIn, (req, res) => {
-  console.log(req.body);
-  //get userid from props, pass in to body, wrap func below with then (User.find(id).then(exercise stuff))
-  const newExercise = new Exercise({
-    userId: req.body.userId,
-
-    exercise: req.body.exercise,
-    sets: req.body.sets,
-    reps: req.body.reps,
-  });
-
-  newExercise.save().then((exercise) => res.send(exercise));
-});
-
 
 router.get("/settings", (req, res) => {
   Setting.findOne({ userId: req.query.userId}).then((setting) => {
+    if (setting === null) {setting = false}
     res.send(setting);
   });
 });
@@ -87,16 +104,27 @@ router.post("/settings", auth.ensureLoggedIn, (req, res) => {
   // const currentDate = new Date();
   // const dateInString = `${currentDate.getMonth()}-${currentDate.getDate()}-${currentDate.getYear()}`;
   // weights.push([dateInString, req.body.weight]);
-  Setting.findOneAndUpdate({ userId: req.body.userId}, {
+  const posted = {
     userId: req.body.userId,
     weightUnit: req.body.weightUnit,
     heightUnit: req.body.heightUnit,
     height: req.body.height,
     weight: req.body.weight,
     // weightHistory: weights,
-  },{new:true, }).then((setting) => {setting.save().then((setting) => res.send(setting));})
-  
+  };
+  Setting.findOne({ userId: req.body.userId}).then((setting) =>{
+    if (setting === null) {
+      const newSetting = new Setting(posted);
+      newSetting.save().then((setting) => res.send(setting));
+    } else {
+      Setting.findOneAndUpdate({ userId: req.body.userId}, posted,{new:true, }).then((setting) => {
+          setting.save().then((setting) => res.send(setting));
+        })
+    };
+  })
 });
+
+
 router.get("/friends", (req, res) => {
   Friendship.find({ userId: req.query.userId }).then((friendships) => {
     res.send(friendships);
@@ -169,6 +197,12 @@ router.get("/user", (req, res) => {
     console.log(`Failed to fetch friend requests: ${err}`);
   }).then((request) => res.send(request));
 });
+
+
+// router.get('/workout', (req,res) => {
+//   Workout.find().sort({timestamp:-1})
+// });
+
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

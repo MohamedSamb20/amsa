@@ -35,7 +35,7 @@ const Friends = (props) =>  {
     <>
       <> Friends: </>
       {friendsList}
-      <button type='Add'>+Add Friend</button>
+      {/* <button type='Add'>+Add Friend</button> */}
     </>
   );
 }

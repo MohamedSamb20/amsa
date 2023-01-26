@@ -24,7 +24,9 @@ const FriendSearch = (props) => {
             user: props.userId,
             requestee: event.target.id,
         }
-        post("/api/friendrequest", body)
+        post("/api/friendrequest", body).then((request) => {
+            props.setFriendsNumber((prevFriendsNumber) => prevFriendsNumber + 1);
+        })
     }
 
     return (<div className="FriendSearch-container">
