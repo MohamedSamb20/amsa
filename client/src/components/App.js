@@ -12,6 +12,7 @@ import ProfilePage from "./pages/ProfilePage";
 import PreLoginNavbar from "./modules/PreLoginNavbar.js";
 import PostLoginNavbar from "./modules/PostLoginNavbar.js";
 import FriendsPage from "./pages/FriendsPage.js";
+import RoutinePage from "./pages/RoutinePage.js";
 
 import "../utilities.css";
 
@@ -68,6 +69,7 @@ const App = () => {
         <AboutPage exact path="/about" handleLogin={handleLogin} userId={userId}/>
         <ProfilePage exact path="/profile/:userId" userId={userId}/>
         <FriendsPage exact path="/friends" userId={userId} />
+        <RoutinePage exact path="/routine" userId={userId} />
         <NotFound default />
         <Settings exact path="/settings" userId={userId}/>
         <LogWorkout path='/logworkout' userId={userId} />
