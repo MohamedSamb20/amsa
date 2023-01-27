@@ -58,7 +58,7 @@ app.use(express.json());
 app.use(
   session({
     // TODO: add a SESSION_SECRET string in your .env file, and replace the secret with process.env.SESSION_SECRET
-    secret: process.env.SESSION_SECRET,
+    secret: "secet-secret",
     resave: false,
     saveUninitialized: false,
   })
