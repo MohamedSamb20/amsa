@@ -7,13 +7,16 @@ const Routine = (props) =>  {
     return(
         <div>
             <p> {props.day} </p>
-            <input
-                type="text"
-                name={props.day}
-                value = {props.data[props.day]}
-                placeholder='Choose a workout'
-                onChange={props.handleInput}
-            />
+            <form onChange={props.handleInputChange}>
+                {props.options.map((option) => {
+                    return (
+                        <>
+                            <input type="radio" id={props.day + option} name={props.day} value={option}/>
+                            <label for={props.day + option}> {option}</label>
+                        </>
+                    )
+                })}
+            </form>
         </div>
     )
 }
