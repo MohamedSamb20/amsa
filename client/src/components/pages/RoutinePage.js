@@ -7,7 +7,7 @@ import Routine from "../modules/RoutineComponent.js";
 const RoutinePage = (props) => {
   document.title = "Routine";
   const [message, setMessage] = useState("");
-  const listOfWeeks = [
+  const weekDays = [
     "Monday",
     "Tuesday",
     "Wednesday",
@@ -34,7 +34,7 @@ const RoutinePage = (props) => {
         };}
       setData(routine);
       setPrev(routine);
-      listOfWeeks.map((day) => {
+      weekDays.map((day) => {
         document.getElementById(day + routine[day]).checked = true;
       });
     });
@@ -59,7 +59,7 @@ const RoutinePage = (props) => {
   const handleReset = (event) => {
     setData(prev);
     setMessage('Routine reset!');
-    listOfWeeks.map((day) => {
+    weekDays.map((day) => {
       document.getElementById(day + prev[day]).checked = true;
     });
   }
@@ -68,7 +68,7 @@ const RoutinePage = (props) => {
     <div className="HomePage-container">
       <form onSubmit={sendData} onReset={handleReset}>
         <div className="category-container">
-          {listOfWeeks.map((day) => {
+          {weekDays.map((day) => {
             return (
               <Routine 
               options = {options}
