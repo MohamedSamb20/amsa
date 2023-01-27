@@ -53,13 +53,12 @@ router.post("/initsocket", (req, res) => {
 
 
 router.post("/exercise", auth.ensureLoggedIn, (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
 
-  console.log(req.user);
-  const username = User.find(req.body.userId)
-  console.log(username);
+  // console.log(req.user);
+  // const username = User.find(req.body.userId)
+  // console.log(username);
 
-  
     const newExercise = new Exercise({
       userId: req.body.userId,
       
@@ -69,11 +68,15 @@ router.post("/exercise", auth.ensureLoggedIn, (req, res) => {
       weightUsed: req.body.weightUsed,
     });
     newExercise.save().then((exercise) => res.send(exercise)); 
- 
-
-
 });
+router.get("/exercise", (req, res) => {
+  Exercise.findOne({_id: req.query._id}).then((item) => {
+    console.log(item);
+    res.send(item);
 
+  });
+}
+);
 router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   
     
@@ -90,9 +93,10 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
 
 router.get('/workout', (req,res) => {
   // console.log('here');
-  Workout.findOne({$query:{userId: req.query.userId},$orderby:{sort:{timestamp:-1}}}).then((ex) => {
-    console.log((ex))
-    res.send(ex)});
+  Workout.find({$query:{userId: req.query.userId},$orderby:{sort:{timestamp:-1}}}).then((exercises) => {
+    // console.log((exercises));
+    console.log(exercises[exercises.length -1]);
+    res.send(exercises[exercises.length -1])});
 
  
 });

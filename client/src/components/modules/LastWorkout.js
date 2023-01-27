@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
 import "../../utilities.css";
+import Table from "./Table";
 
 
 const LastWorkout = (props) => {
@@ -11,6 +12,7 @@ const LastWorkout = (props) => {
     });
     useEffect(() => {
         get('/api/workout', {userId: props.userId}).then((ex) => {
+            console.log('here');
             console.log(ex);
             const exercise = {
                 exercises: ex.exerciseIds,
@@ -19,12 +21,14 @@ const LastWorkout = (props) => {
             setExercises(exercise);
         }
         );
-    });
+        
+    }, [props.userId]);
+   
 
     return (
         <div>
-        {JSON.stringify(exercises.exercises)}
-        {exercises.workoutType}
+           
+        <Table data={exercises.exercises} />
         </div>
     );
 

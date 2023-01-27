@@ -41,12 +41,19 @@ top: 480px;
     align-items: center;
     width: 100%;
     color: white;
+    
 
 }
 
-th,td {
+th{
     border: 1px solid white;
     padding: 10px;
+    
+}
+td {
+    border: 1px solid white;
+    padding: 10px;
+    background: gray;
     
 }
 
@@ -56,6 +63,7 @@ th,td {
 #data input, button {
     padding: 10px;
     width: 90px;
+    
 }
 .Log-position{
 position: relative;
