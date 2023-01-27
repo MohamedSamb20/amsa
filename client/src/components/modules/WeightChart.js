@@ -12,21 +12,18 @@ const WeightChart = (props) => {
     get("/api/settings", {userId: props.userId}).then((settings)=>{
         const newData = {}
         for(const setting of settings.weightHistory){
-            for(const entry of Object.entries(setting)){
-                newData[entry[0]] = entry[1];
-            }
+            newData[setting[0]] = setting[1];
         }
-        console.log(newData)
         setDataPoints(newData);
     })
     const data = {
-        labels: ["January"],
+        labels: Object.keys(dataPoints),
         datasets: [
           {
             label: 'Weight (lbs)',
             backgroundColor: 'rgba(182, 198, 0, 1)',
             borderColor: 'rgba(182, 198, 0, 1)',
-            data: ["170"],
+            data: Object.values(dataPoints),
           }
         ]
       }
