@@ -18,16 +18,8 @@ const Settings = (props) => {
       }};
       setData(setting);
       setPrev(setting);
-      if (setting.heightUnit === 'cm') {
-        document.getElementById("cm").checked = true;
-      } else {
-        document.getElementById("ft").checked = true;
-      };
-      if (setting.weightUnit === 'kg') {
-        document.getElementById("kg").checked = true;
-      } else {
-        document.getElementById("lbs").checked = true;
-      };
+      document.getElementById(setting.heightUnit).checked = true;
+      document.getElementById(setting.weightUnit).checked = true;
     });
   }, []);
 
@@ -41,16 +33,8 @@ const Settings = (props) => {
 
   const handleReset = (event) => {
     setData(prev);
-    if (prev.heightUnit === 'cm') {
-      document.getElementById("cm").checked = true;
-    } else {
-      document.getElementById("ft").checked = true;
-    };
-    if (prev.weightUnit === 'kg') {
-      document.getElementById("kg").checked = true;
-    } else {
-      document.getElementById("lbs").checked = true;
-    };
+    document.getElementById(prev.heightUnit).checked = true;
+    document.getElementById(prev.weightUnit).checked = true;
     setMessage('Settings Reset!')
   };
 
