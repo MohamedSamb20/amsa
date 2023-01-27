@@ -16,6 +16,7 @@ const Exercise = require("./models/exercise");
 const Setting = require("./models/settings");
 const Friendship = require("./models/friendship");
 const Friendrequest = require("./models/friendrequest");
+const Routine = require("./models/routine.js")
 
 // import authentication library
 const auth = require("./auth");
@@ -197,7 +198,20 @@ router.get("/user", (req, res) => {
   }).then((request) => res.send(request));
 });
 
-
+router.post("/routine", auth.ensureLoggedIn, (req, res) => {
+  console.log(req.body);
+  const posted = req.body;
+  Routine.findOne({ userId: req.body.userId}).then((routine) =>{
+    if (routine === null) {
+      const newRoutine = new Routine(posted);
+      newRoutine.save().then((routine) => res.send(routine));
+    } else {
+      Routine.findOneAndUpdate({ userId: req.body.userId}, posted,{new:true, }).then((routine) => {
+          routine.save().then((setting) => res.send(setting));
+        })
+    };
+  })
+});
 // router.get('/workout', (req,res) => {
 //   Workout.find().sort({timestamp:-1})
 // });
