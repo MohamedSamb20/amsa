@@ -11,6 +11,7 @@ const Settings = (props) => {
   useEffect(() => {
     get("/api/settings", {userId :props.userId}).then((setting) => {
       if (setting === false) {setting = {
+        userId: props.userId,
         weight: 'Not set',
         height : 'Not set',
         heightUnit : '',
@@ -40,17 +41,8 @@ const Settings = (props) => {
 
   const sendData = (e) => {
     e.preventDefault();
-    const body = {
-      userId: props.userId,
-      weightUnit: data.weightUnit,
-      heightUnit: data.heightUnit,
-      height: data.height,
-      weight: data.weight,
-    };
-    console.log(body);
+    const body = data;
     post("/api/settings", body).then((res) => console.log(res));
-
-    console.log("done");
     setPrev(data);
     setMessage('Saved!');
   };
