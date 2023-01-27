@@ -11,7 +11,11 @@ const PostLoginNavbar = (props) => {
             <div className="Navbar-name">AMSA</div>
             <Link className="Navbar-button" to={`/`}>Profile</Link>
             <Link className="Navbar-button" to="/logworkout">Log Workout</Link>
+
+            <Link className="Navbar-button" to="/history">History</Link>
+
             <Link className="Navbar-button" to="/routine">Routine</Link>
+
             <Link className="Navbar-button" to="/settings">Settings</Link>
             <Link className="Navbar-button" to="/friends">Friends</Link>
             <Link className="Navbar-button" to="/about">About</Link>
