@@ -50,14 +50,23 @@ const RoutinePage = (props) => {
 
   const sendData = (e) => {
     e.preventDefault();
+    setPrev(data);
     const body = data;
     post("/api/routine", body).then((res) => console.log(res));
     setMessage("Routine saved!");
   };
 
+  const handleReset = (event) => {
+    setData(prev);
+    setMessage('Routine reset!');
+    listOfWeeks.map((day) => {
+      document.getElementById(day + prev[day]).checked = true;
+    });
+  }
+
   return (
     <div className="HomePage-container">
-      <form onSubmit={sendData}>
+      <form onSubmit={sendData} onReset={handleReset}>
         {listOfWeeks.map((day) => {
           return (
             <Routine 
@@ -67,6 +76,7 @@ const RoutinePage = (props) => {
           );
         })}
         <button type="submit">Save</button>
+        <button type="reset">Reset</button>
         {message}
       </form>
     </div>
