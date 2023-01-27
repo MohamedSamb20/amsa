@@ -16,6 +16,7 @@ const Exercise = require("./models/exercise");
 const Setting = require("./models/settings");
 const Friendship = require("./models/friendship");
 const Friendrequest = require("./models/friendrequest");
+const Routine = require("./models/routine.js")
 
 // import authentication library
 const auth = require("./auth");
@@ -109,24 +110,31 @@ router.get("/settings", (req, res) => {
 });
 
 router.post("/settings", auth.ensureLoggedIn, (req, res) => {
-  console.log(req.body);
-  const posted = {
-    userId: req.body.userId,
-    weightUnit: req.body.weightUnit,
-    heightUnit: req.body.heightUnit,
-    height: req.body.height,
-    weight: req.body.weight,
-  };
-  Setting.findOne({ userId: req.body.userId}).then((setting) =>{
-    if (setting === null) {
-      const newSetting = new Setting(posted);
-      newSetting.save().then((setting) => res.send(setting));
-    } else {
-      Setting.findOneAndUpdate({ userId: req.body.userId}, posted,{new:true, }).then((setting) => {
-          setting.save().then((setting) => res.send(setting));
-        })
+  let weights = []
+  Setting.findOne({ userId: req.body.userId}).then((set) => {
+    weights = (set === null)? []: set.weightHistory;
+    const currentDate = new Date();
+    const dateInString = `${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getYear()}`;
+    weights.push([dateInString, req.body.weight]);
+    const posted = {
+      userId: req.body.userId,
+      weightUnit: req.body.weightUnit,
+      heightUnit: req.body.heightUnit,
+      height: req.body.height,
+      weight: req.body.weight,
+      weightHistory: weights,
     };
-  })
+    Setting.findOne({ userId: req.body.userId}).then((setting) =>{
+      if (setting === null) {
+        const newSetting = new Setting(posted);
+        newSetting.save().then((setting) => res.send(setting));
+      } else {
+        Setting.findOneAndUpdate({ userId: req.body.userId}, posted,{new:true, }).then((setting) => {
+            setting.save().then((setting) => res.send(setting));
+          })
+      };
+    });
+  });
 });
 
 
@@ -201,6 +209,28 @@ router.get("/user", (req, res) => {
   User.findOne({_id: req.query.userId}).catch((err) => {
     console.log(`Failed to fetch friend requests: ${err}`);
   }).then((request) => res.send(request));
+});
+
+router.post("/routine", auth.ensureLoggedIn, (req, res) => {
+  console.log(req.body);
+  const posted = req.body;
+  Routine.findOne({ userId: req.body.userId}).then((routine) =>{
+    if (routine === null) {
+      const newRoutine = new Routine(posted);
+      newRoutine.save().then((routine) => res.send(routine));
+    } else {
+      Routine.findOneAndUpdate({ userId: req.body.userId}, posted,{new:true, }).then((routine) => {
+          routine.save().then((setting) => res.send(setting));
+        })
+    };
+  })
+});
+
+router.get("/routine", (req, res) => {
+  Routine.findOne({ userId: req.query.userId}).then((routine) => {
+    if (routine === null) {routine = false}
+    res.send(routine);
+  });
 });
 
 

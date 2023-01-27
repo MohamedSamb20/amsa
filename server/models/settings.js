@@ -6,6 +6,7 @@ const SettingsSchema = new mongoose.Schema({
   heightUnit: String,
   height: Number,
   weight: Number,
+  weightHistory: [[String|Number]],
 });
 
 // compile model from schema

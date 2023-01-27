@@ -6,8 +6,7 @@ import "./AboutPage.css";
 
 const AboutPage = (props) => {
     document.title = 'About'
-    return props.userId? (<Redirect to={`/profile/${props.userId}`}/>) : (
-        <div className="AboutPage-container">
+    return (<div className="AboutPage-container">
             <h1>The Problem</h1>
             <div>Working out is an experience that requires consistency, and for many people, that consistency 
                 comes from our peers. Working out with friends provides us with accountability to complete our 
