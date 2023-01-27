@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { get, post } from "../../utilities";
 import "../../utilities.css";
 import PostLoginNavbar from "../modules/PostLoginNavbar";
+import "./LogWorkout.css"
 import "./HomePage.css"
 import { Link } from "@reach/router";
 import { navigate } from "@reach/router";
@@ -55,21 +56,23 @@ const LogWorkout = (props) => {
         console.log('done');
     };
     const handleSubmit = () => {
-        post('/api/workout', {workoutType: data.workoutType, exerciseIds: data.exerciseList}).then((res)=>console.log(res));
+        post('/api/workout', {userId: props.userId, workoutType: data.workoutType, exerciseIds: data.exerciseList}).then((res)=>console.log(res));
      
         alert("Workout has been logged");
         (navigate('/'));
 
     };
     return (
-        <div className="HomePage-container">
+        <div className="LogWorkout-container">
         {props.userId ? 
         
         (
             <div>
+            <div className='category-container'>
+
             <form onSubmit={sendData}>
 
-            <div className='category-container'>
+            
 
         
             <p>Exercise Type (push,pull, etc)</p>
@@ -104,19 +107,22 @@ const LogWorkout = (props) => {
 
             <button type='submit'>Add to List</button>
 
-            </div>
+            
             
 
             </form>
+            </div>
             
             <div className="table-container">
-                <table className='th,td'>
+                <table>
                     <tbody>
                         <tr>
-                            <th>Exercise</th>
-                            <th>Sets</th>
-                            <th>Reps</th>
-                            <th>Weight Used (lbs)</th>
+                            <div className='test'>
+                                <th>Exercise</th>
+                                <th>Sets</th>
+                                <th>Reps</th>
+                                <th>Weight Used (lbs)</th>
+                            </div>
                         </tr>
                         <tr>
                             {/* <td>{data.exercise}</td>

@@ -78,6 +78,7 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   
     
     const newWorkout = new Workout({
+    userId: req.body.userId,
     username: req.user.name,
     workoutType: req.body.workoutType,
     exerciseIds: req.body.exerciseIds,
@@ -87,6 +88,14 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   newWorkout.save().then((workout) => res.send(workout));
 });
 
+router.get('/workout', (req,res) => {
+  // console.log('here');
+  Workout.findOne({$query:{userId: req.query.userId},$orderby:{sort:{timestamp:-1}}}).then((ex) => {
+    console.log((ex))
+    res.send(ex)});
+
+ 
+});
 
 router.get("/settings", (req, res) => {
   Setting.findOne({ userId: req.query.userId}).then((setting) => {
@@ -189,11 +198,6 @@ router.get("/user", (req, res) => {
     console.log(`Failed to fetch friend requests: ${err}`);
   }).then((request) => res.send(request));
 });
-
-
-// router.get('/workout', (req,res) => {
-//   Workout.find().sort({timestamp:-1})
-// });
 
 
 // anything else falls to this "not found" case
