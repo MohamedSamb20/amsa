@@ -18,7 +18,16 @@ const Settings = (props) => {
       }};
       setData(setting);
       setPrev(setting);
-      
+      if (setting.heightUnit === 'cm') {
+        document.getElementById("cm").checked = true;
+      } else {
+        document.getElementById("ft").checked = true;
+      };
+      if (setting.weightUnit === 'kg') {
+        document.getElementById("kg").checked = true;
+      } else {
+        document.getElementById("lbs").checked = true;
+      };
     });
   }, []);
 
@@ -32,6 +41,16 @@ const Settings = (props) => {
 
   const handleReset = (event) => {
     setData(prev);
+    if (prev.heightUnit === 'cm') {
+      document.getElementById("cm").checked = true;
+    } else {
+      document.getElementById("ft").checked = true;
+    };
+    if (prev.weightUnit === 'kg') {
+      document.getElementById("kg").checked = true;
+    } else {
+      document.getElementById("lbs").checked = true;
+    };
     setMessage('Settings Reset!')
   };
 
@@ -66,13 +85,12 @@ const Settings = (props) => {
 
           <div className="second-box">
             <p>Select Weight Unit</p>
-            <input
-              type="text"
-              name="weightUnit"
-              value={data.weightUnit}
-              placeholder='Enter a Weight Unit'
-              onChange={handleInputChange}
-            />
+            <form onChange={handleInputChange}>
+              <input type="radio" id="kg" name="weightUnit" value="kg"/>
+              <label for="kg">kg</label>
+              <input type="radio" id="lbs" name="weightUnit" value="lbs"/>
+              <label for="lbs">lbs</label>
+            </form>
           </div>
 
           <div>
