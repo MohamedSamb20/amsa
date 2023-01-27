@@ -12,7 +12,7 @@ import ProfilePage from "./pages/ProfilePage";
 import PreLoginNavbar from "./modules/PreLoginNavbar.js";
 import PostLoginNavbar from "./modules/PostLoginNavbar.js";
 import FriendsPage from "./pages/FriendsPage.js";
-
+import History from './pages/History.js'
 import "../utilities.css";
 
 import { socket } from "../client-socket.js";
@@ -71,6 +71,7 @@ const App = () => {
         <NotFound default />
         <Settings exact path="/settings" userId={userId}/>
         <LogWorkout path='/logworkout' userId={userId} />
+        <History path='/history' userId={userId} />
       </Router>
     </>
   );
