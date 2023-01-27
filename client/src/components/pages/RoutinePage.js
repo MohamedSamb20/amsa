@@ -67,17 +67,19 @@ const RoutinePage = (props) => {
   return (
     <div className="HomePage-container">
       <form onSubmit={sendData} onReset={handleReset}>
-        {listOfWeeks.map((day) => {
-          return (
-            <Routine 
-            options = {options}
-            day={day} 
-            handleInputChange={handleInputChange} />
-          );
-        })}
-        <button type="submit">Save</button>
-        <button type="reset">Reset</button>
-        {message}
+        <div className="category-container">
+          {listOfWeeks.map((day) => {
+            return (
+              <Routine 
+              options = {options}
+              day={day} 
+              handleInputChange={handleInputChange} />
+            );
+          })}
+          <button type="submit">Save</button>
+          <button type="reset">Reset</button>
+          {message}
+        </div>
       </form>
     </div>
   );
