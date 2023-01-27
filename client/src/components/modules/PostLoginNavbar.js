@@ -13,6 +13,7 @@ const PostLoginNavbar = (props) => {
             <Link className="Navbar-button" to="/logworkout">Log Workout</Link>
             <Link className="Navbar-button" to="/settings">Settings</Link>
             <Link className="Navbar-button" to="/friends">Friends</Link>
+            <Link className="Navbar-button" to="/about">About</Link>
             <button className="Navbar-logout" to="/" onClick={() => {
                 googleLogout();
                 props.handleLogout();

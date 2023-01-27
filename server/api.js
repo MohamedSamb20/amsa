@@ -96,24 +96,31 @@ router.get("/settings", (req, res) => {
 });
 
 router.post("/settings", auth.ensureLoggedIn, (req, res) => {
-  console.log(req.body);
-  const posted = {
-    userId: req.body.userId,
-    weightUnit: req.body.weightUnit,
-    heightUnit: req.body.heightUnit,
-    height: req.body.height,
-    weight: req.body.weight,
-  };
-  Setting.findOne({ userId: req.body.userId}).then((setting) =>{
-    if (setting === null) {
-      const newSetting = new Setting(posted);
-      newSetting.save().then((setting) => res.send(setting));
-    } else {
-      Setting.findOneAndUpdate({ userId: req.body.userId}, posted,{new:true, }).then((setting) => {
-          setting.save().then((setting) => res.send(setting));
-        })
+  let weights = []
+  Setting.findOne({ userId: req.body.userId}).then((set) => {
+    weights = (set === null)? []: set.weightHistory;
+    const currentDate = new Date();
+    const dateInString = `${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getYear()}`;
+    weights.push([dateInString, req.body.weight]);
+    const posted = {
+      userId: req.body.userId,
+      weightUnit: req.body.weightUnit,
+      heightUnit: req.body.heightUnit,
+      height: req.body.height,
+      weight: req.body.weight,
+      weightHistory: weights,
     };
-  })
+    Setting.findOne({ userId: req.body.userId}).then((setting) =>{
+      if (setting === null) {
+        const newSetting = new Setting(posted);
+        newSetting.save().then((setting) => res.send(setting));
+      } else {
+        Setting.findOneAndUpdate({ userId: req.body.userId}, posted,{new:true, }).then((setting) => {
+            setting.save().then((setting) => res.send(setting));
+          })
+      };
+    });
+  });
 });
 
 

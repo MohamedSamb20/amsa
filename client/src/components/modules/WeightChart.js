@@ -1,20 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 import { Chart as ChartJS } from 'chart.js/auto';
 import {Line} from 'react-chartjs-2';
+
+import {get} from "../../utilities"
 
 import "../../utilities.css";
 import "./WeightChart.css"
 
 const WeightChart = (props) => {
+    const [dataPoints, setDataPoints] = useState({})
+    get("/api/settings", {userId: props.userId}).then((settings)=>{
+        const newData = {}
+        for(const setting of settings.weightHistory){
+            newData[setting[0]] = setting[1];
+        }
+        setDataPoints(newData);
+    })
     const data = {
-        labels: ['Jan', 'Feb', 'Mar',
-                 'Apr', 'May'],
+        labels: Object.keys(dataPoints),
         datasets: [
           {
             label: 'Weight (lbs)',
             backgroundColor: 'rgba(182, 198, 0, 1)',
             borderColor: 'rgba(182, 198, 0, 1)',
-            data: [210, 205, 194, 197, 190]
+            data: Object.values(dataPoints),
           }
         ]
       }
