@@ -56,13 +56,13 @@ const Settings = (props) => {
       <form onSubmit={sendData} onReset = {handleReset}>
         <div className="category-container">
           <p>Select Height Unit</p>
-          <input
-            type="text"
-            name="heightUnit"
-            value={data.heightUnit}
-            placeholder='Enter a Height Unit'
-            onChange={handleInputChange}
-          />
+          <form onChange={handleInputChange}>
+            <input type="radio" id="cm" name="heightUnit" value="cm"/>
+            <label for="html">cm</label>
+            <input type="radio" id="ft" name="heightUnit" value="ft"/>
+            <label for="ft">ft</label>
+          </form>
+
 
           <div className="second-box">
             <p>Select Weight Unit</p>
