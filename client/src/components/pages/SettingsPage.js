@@ -11,6 +11,7 @@ const Settings = (props) => {
   useEffect(() => {
     get("/api/settings", {userId :props.userId}).then((setting) => {
       if (setting === false) {setting = {
+        userId: props.userId,
         weight: 'Not set',
         height : 'Not set',
         heightUnit : '',
@@ -18,16 +19,8 @@ const Settings = (props) => {
       }};
       setData(setting);
       setPrev(setting);
-      if (setting.heightUnit === 'cm') {
-        document.getElementById("cm").checked = true;
-      } else {
-        document.getElementById("ft").checked = true;
-      };
-      if (setting.weightUnit === 'kg') {
-        document.getElementById("kg").checked = true;
-      } else {
-        document.getElementById("lbs").checked = true;
-      };
+      document.getElementById(setting.heightUnit).checked = true;
+      document.getElementById(setting.weightUnit).checked = true;
     });
   }, []);
 
@@ -41,32 +34,15 @@ const Settings = (props) => {
 
   const handleReset = (event) => {
     setData(prev);
-    if (prev.heightUnit === 'cm') {
-      document.getElementById("cm").checked = true;
-    } else {
-      document.getElementById("ft").checked = true;
-    };
-    if (prev.weightUnit === 'kg') {
-      document.getElementById("kg").checked = true;
-    } else {
-      document.getElementById("lbs").checked = true;
-    };
+    document.getElementById(prev.heightUnit).checked = true;
+    document.getElementById(prev.weightUnit).checked = true;
     setMessage('Settings Reset!')
   };
 
   const sendData = (e) => {
     e.preventDefault();
-    const body = {
-      userId: props.userId,
-      weightUnit: data.weightUnit,
-      heightUnit: data.heightUnit,
-      height: data.height,
-      weight: data.weight,
-    };
-    console.log(body);
+    const body = data;
     post("/api/settings", body).then((res) => console.log(res));
-
-    console.log("done");
     setPrev(data);
     setMessage('Saved!');
   };

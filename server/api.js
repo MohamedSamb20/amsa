@@ -212,6 +212,15 @@ router.post("/routine", auth.ensureLoggedIn, (req, res) => {
     };
   })
 });
+
+router.get("/routine", (req, res) => {
+  Routine.findOne({ userId: req.query.userId}).then((routine) => {
+    if (routine === null) {routine = false}
+    res.send(routine);
+  });
+});
+
+
 // router.get('/workout', (req,res) => {
 //   Workout.find().sort({timestamp:-1})
 // });
