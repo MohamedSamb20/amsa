@@ -7,6 +7,7 @@ const Settings = (props) => {
   document.title = 'Settings';
   const [message, setMessage] = useState('');
   const [data, setData] = useState('');
+  const [prev, setPrev] = useState('')
   useEffect(() => {
     get("/api/settings", {userId :props.userId}).then((setting) => {
       if (setting === false) {setting = {
@@ -16,6 +17,8 @@ const Settings = (props) => {
         weightUnit : ''
       }};
       setData(setting);
+      setPrev(setting);
+      
     });
   }, []);
 
@@ -28,7 +31,7 @@ const Settings = (props) => {
   };
 
   const handleReset = (event) => {
-    setData(set);
+    setData(prev);
     setMessage('Settings Reset!')
   };
 
@@ -45,7 +48,8 @@ const Settings = (props) => {
     post("/api/settings", body).then((res) => console.log(res));
 
     console.log("done");
-    setMessage('Saved!')
+    setPrev(data);
+    setMessage('Saved!');
   };
   return (
     <div className="HomePage-container">
