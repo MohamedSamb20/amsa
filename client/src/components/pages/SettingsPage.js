@@ -5,14 +5,19 @@ import "./HomePage.css";
 
 const Settings = (props) => {
   document.title = 'Settings';
-  const [message, setMessage] = useState('')
-  const set = {
-    weightUnit: "",
-    heightUnit: "",
-    weight: '',
-    height: '',
-  };
-  const [data, setData] = useState(set);
+  const [message, setMessage] = useState('');
+  const [data, setData] = useState('');
+  useEffect(() => {
+    get("/api/settings", {userId :props.userId}).then((setting) => {
+      if (setting === false) {setting = {
+        weight: 'Not set',
+        height : 'Not set',
+        heightUnit : '',
+        weightUnit : ''
+      }};
+      setData(setting);
+    });
+  }, []);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
