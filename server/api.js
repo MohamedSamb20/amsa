@@ -101,6 +101,7 @@ router.post("/lastworkout", auth.ensureLoggedIn, (req, res) => {
     workoutType: req.body.workoutType,
     exerciseIds: req.body.exerciseIds,
     weightUnit: req.body.weightUnit,
+    day: Math.floor(Date.now()/(1000*60*60*24)),
   };
   LastWorkout.findOne({userId: req.body.userId}).then((workout) =>{
     if (workout === null) {
@@ -110,8 +111,10 @@ router.post("/lastworkout", auth.ensureLoggedIn, (req, res) => {
       newWorkout.save().then((workout) => res.send(workout));
     } else {
       if (workout.day !== Math.floor(Date.now()/(1000*60*60*24))) {
-        User.findOneAndUpdate({_id: req.body.userId}, {streak:2}, {new:true, }).then(
-          (user) => {user.save()});
+        User.findOne({ _id: req.body.userId}).then((user) => {
+          User.findOneAndUpdate({ _id: req.body.userId}, {streak: user.streak + 1}, {new:true, }).then((user) => {
+            user.save()
+          })});
       };
       LastWorkout.findOneAndUpdate({ userId: req.body.userId}, posted,{new:true, }).then((workout) => {
       workout.save().then((workout) => res.send(workout));
