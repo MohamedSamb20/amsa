@@ -4,11 +4,12 @@ import "../../utilities.css";
 
 
 const Routine = (props) =>  {
+    let options = props.options; 
     return(
         <div>
             <p> {props.day} </p>
             <form onChange={props.handleInputChange}>
-                {props.options.map((option) => {
+                {options.map((option) => {
                     return (
                         <>
                             <input type="radio" id={props.day + option} name={props.day} value={option}/>
