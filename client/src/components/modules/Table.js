@@ -5,12 +5,10 @@ import "../pages/LogWorkout.css"
 
 const Table = (props) => {
 
-    // const tbodyEl = document.querySelector('tbody');
-    // console.log(props);
     const [exercises, setExercises] = useState([]);
 
     useEffect(() => {
-        console.log(props);
+        console.log("table useeffect", props);
         let promises = [];
         for(let i=0; i<props.data.length; i++){
             promises.push(get('/api/exercise', {_id:props.data[i]}));
@@ -21,8 +19,6 @@ const Table = (props) => {
         });
     }, [props])
     
-    
-    // console.log(tbodyEl.innerHTML);
     return (
         <div className='table-container'>
         
@@ -33,7 +29,7 @@ const Table = (props) => {
                                 <th>Exercise</th>
                                 <th>Sets</th>
                                 <th>Reps</th>
-                                <th>Weight Used (lbs)</th>
+                                <th>Weight Used ({props.unit})</th>
                             
                         </tr>
                         {exercises.map(element => {

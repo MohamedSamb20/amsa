@@ -6,6 +6,7 @@ const WorkoutSchema = new mongoose.Schema({
   userId: String,
   username: String,
   workoutType: String,
+  weightUnit: String,
   exerciseIds: [],
   timestamp: { type: Date, default: Date.now },
 });

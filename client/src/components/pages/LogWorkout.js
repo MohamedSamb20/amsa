@@ -17,6 +17,7 @@ const LogWorkout = (props) => {
         sets:0,
         reps:0,
         weightUsed:0,
+        weightUnit:'',
         exerciseList: []
                 
     });
@@ -56,7 +57,7 @@ const LogWorkout = (props) => {
         console.log('done');
     };
     const handleSubmit = () => {
-        post('/api/workout', {userId: props.userId, workoutType: data.workoutType, exerciseIds: data.exerciseList}).then((res)=>console.log(res));
+        post('/api/workout', {userId: props.userId, workoutType: data.workoutType, exerciseIds: data.exerciseList, weightUnit:data.weightUnit}).then((res)=>console.log(res));
      
         alert("Workout has been logged");
         (navigate('/'));
@@ -86,23 +87,30 @@ const LogWorkout = (props) => {
             />
 
             <div className='second-box'> 
-            <p>Sets</p>
-            <input type='number' name='sets'  value={data.sets} 
-            onChange={handleInputChange}
-            />   
+                <p>Sets</p>
+                <input type='number' min='0' name='sets'  value={data.sets} 
+                onChange={handleInputChange}
+                />   
 
             </div>
 
             <div>
-            <p>Reps</p>
-            <input type='number' name='reps' value={data.reps}
-            onChange={handleInputChange}/> 
+                <p>Reps</p>
+                <input type='number' min='0' name='reps' value={data.reps}
+                onChange={handleInputChange}/> 
             </div>
 
             <div>
-            <p>Weight Used (lbs)</p>
-            <input type="number" name='weightUsed' value={data.weightUsed}
-            onChange={handleInputChange}/> 
+                <p>Weight Used</p>
+                <input type="number" min='0' name='weightUsed' value={data.weightUsed}
+                onChange={handleInputChange}/> 
+
+                <select name="weightUnit"  value= {data.weightUnit} onChange={handleInputChange}>
+                   
+                    <option value="lbs">lbs</option>
+                    <option value="kg">kg</option>
+                </select>
+                
             </div>
 
             <button type='submit'>Add to List</button>
@@ -121,7 +129,7 @@ const LogWorkout = (props) => {
                                 <th>Exercise</th>
                                 <th>Sets</th>
                                 <th>Reps</th>
-                                <th>Weight Used (lbs)</th>
+                                <th>Weight Used ({data.weightUnit}) </th>
                             </div>
                         </tr>
                         <tr>

@@ -86,6 +86,7 @@ router.post("/workout", auth.ensureLoggedIn, (req, res) => {
     username: req.user.name,
     workoutType: req.body.workoutType,
     exerciseIds: req.body.exerciseIds,
+    weightUnit: req.body.weightUnit,
     
   });
 
@@ -99,6 +100,13 @@ router.get('/workout', (req,res) => {
     console.log(exercises[exercises.length -1]);
     res.send(exercises[exercises.length -1])});
 
+ 
+});
+router.get('/allworkouts', (req,res) => {
+  // console.log('here');
+  Workout.find({$query:{userId: req.query.userId},$orderby:{sort:{timestamp:-1}}}).then((exercises) => {
+    console.log('got exercises,' , exercises);
+    res.send(exercises)});
  
 });
 
