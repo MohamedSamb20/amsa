@@ -29,7 +29,7 @@ const Table = (props) => {
                                 <th>Exercise</th>
                                 <th>Sets</th>
                                 <th>Reps</th>
-                                <th>Weight Used (lbs)</th>
+                                <th>Weight Used ({props.unit})</th>
                             
                         </tr>
                         {exercises.map(element => {

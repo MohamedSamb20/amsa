@@ -88,7 +88,7 @@ const LogWorkout = (props) => {
 
             <div className='second-box'> 
                 <p>Sets</p>
-                <input type='number' name='sets'  value={data.sets} 
+                <input type='number' min='0' name='sets'  value={data.sets} 
                 onChange={handleInputChange}
                 />   
 
@@ -96,18 +96,19 @@ const LogWorkout = (props) => {
 
             <div>
                 <p>Reps</p>
-                <input type='number' name='reps' value={data.reps}
+                <input type='number' min='0' name='reps' value={data.reps}
                 onChange={handleInputChange}/> 
             </div>
 
             <div>
-                <p>Weight Used (lbs)</p>
-                <input type="number" name='weightUsed' value={data.weightUsed}
+                <p>Weight Used</p>
+                <input type="number" min='0' name='weightUsed' value={data.weightUsed}
                 onChange={handleInputChange}/> 
 
-                <select name="weightunit" onChange={handleInputChange}>
+                <select name="weightUnit"  value= {data.weightUnit} onChange={handleInputChange}>
+                   
                     <option value="lbs">lbs</option>
-                    <option value="saab">kg</option>
+                    <option value="kg">kg</option>
                 </select>
                 
             </div>
@@ -128,7 +129,7 @@ const LogWorkout = (props) => {
                                 <th>Exercise</th>
                                 <th>Sets</th>
                                 <th>Reps</th>
-                                <th>Weight Used (lbs)</th>
+                                <th>Weight Used ({data.weightUnit}) </th>
                             </div>
                         </tr>
                         <tr>

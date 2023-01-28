@@ -23,9 +23,9 @@ const History = (props) => {
                 setWorkouts(arr.map((obj) => {
                     return obj.exerciseIds;
                 }));
-                // setDate(arr.map((obj) => {
-                //     return obj.timestamp;
-                // }));
+                setDate(arr.map((obj) => {
+                    return obj.weightUnit; //change
+                }));
                 console.log('allworkouts', allworkouts);
             })
             
@@ -46,7 +46,7 @@ const History = (props) => {
                     return (
                     <div key={i}>
                         
-                        <Table data={workout} />
+                        <Table data={workout} unit={allDates[i]}/>
                     </div>
                         
                         );

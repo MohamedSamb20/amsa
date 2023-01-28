@@ -8,6 +8,7 @@ const LastWorkout = (props) => {
     const [exercises, setExercises] = useState({
         exercises: [],
         workoutType: '',
+        weights: '',
 
     });
     useEffect(() => {
@@ -16,7 +17,8 @@ const LastWorkout = (props) => {
             console.log(ex);
             const exercise = {
                 exercises: ex.exerciseIds,
-                workoutType: ex.workoutType
+                workoutType: ex.workoutType,
+                weights: ex.weightUnit,
             };
             setExercises(exercise);
         }
@@ -28,7 +30,7 @@ const LastWorkout = (props) => {
     return (
         <div>
            
-        <Table data={exercises.exercises} />
+        <Table data={exercises.exercises} unit={exercises.weights}/>
         </div>
     );
 
