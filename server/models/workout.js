@@ -9,6 +9,7 @@ const WorkoutSchema = new mongoose.Schema({
   weightUnit: String,
   exerciseIds: [],
   timestamp: { type: Date, default: Date.now },
+  day: {type: Number, default: Math.floor(Date.now()/(1000*60*60*24))}
 });
 
 // compile model from schema
