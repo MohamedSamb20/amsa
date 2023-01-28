@@ -109,7 +109,7 @@ router.post("/lastworkout", auth.ensureLoggedIn, (req, res) => {
       const newWorkout = new LastWorkout(posted);
       newWorkout.save().then((workout) => res.send(workout));
     } else {
-      if (workout.day === Math.floor(Date.now()/(1000*60*60*24))) {
+      if (workout.day !== Math.floor(Date.now()/(1000*60*60*24))) {
         User.findOneAndUpdate({_id: req.body.userId}, {streak:2}, {new:true, }).then(
           (user) => {user.save()});
       };
