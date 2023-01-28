@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const RoutineSchema = new mongoose.Schema({
   userId: String,
+  routineOptions: [String],
   Monday: String,
   Tuesday: String,
   Wednesday: String,
