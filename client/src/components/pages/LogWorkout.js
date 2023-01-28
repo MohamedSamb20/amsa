@@ -57,8 +57,9 @@ const LogWorkout = (props) => {
         console.log('done');
     };
     const handleSubmit = () => {
-        post('/api/workout', {userId: props.userId, workoutType: data.workoutType, exerciseIds: data.exerciseList, weightUnit:data.weightUnit}).then((res)=>console.log(res));
-     
+        const body = {userId: props.userId, workoutType: data.workoutType, exerciseIds: data.exerciseList, weightUnit:data.weightUnit}
+        post('/api/workout', body).then((res)=>console.log(res));
+        post('/api/lastworkout', body).then((res)=>console.log(res));
         alert("Workout has been logged");
         (navigate('/'));
 
