@@ -259,6 +259,12 @@ router.get("/routine", (req, res) => {
   });
 });
 
+router.get("/streak", (req, res) => {
+  User.findById(req.query.userId).then((user) => {
+    res.send(user);
+  });
+});
+
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
