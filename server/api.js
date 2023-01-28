@@ -104,6 +104,8 @@ router.post("/lastworkout", auth.ensureLoggedIn, (req, res) => {
   };
   LastWorkout.findOne({userId: req.body.userId}).then((workout) =>{
     if (workout === null) {
+      User.findOneAndUpdate({_id: req.body.userId}, {streak:1}, {new:true, }).then(
+        (user) => {user.save()});
       const newWorkout = new LastWorkout(posted);
       newWorkout.save().then((workout) => res.send(workout));
     } else {
