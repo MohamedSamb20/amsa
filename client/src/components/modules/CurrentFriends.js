@@ -29,7 +29,8 @@ const CurrentFriends = (props) =>  {
       <div>Current Friends:</div>
       {friends.map((person) => {
                     return (<div>
-                            {person.name} 
+                            {person.name}
+                            {person.streak} 
                             {/* <button id={person._id} >Request Workout</button> */}
                             <button id={person._id} onClick ={deleteFriendship} >Delete Friend</button>
                         </div>)
