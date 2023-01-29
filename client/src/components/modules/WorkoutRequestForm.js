@@ -9,8 +9,8 @@ import "./WorkoutRequestForm.css"
 const WorkoutRequestForm = (props) =>  {
   const [data, setData] = useState({
     workoutRoutine: '',
-    workoutHour: null,
-    workoutMinute: null,
+    workoutHour: "",
+    workoutMinute: "",
     notes: '',
   })
   const sendRequest = (event) => {

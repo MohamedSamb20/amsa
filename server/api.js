@@ -16,6 +16,8 @@ const Exercise = require("./models/exercise");
 const Setting = require("./models/settings");
 const Friendship = require("./models/friendship");
 const Friendrequest = require("./models/friendrequest");
+const Workoutrequest = require("./models/workoutrequest");
+const LastWorkout = require("./models/lastworkout")
 
 // import authentication library
 const auth = require("./auth");
