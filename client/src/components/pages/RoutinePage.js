@@ -17,7 +17,7 @@ const RoutinePage = (props) => {
     "Sunday",
   ];
   const [newOption, setNewOption] = useState('');
-  const [options, setOptions] = useState(['Push', 'Pull', 'Legs', 'Rest']);
+  const [options, setOptions] = useState(['Rest', 'Push', 'Pull', 'Legs']);
   const [data, setData] = useState('');
   const [prev, setPrev] = useState('');
   useEffect(() => {

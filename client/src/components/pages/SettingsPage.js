@@ -74,6 +74,7 @@ const Settings = (props) => {
             <input
               type="number"
               name="height"
+              min = "0"
               value={data.height}
               onChange={handleInputChange}
               placeholder='Enter your height'
@@ -84,6 +85,7 @@ const Settings = (props) => {
             <input
               type="number"
               name="weight"
+              min="0"
               value={data.weight}
               onChange={handleInputChange}
               placeholder="Enter your weight"
