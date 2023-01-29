@@ -16,6 +16,8 @@ const Exercise = require("./models/exercise");
 const Setting = require("./models/settings");
 const Friendship = require("./models/friendship");
 const Friendrequest = require("./models/friendrequest");
+const Workoutrequest = require("./models/workoutrequest");
+const Plannedworkout = require("./models/plannedworkout");
 
 // import authentication library
 const auth = require("./auth");
@@ -197,6 +199,73 @@ router.get("/user", (req, res) => {
   }).then((request) => res.send(request));
 });
 
+router.post("/workoutrequest", auth.ensureLoggedIn, (req, res) => {
+  const currentTime = new Date();
+  const time = `${currentTime.getFullYear()}-${currentTime.getMonth()}-${currentTime.getDate()}T${req.body.hour}:${req.body.minute}:00`
+  const newRequest = new Workoutrequest({
+    userId: req.body.userId,
+    requester : req.body.requester,
+    time: time,
+    routine: req.body.routine,
+    notes: req.body.notes,
+  });
+
+  newRequest.save().then((request) => res.send(request));
+});
+
+router.get("/workoutrequests", (req, res) => {
+  Workoutrequest.find({userId: req.query.userId}).then((requests) => {
+    const requestsToSend = []
+    const today = new Date();
+    for(const request of requests){
+      requestTime = new Date(request.time);
+      if(requestTime.getTime() < today.getTime()){
+        Workoutrequest.deleteOne({time: request.time})
+      } else {
+        requestsToSend.push(request)
+      }
+    }
+    res.send(requestsToSend);
+  });
+});
+
+router.get("/outgoingworkoutrequests", (req, res) => {
+  Workoutrequest.find({requester: req.query.userId}).then((requests) => {
+    const requestsToSend = []
+    const today = new Date();
+    for(const request of requests){
+      requestTime = new Date(request.time);
+      if(requestTime.getTime() < today.getTime()){
+        Workoutrequest.deleteOne({time: request.time})
+      } else {
+        requestsToSend.push(request)
+      }
+    }
+    res.send(requestsToSend);
+  });
+});
+
+router.post("/removeworkoutrequest", auth.ensureLoggedIn, (req, res) => {
+  Workoutrequest.deleteOne({
+    userId: req.body.userId,
+    requester: req.body.requester,
+    time: req.body.time,
+    routine: req.body.routine,
+    notes: req.body.notes,
+  }).then((response) => res.send(response));
+});
+
+router.post("/plannedworkout", auth.ensureLoggedIn, (req, res) => {
+  const newRequest = new Plannedworkout({
+    userId: req.body.userId,
+    workoutBuddy : req.body.buddy,
+    time: time,
+    routine: req.body.routine,
+    notes: req.body.notes,
+  });
+
+  newRequest.save().then((request) => res.send(request));
+});
 
 // router.get('/workout', (req,res) => {
 //   Workout.find().sort({timestamp:-1})
