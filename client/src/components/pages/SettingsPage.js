@@ -5,14 +5,24 @@ import "./HomePage.css";
 
 const Settings = (props) => {
   document.title = 'Settings';
-  const [message, setMessage] = useState('')
-  const set = {
-    weightUnit: "",
-    heightUnit: "",
-    weight: '',
-    height: '',
-  };
-  const [data, setData] = useState(set);
+  const [message, setMessage] = useState('');
+  const [data, setData] = useState('');
+  const [prev, setPrev] = useState('')
+  useEffect(() => {
+    get("/api/settings", {userId :props.userId}).then((setting) => {
+      if (setting === false) {setting = {
+        userId: props.userId,
+        weight: 'Not set',
+        height : 'Not set',
+        heightUnit : '',
+        weightUnit : ''
+      }};
+      setData(setting);
+      setPrev(setting);
+      document.getElementById(setting.heightUnit).checked = true;
+      document.getElementById(setting.weightUnit).checked = true;
+    });
+  }, []);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -23,47 +33,40 @@ const Settings = (props) => {
   };
 
   const handleReset = (event) => {
-    setData(set);
+    setData(prev);
+    document.getElementById(prev.heightUnit).checked = true;
+    document.getElementById(prev.weightUnit).checked = true;
     setMessage('Settings Reset!')
   };
 
   const sendData = (e) => {
     e.preventDefault();
-    const body = {
-      userId: props.userId,
-      weightUnit: data.weightUnit,
-      heightUnit: data.heightUnit,
-      height: data.height,
-      weight: data.weight,
-    };
-    console.log(body);
+    const body = data;
     post("/api/settings", body).then((res) => console.log(res));
-
-    console.log("done");
-    setMessage('Saved!')
+    setPrev(data);
+    setMessage('Saved!');
   };
   return (
     <div className="HomePage-container">
       <form onSubmit={sendData} onReset = {handleReset}>
         <div className="category-container">
           <p>Select Height Unit</p>
-          <input
-            type="text"
-            name="heightUnit"
-            value={data.heightUnit}
-            placeholder='Enter a Height Unit'
-            onChange={handleInputChange}
-          />
+          <form onChange={handleInputChange}>
+            <input type="radio" id="cm" name="heightUnit" value="cm"/>
+            <label for="html">cm</label>
+            <input type="radio" id="ft" name="heightUnit" value="ft"/>
+            <label for="ft">ft</label>
+          </form>
+
 
           <div className="second-box">
             <p>Select Weight Unit</p>
-            <input
-              type="text"
-              name="weightUnit"
-              value={data.weightUnit}
-              placeholder='Enter a Weight Unit'
-              onChange={handleInputChange}
-            />
+            <form onChange={handleInputChange}>
+              <input type="radio" id="kg" name="weightUnit" value="kg"/>
+              <label for="kg">kg</label>
+              <input type="radio" id="lbs" name="weightUnit" value="lbs"/>
+              <label for="lbs">lbs</label>
+            </form>
           </div>
 
           <div>

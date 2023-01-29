@@ -24,6 +24,8 @@ const Skeleton = ({ userId, handleLogin, handleLogout, page, setPage}) => {
     currentPage = (<ProfilePage />)
   }else if(page === "logworkout"){
     currentPage = (<LogWorkout />)
+  }else if(page === "history"){
+    currentPage = (<History />)
   }else {
     currentPage = (<div>Error</div>)
   }
