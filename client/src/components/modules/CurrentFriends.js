@@ -35,14 +35,19 @@ const CurrentFriends = (props) =>  {
 
   return (
     <div className="CurrentFriends-container">
-      <div>Current Friends:</div>
-      {friends.map((person) => {
-                    return (<div>
-                            {person.name} 
-                            <button id={person._id} onClick={openRequestBox} >Request Workout</button>
-                            <button id={person._id} onClick ={deleteFriendship} >Delete Friend</button>
-                        </div>)
-                })}
+      <table>
+        <tbody>
+          <tr>
+            <th>Friends</th>
+            <th>Streak</th>
+          </tr>
+          {friends.map(person => {
+            return <tr><td>{person.name}</td>
+              <td>{person.streak}</td>
+              <button id ={person._id} onClick={deleteFriendship}>Delete Friend </button></tr>
+          })}
+        </tbody>
+      </table>
       {showForm? <WorkoutRequestForm requester={props.userId} requestee={requestee} setShowForm={setShowForm}/> : <></>}
     </div>
   );

@@ -16,8 +16,6 @@ const Exercise = require("./models/exercise");
 const Setting = require("./models/settings");
 const Friendship = require("./models/friendship");
 const Friendrequest = require("./models/friendrequest");
-const Workoutrequest = require("./models/workoutrequest");
-const Plannedworkout = require("./models/plannedworkout");
 
 // import authentication library
 const auth = require("./auth");
@@ -55,13 +53,12 @@ router.post("/initsocket", (req, res) => {
 
 
 router.post("/exercise", auth.ensureLoggedIn, (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
 
-  console.log(req.user);
-  const username = User.find(req.body.userId)
-  console.log(username);
+  // console.log(req.user);
+  // const username = User.find(req.body.userId)
+  // console.log(username);
 
-  
     const newExercise = new Exercise({
       userId: req.body.userId,
       
@@ -71,24 +68,72 @@ router.post("/exercise", auth.ensureLoggedIn, (req, res) => {
       weightUsed: req.body.weightUsed,
     });
     newExercise.save().then((exercise) => res.send(exercise)); 
- 
-
-
 });
+router.get("/exercise", (req, res) => {
+  Exercise.findOne({_id: req.query._id}).then((item) => {
+    console.log(item);
+    res.send(item);
 
+  });
+}
+);
 router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   
     
     const newWorkout = new Workout({
+    userId: req.body.userId,
     username: req.user.name,
     workoutType: req.body.workoutType,
     exerciseIds: req.body.exerciseIds,
+    weightUnit: req.body.weightUnit,
     
   });
 
   newWorkout.save().then((workout) => res.send(workout));
 });
 
+router.post("/lastworkout", auth.ensureLoggedIn, (req, res) => {
+  const posted = {
+    userId: req.body.userId,
+    username: req.user.name,
+    workoutType: req.body.workoutType,
+    exerciseIds: req.body.exerciseIds,
+    weightUnit: req.body.weightUnit,
+    day: Math.floor(Date.now()/(1000*60*60*24)),
+  };
+  LastWorkout.findOne({userId: req.body.userId}).then((workout) =>{
+    if (workout === null) {
+      User.findOneAndUpdate({_id: req.body.userId}, {streak:1}, {new:true, }).then(
+        (user) => {user.save()});
+      const newWorkout = new LastWorkout(posted);
+      newWorkout.save().then((workout) => res.send(workout));
+    } else {
+      if (workout.day !== Math.floor(Date.now()/(1000*60*60*24))) {
+        User.findOne({ _id: req.body.userId}).then((user) => {
+          User.findOneAndUpdate({ _id: req.body.userId}, {streak: user.streak + 1}, {new:true, }).then((user) => {
+            user.save()
+          })});
+      };
+      LastWorkout.findOneAndUpdate({ userId: req.body.userId}, posted,{new:true, }).then((workout) => {
+      workout.save().then((workout) => res.send(workout));
+      })
+    }
+  })
+});
+
+router.get('/workout', (req,res) => {
+  // console.log('here');
+  LastWorkout.findOne({userId : req.query.userId}).then((workout) => {
+    if (workout === null) {workout = null};
+    res.send(workout)});
+});
+router.get('/allworkouts', (req,res) => {
+  // console.log('here');
+  Workout.find({$query:{userId: req.query.userId},$orderby:{sort:{timestamp:-1}}}).then((exercises) => {
+    console.log('got exercises,' , exercises);
+    res.send(exercises)});
+ 
+});
 
 router.get("/settings", (req, res) => {
   Setting.findOne({ userId: req.query.userId}).then((setting) => {
@@ -199,77 +244,12 @@ router.get("/user", (req, res) => {
   }).then((request) => res.send(request));
 });
 
-router.post("/workoutrequest", auth.ensureLoggedIn, (req, res) => {
-  const currentTime = new Date();
-  const time = `${currentTime.getFullYear()}-${currentTime.getMonth()}-${currentTime.getDate()}T${req.body.hour}:${req.body.minute}:00`
-  const newRequest = new Workoutrequest({
-    userId: req.body.userId,
-    requester : req.body.requester,
-    time: time,
-    routine: req.body.routine,
-    notes: req.body.notes,
-  });
 
-  newRequest.save().then((request) => res.send(request));
-});
-
-router.get("/workoutrequests", (req, res) => {
-  Workoutrequest.find({userId: req.query.userId}).then((requests) => {
-    const requestsToSend = []
-    const today = new Date();
-    for(const request of requests){
-      requestTime = new Date(request.time);
-      if(requestTime.getTime() < today.getTime()){
-        Workoutrequest.deleteOne({time: request.time})
-      } else {
-        requestsToSend.push(request)
-      }
-    }
-    res.send(requestsToSend);
+router.get("/streak", (req, res) => {
+  User.findById(req.query.userId).then((user) => {
+    res.send(user);
   });
 });
-
-router.get("/outgoingworkoutrequests", (req, res) => {
-  Workoutrequest.find({requester: req.query.userId}).then((requests) => {
-    const requestsToSend = []
-    const today = new Date();
-    for(const request of requests){
-      requestTime = new Date(request.time);
-      if(requestTime.getTime() < today.getTime()){
-        Workoutrequest.deleteOne({time: request.time})
-      } else {
-        requestsToSend.push(request)
-      }
-    }
-    res.send(requestsToSend);
-  });
-});
-
-router.post("/removeworkoutrequest", auth.ensureLoggedIn, (req, res) => {
-  Workoutrequest.deleteOne({
-    userId: req.body.userId,
-    requester: req.body.requester,
-    time: req.body.time,
-    routine: req.body.routine,
-    notes: req.body.notes,
-  }).then((response) => res.send(response));
-});
-
-router.post("/plannedworkout", auth.ensureLoggedIn, (req, res) => {
-  const newRequest = new Plannedworkout({
-    userId: req.body.userId,
-    workoutBuddy : req.body.buddy,
-    time: time,
-    routine: req.body.routine,
-    notes: req.body.notes,
-  });
-
-  newRequest.save().then((request) => res.send(request));
-});
-
-// router.get('/workout', (req,res) => {
-//   Workout.find().sort({timestamp:-1})
-// });
 
 
 // anything else falls to this "not found" case

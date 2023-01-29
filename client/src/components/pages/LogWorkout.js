@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { get, post } from "../../utilities";
 import "../../utilities.css";
 import PostLoginNavbar from "../modules/PostLoginNavbar";
+import "./LogWorkout.css"
 import "./HomePage.css"
 import { Link } from "@reach/router";
 import { navigate } from "@reach/router";
@@ -16,6 +17,7 @@ const LogWorkout = (props) => {
         sets:0,
         reps:0,
         weightUsed:0,
+        weightUnit:'',
         exerciseList: []
                 
     });
@@ -55,21 +57,24 @@ const LogWorkout = (props) => {
         console.log('done');
     };
     const handleSubmit = () => {
-        post('/api/workout', {workoutType: data.workoutType, exerciseIds: data.exerciseList}).then((res)=>console.log(res));
-     
+        const body = {userId: props.userId, workoutType: data.workoutType, exerciseIds: data.exerciseList, weightUnit:data.weightUnit}
+        post('/api/workout', body).then((res)=>console.log(res));
+        post('/api/lastworkout', body).then((res)=>console.log(res));
         alert("Workout has been logged");
         (navigate('/'));
 
     };
     return (
-        <div className="HomePage-container">
+        <div className="LogWorkout-container">
         {props.userId ? 
         
         (
             <div>
+            <div className='category-container'>
+
             <form onSubmit={sendData}>
 
-            <div className='category-container'>
+            
 
         
             <p>Exercise Type (push,pull, etc)</p>
@@ -83,40 +88,50 @@ const LogWorkout = (props) => {
             />
 
             <div className='second-box'> 
-            <p>Sets</p>
-            <input type='number' name='sets'  value={data.sets} 
-            onChange={handleInputChange}
-            />   
+                <p>Sets</p>
+                <input type='number' min='0' name='sets'  value={data.sets} 
+                onChange={handleInputChange}
+                />   
 
             </div>
 
             <div>
-            <p>Reps</p>
-            <input type='number' name='reps' value={data.reps}
-            onChange={handleInputChange}/> 
+                <p>Reps</p>
+                <input type='number' min='0' name='reps' value={data.reps}
+                onChange={handleInputChange}/> 
             </div>
 
             <div>
-            <p>Weight Used (lbs)</p>
-            <input type="number" name='weightUsed' value={data.weightUsed}
-            onChange={handleInputChange}/> 
+                <p>Weight Used</p>
+                <input type="number" min='0' name='weightUsed' value={data.weightUsed}
+                onChange={handleInputChange}/> 
+
+                <select name="weightUnit"  value= {data.weightUnit} onChange={handleInputChange}>
+                   
+                    <option value="lbs">lbs</option>
+                    <option value="kg">kg</option>
+                </select>
+                
             </div>
 
             <button type='submit'>Add to List</button>
 
-            </div>
+            
             
 
             </form>
+            </div>
             
             <div className="table-container">
-                <table className='th,td'>
+                <table>
                     <tbody>
                         <tr>
-                            <th>Exercise</th>
-                            <th>Sets</th>
-                            <th>Reps</th>
-                            <th>Weight Used (lbs)</th>
+                            <div className='test'>
+                                <th>Exercise</th>
+                                <th>Sets</th>
+                                <th>Reps</th>
+                                <th>Weight Used ({data.weightUnit}) </th>
+                            </div>
                         </tr>
                         <tr>
                             {/* <td>{data.exercise}</td>
