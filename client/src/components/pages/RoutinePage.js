@@ -88,7 +88,6 @@ const RoutinePage = (props) => {
     weekDays.map((day) => {
       if (data[day] === name) {
         newData[day] = 'Rest';
-        alert(day+'Rest');
         document.getElementById(day + 'Rest').checked = true;
       } else {
         newData[day] = data.day;
