@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
 import "../../utilities.css";
 import "./HomePage.css";
+import SettingBox from '../modules/SettingBox.js';
 
 const Settings = (props) => {
   document.title = 'Settings';
@@ -12,10 +13,12 @@ const Settings = (props) => {
     get("/api/settings", {userId :props.userId}).then((setting) => {
       if (setting === false) {setting = {
         userId: props.userId,
-        weight: 'Not set',
-        height : 'Not set',
-        heightUnit : '',
-        weightUnit : ''
+        weight: '',
+        height : '',
+        heightUnit : 'Not set',
+        weightUnit : 'Not set',
+        height1: '',
+        height2:'',
       }};
       setData(setting);
       setPrev(setting);
@@ -26,10 +29,17 @@ const Settings = (props) => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setData((prevProps) => ({
+    if (name === 'heightUnit') {setData((prevProps) => ({
       ...prevProps,
       [name]: value,
+      height : '',
+      height1 :'',
+      height2: '',
     }));
+  } else {setData((prevProps) => ({
+      ...prevProps,
+      [name]: value,
+    }));}
   };
 
   const handleReset = (event) => {
@@ -41,6 +51,20 @@ const Settings = (props) => {
 
   const sendData = (e) => {
     e.preventDefault();
+    if (data.weight === '') {
+      alert('Specify your weight');
+      return ('')};
+    if (data.heightUnit === 'Not set'){
+      alert('Specify your height');
+      return('');
+    };
+    if (data.heightUnit==='cm'){
+      if (data.height === ''){
+      alert('Specify your height');
+      return('');}
+    } else {if (data.height1 === '' || data.height2 ==='') {
+      alert('Specify your height');
+    return('');}}
     const body = data;
     post("/api/settings", body).then((res) => console.log(res));
     setPrev(data);
@@ -58,7 +82,8 @@ const Settings = (props) => {
             <label for="ft">ft</label>
           </form>
 
-
+          <SettingBox name ='height' unit={data.heightUnit} data={data} handleInputChange={handleInputChange}/>
+          
           <div className="second-box">
             <p>Select Weight Unit</p>
             <form onChange={handleInputChange}>
@@ -69,29 +94,8 @@ const Settings = (props) => {
             </form>
           </div>
 
-          <div>
-            <p>Set Height</p>
-            <input
-              type="number"
-              name="height"
-              min = "0"
-              value={data.height}
-              onChange={handleInputChange}
-              placeholder='Enter your height'
-            />
-          </div>
-          <div>
-            <p>Set Weight</p>
-            <input
-              type="number"
-              name="weight"
-              min="0"
-              value={data.weight}
-              onChange={handleInputChange}
-              placeholder="Enter your weight"
-            />
-          </div>
-
+          
+          <SettingBox name='weight' unit={data.weightUnit} data={data} handleInputChange={handleInputChange}/>
           <button type="submit">Save</button>
           <button type = 'reset'> Reset </button>
           <p>{message}</p>
