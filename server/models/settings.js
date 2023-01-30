@@ -4,8 +4,10 @@ const SettingsSchema = new mongoose.Schema({
   userId: String,
   weightUnit: String,
   heightUnit: String,
-  height: Number,
+  height: Number|| String,
   weight: Number,
+  height1: Number|| String,
+  height2: Number || String,
   weightHistory: [[String|Number]],
 });
 
