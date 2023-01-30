@@ -75,6 +75,27 @@ const RoutinePage = (props) => {
       ...prevProps,
       routineOptions: prevProps.routineOptions.concat(newOption),
     }))
+    setMessage('Option added!')
+  };
+
+  const handleDelete = (event) => {
+    const {name} = event.target;
+    const newOptions = options.filter((option) => (option !== name));
+    const newData = {
+      userId: props.userId,
+      routineOptions: newOptions,
+    };
+    weekDays.map((day) => {
+      if (data[day] === name) {
+        newData[day] = 'Rest';
+        document.getElementById(day + 'Rest').checked = true;
+      } else {
+        newData[day] = data.day;
+      };
+    });
+    setOptions(newOptions);
+    setData(newData);
+    setMessage('Option deleted!')
   };
 
   const handleOptionChange = (event) => {
@@ -103,6 +124,16 @@ const RoutinePage = (props) => {
           <button type='submit'>+Add Option</button>
           <input type= "text" placeholder='Specify your Option' onChange={handleOptionChange}/>
       </form>
+      <div>
+        {options.map((option) => {
+          if (option === 'Rest') {return(<p>{option}</p>)};
+          return(
+          <div>
+            <p>{option}</p>
+            <button name={option} onClick={handleDelete}>Delete Option</button>
+          </div>)
+        })}
+      </div>
     </div>
   );
 };
