@@ -82,7 +82,10 @@ const LogWorkout = (props) => {
         (navigate('/'));
 
     };
-    const handleExerciseDelete = () => {
+    const handleExerciseDelete = (i) => {
+        const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps, weightUsed: data.weightUsed}
+        post('/api/deleteexercise', body).then(()=> data.exerciseList.splice(i,1));
+        setData(data.splice(i,1));
 
     }
     return (
@@ -167,11 +170,26 @@ const LogWorkout = (props) => {
                             </div>
                         </tr>
                         <tr>
-                            {data.map((arr) => {
-                                <td>arr.exercise</td>
+                            {data.map((arr,i) => {
+                                return(
+                                <div>
+                                <tr>
+                                    <td>arr.exercise</td>
+                                    <td>arr.sets</td>
+                                    <td>arr.reps</td>
+                                    <td>arr.weightUsed</td>
+                                </tr>
+                                <button type='submit' onClick={handleExerciseDelete(i)}>Delete Exercise</button>
+                                </div>
+                          
                                 
-
+                               
+                                )
+                                
                             })}
+                            
+                            
+                            
                             {/* <td>{data.exercise}</td>
                             <td>{data.sets}</td>
                             <td>{data.reps}</td>
