@@ -8,13 +8,18 @@ import "./WorkoutRequestForm.css"
 
 const WorkoutRequestPopup = (props) =>  {
   const acceptWorkout = (event) => {
-    post("/api/plannedworkout", {userId: props.userId, buddy: props.requester, time: props.time, routine: props.routine, notes: props.notes});
-    post("/api/plannedworkout", {userId: props.requester, buddy: props.userId, time: props.time, routine: props.routine, notes: props.notes});
-    post("/api/removeworkoutrequest", {userId: props.userId, requester: props.requester, time: props.time, routine: props.routine, notes: props.notes})
+    const promise1 = post("/api/plannedworkout", {userId: props.userId, buddy: props.requester, time: props.time, routine: props.routine, notes: props.notes});
+    const promise2 =post("/api/plannedworkout", {userId: props.requester, buddy: props.userId, time: props.time, routine: props.routine, notes: props.notes});
+    const promise3 = post("/api/removeworkoutrequest", {userId: props.userId, requester: props.requester, time: props.time, routine: props.routine, notes: props.notes});
+    Promise.all([promise1, promise2, promise3]).then(() =>{
+      props.setFriendsNumber((prevFriendsNumber) => prevFriendsNumber + 1);
+    })
     props.setShowPopup(false);
   };
   const declineWorkout = (event) => {
-    post("/api/removeworkoutrequest", {userId: props.userId, requester: props.requester, time: props.time, routine: props.routine, notes: props.notes})
+    post("/api/removeworkoutrequest", {userId: props.userId, requester: props.requester, time: props.time, routine: props.routine, notes: props.notes}).then((workout) => {
+      props.setFriendsNumber((prevFriendsNumber) => prevFriendsNumber + 1);
+    })
     props.setShowPopup(false);
   }
   const closeForm = (event) => {
