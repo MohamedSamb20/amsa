@@ -84,7 +84,7 @@ const FriendRequests = (props) => {
                             <button id={person._id} onClick={deleteRequest}>Cancel</button>
                         </div>)
                 })}
-                {showPopup? <WorkoutRequestPopup userId={props.userId} requesterName={popupUser.name} requester={data.requester} time={data.time} routine={data.routine} notes={data.notes} setShowPopup={setShowPopup}/>: <></>}
+                {showPopup? <WorkoutRequestPopup setFriendsNumber={props.setFriendsNumber} userId={props.userId} requesterName={popupUser.name} requester={data.requester} time={data.time} routine={data.routine} notes={data.notes} setShowPopup={setShowPopup}/>: <></>}
         </div>
     );
 }

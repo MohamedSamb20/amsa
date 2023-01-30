@@ -14,9 +14,12 @@ const WorkoutRequestForm = (props) =>  {
     notes: '',
   })
   const sendRequest = (event) => {
-    post("/api/workoutrequest", {userId: props.requestee, requester: props.requester, hour: data.workoutHour, minute: data.workoutMinute, routine: data.workoutRoutine, notes: data.notes})
+    post("/api/workoutrequest", {userId: props.requestee, requester: props.requester, hour: data.workoutHour, minute: data.workoutMinute, routine: data.workoutRoutine, notes: data.notes}).then((res) => {
+      props.setFriendsNumber((prevFriendsNumber) => prevFriendsNumber + 1);
+    })
     props.setShowForm(false);
   };
+  
   const closeForm = (event) => {
     props.setShowForm(false);
   }
