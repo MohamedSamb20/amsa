@@ -30,6 +30,9 @@ const router = express.Router();
 //initialize socket
 const socketManager = require("./server-socket");
 
+const DAYS_IN_MONTH =[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
 router.get("/whoami", (req, res) => {
@@ -151,7 +154,7 @@ router.post("/settings", auth.ensureLoggedIn, (req, res) => {
   Setting.findOne({ userId: req.body.userId}).then((set) => {
     weights = (set === null)? []: set.weightHistory;
     const currentDate = new Date();
-    const dateInString = `${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getYear()}`;
+    const dateInString = `${MONTHS[currentDate.getMonth()]} ${currentDate.getDate()}`;
     weights.push([dateInString, req.body.weight]);
     const posted = {
       userId: req.body.userId,
@@ -258,7 +261,6 @@ router.get("/streak", (req, res) => {
 });
 
 router.post("/workoutrequest", auth.ensureLoggedIn, (req, res) => {
-  const DAYS_IN_MONTH =[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   const currentTime = new Date();
   let dayOffset = currentTime.getDate();
   let monthOffset = currentTime.getMonth() + 1;
