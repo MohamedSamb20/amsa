@@ -19,6 +19,7 @@ const Friendrequest = require("./models/friendrequest");
 const Workoutrequest = require("./models/workoutrequest");
 const LastWorkout = require("./models/lastworkout");
 const Plannedworkout = require("./models/plannedworkout");
+const Routine = require("./models/routine.js");
 
 // import authentication library
 const auth = require("./auth");
@@ -340,7 +341,8 @@ router.post("/routine", auth.ensureLoggedIn, (req, res) => {
 router.get("/routine", (req, res) => {
   Routine.findOne({ userId: req.query.userId}).then((routine) => {
     if (routine === null) {routine = false}
-    res.send(routine);});});
+    res.send(routine);});
+  });
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
