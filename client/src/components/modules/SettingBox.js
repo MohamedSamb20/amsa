@@ -1,13 +1,13 @@
 import React from "react";
 import "../../utilities.css";
-
+import "./SettingBox.css";
 
 const SettingBox = (props) => {
     if (props.unit === 'Not set') { return(<></>)};
     if (props.name === 'weight') {return(
         <div>
             <p>Set Weight</p>
-            <div>
+            <div className="boxContainer">
                 <input
                 type="number"
                 name="weight"
@@ -23,7 +23,7 @@ const SettingBox = (props) => {
         if (props.unit === 'cm') {
             return (<div>
                 <p>Set Height</p>
-                <div>
+                <div className="boxContainer">
                     <input
                     type="number"
                     name="height"
@@ -39,7 +39,7 @@ const SettingBox = (props) => {
             return(
                 <div>
                     <p>Set Height</p>
-                    <div>
+                    <div className="boxContainer">
                     <input
                         type="number"
                         name="height1"

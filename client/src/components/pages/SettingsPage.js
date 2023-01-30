@@ -82,7 +82,8 @@ const Settings = (props) => {
             <label for="ft">ft</label>
           </form>
 
-
+          <SettingBox name ='height' unit={data.heightUnit} data={data} handleInputChange={handleInputChange}/>
+          
           <div className="second-box">
             <p>Select Weight Unit</p>
             <form onChange={handleInputChange}>
@@ -93,7 +94,7 @@ const Settings = (props) => {
             </form>
           </div>
 
-          <SettingBox name ='height' unit={data.heightUnit} data={data} handleInputChange={handleInputChange}/>
+          
           <SettingBox name='weight' unit={data.weightUnit} data={data} handleInputChange={handleInputChange}/>
           <button type="submit">Save</button>
           <button type = 'reset'> Reset </button>
