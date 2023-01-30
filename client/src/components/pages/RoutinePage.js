@@ -75,16 +75,28 @@ const RoutinePage = (props) => {
       ...prevProps,
       routineOptions: prevProps.routineOptions.concat(newOption),
     }))
+    setMessage('Option added!')
   };
 
   const handleDelete = (event) => {
     const {name} = event.target;
-    const newOptions = options.filter((option) => (option !== name))
-    setOptions(newOptions);
-    setData((prevProps) => ({
-      ...prevProps,
+    const newOptions = options.filter((option) => (option !== name));
+    const newData = {
+      userId: props.userId,
       routineOptions: newOptions,
-    }))
+    };
+    weekDays.map((day) => {
+      if (data[day] === name) {
+        newData[day] = 'Rest';
+        alert(day+'Rest');
+        document.getElementById(day + 'Rest').checked = true;
+      } else {
+        newData[day] = data.day;
+      };
+    });
+    setOptions(newOptions);
+    setData(newData);
+    setMessage('Option deleted!')
   };
 
   const handleOptionChange = (event) => {
