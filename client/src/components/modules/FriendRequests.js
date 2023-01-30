@@ -12,7 +12,9 @@ const FriendRequests = (props) => {
     const [workoutRequests, setWorkoutRequests] = useState([]);
     const [pendingWorkoutRequests, setPendingWorkoutRequests] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
-    const [data, setData] = useState({})
+    const [data, setData] = useState({});
+    const [requestingUsers, setRequestingUsers] = useState([])
+    const [popupUser, setPopupUser] = useState({})
     useEffect(() => {
         get("/api/friendrequests", {userId: props.userId})
         .then((requestsList) => requestsList.map((request) => get("/api/user", {userId: request.requester})))
@@ -22,17 +24,13 @@ const FriendRequests = (props) => {
         });
         get("/api/workoutrequests", {userId: props.userId})
         .then((requests) => {
-            const requestsList = requests.map(async (request) => {
-                const user = await get("/api/user", {userId: request.requester});
-                return {
-                    requester : user.name,
-                    time: request.time,
-                    routine: request.routine,
-                    notes: request.notes,
-                    requestTime: request.requestTime,
-                };
-            })
-            setWorkoutRequests(requestsList);
+            setWorkoutRequests(requests)
+            return requests
+        })
+        .then((requestsList) => requestsList.map((request) => get("/api/user", {userId: request.requester})))
+        .then(async (users) => {
+            const requestingUsers = await Promise.all(users);
+            setRequestingUsers( requestingUsers);
         });
         get("/api/outgoingrequests", {userId: props.userId})
         .then((requestsList) => requestsList.map((request) => get("/api/user", {userId: request.userId})))
@@ -57,22 +55,27 @@ const FriendRequests = (props) => {
         });
     }
     const openPopup = (event) => {
-        setData(event.target.id);
-        setShowPopup(true)
+        const requestToOpen = workoutRequests.find((request) => request.requester === event.target.id);
+        const user = requestingUsers.find((user) => user._id === event.target.id);
+        setData(requestToOpen);
+        console.log(user);
+        setPopupUser(user);
+        setShowPopup(true);
+
     }
     return (<div className="FriendRequest-container">
                 <div >Incoming Requests:</div>
-                {friendRequests.map((person) => {
+                {friendRequests.map(async (person) => {
                     return (<div>
                             Friend Request From: {person.name} 
                             <button id={person._id} onClick={addFriendship}>Accept</button>
                         </div>)
                 })}
-                {workoutRequests.map((request) => {
+                {requestingUsers.map((requester) => {
                     return (<div>
-                            Workout Request From: {request.requester} 
-                            <button id={request} onClick={openPopup}>Open</button>
-                        </div>)
+                            Workout Request From: {requester.name} 
+                            <button id={requester._id} onClick={openPopup}>Open</button>
+                        </div>);
                 })}
                 <div >Pending Requests:</div>
                 {pendingFriendRequests.map((person) => {
@@ -81,7 +84,7 @@ const FriendRequests = (props) => {
                             <button id={person._id} onClick={deleteRequest}>Cancel</button>
                         </div>)
                 })}
-                {showPopup? <WorkoutRequestPopup requester={data.requester} time={data.time} routine={data.routine} notes={data.notes} setShowPopup={setShowPopup}/>: <></>}
+                {showPopup? <WorkoutRequestPopup userId={props.userId} requesterName={popupUser.name} requester={data.requester} time={data.time} routine={data.routine} notes={data.notes} setShowPopup={setShowPopup}/>: <></>}
         </div>
     );
 }

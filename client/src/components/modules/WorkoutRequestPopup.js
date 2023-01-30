@@ -10,11 +10,11 @@ const WorkoutRequestPopup = (props) =>  {
   const acceptWorkout = (event) => {
     post("/api/plannedworkout", {userId: props.userId, buddy: props.requester, time: props.time, routine: props.routine, notes: props.notes});
     post("/api/plannedworkout", {userId: props.requester, buddy: props.userId, time: props.time, routine: props.routine, notes: props.notes});
-    post("api/removeworkoutrequest", {userId: props.userId, requester: props.requester, time: props.time, routine: props.routine, notes: props.notes})
+    post("/api/removeworkoutrequest", {userId: props.userId, requester: props.requester, time: props.time, routine: props.routine, notes: props.notes})
     props.setShowPopup(false);
   };
   const declineWorkout = (event) => {
-    post("api/removeworkoutrequest", {userId: props.userId, requester: props.requester, time: props.time, routine: props.routine, notes: props.notes})
+    post("/api/removeworkoutrequest", {userId: props.userId, requester: props.requester, time: props.time, routine: props.routine, notes: props.notes})
     props.setShowPopup(false);
   }
   const closeForm = (event) => {
@@ -23,7 +23,7 @@ const WorkoutRequestPopup = (props) =>  {
   return (
     <div className="WorkoutRequestPopup-container">
       <div>
-        From: {props.requester}
+        From: {props.requesterName}
       </div>
       <div>
         Time: {props.time}

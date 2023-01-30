@@ -17,7 +17,8 @@ const Setting = require("./models/settings");
 const Friendship = require("./models/friendship");
 const Friendrequest = require("./models/friendrequest");
 const Workoutrequest = require("./models/workoutrequest");
-const LastWorkout = require("./models/lastworkout")
+const LastWorkout = require("./models/lastworkout");
+const Plannedworkout = require("./models/plannedworkout");
 
 // import authentication library
 const auth = require("./auth");
@@ -313,7 +314,7 @@ router.post("/plannedworkout", auth.ensureLoggedIn, (req, res) => {
   const newRequest = new Plannedworkout({
     userId: req.body.userId,
     workoutBuddy : req.body.buddy,
-    time: time,
+    time: req.body.time,
     routine: req.body.routine,
     notes: req.body.notes,
   });
