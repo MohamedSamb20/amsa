@@ -159,6 +159,8 @@ router.post("/settings", auth.ensureLoggedIn, (req, res) => {
       heightUnit: req.body.heightUnit,
       height: req.body.height,
       weight: req.body.weight,
+      height1: req.body.height1,
+      height2: req.body.height2,
       weightHistory: weights,
     };
     Setting.findOne({ userId: req.body.userId}).then((setting) =>{
