@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
 import "../../utilities.css";
-
+import BioHeight from "./BioHeight.js"
 
 
 const Bio = (props) =>  {
@@ -15,10 +15,12 @@ const Bio = (props) =>  {
   useEffect(() => {
     get("/api/settings", {userId :props.userId}).then((setting) => {
       if (setting === false) {setting = {
-        weight: 'Not set',
-        height : 'Not set',
-        heightUnit : '',
-        weightUnit : ''
+        weight: '',
+        height : '',
+        height2:'',
+        height1:'',
+        heightUnit : 'Not set',
+        weightUnit : 'Not set'
       }};
       setSettings(setting);
     });
@@ -33,7 +35,7 @@ const Bio = (props) =>  {
   return (
     <>
       <p> Weight: {settings.weight} {settings.weightUnit}</p>
-      <p> Height: {settings.height} {settings.heightUnit}</p>
+      <BioHeight unit={settings.heightUnit} height={settings.height} height1={settings.height1} height2={settings.height2}/>
       <p> Your Workout Streak: {streak}</p>
       {/* <button type='Change' Link = "/settings"> Change Settings </button> */}
     </>
