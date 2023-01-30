@@ -81,6 +81,10 @@ router.get("/exercise", (req, res) => {
   });
 }
 );
+router.post("/deleteexercise", auth.ensureLoggedIn, (req, res) => {
+  Exercise.findOneAndDelete({exercise: req.body.exercise, userId: req.body.userId}).then((result) => {res.send(result)});
+
+});
 router.post("/workout", auth.ensureLoggedIn, (req, res) => {
   
     

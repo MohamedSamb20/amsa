@@ -6,12 +6,13 @@ import "./LogWorkout.css"
 import "./HomePage.css"
 import { Link } from "@reach/router";
 import { navigate } from "@reach/router";
+import Table from '../modules/Table.js';
 const LogWorkout = (props) => {
 
     document.title = 'Log Workout'
- 
+    const [val, setVal] = useState([]);
     const [data,setData] = useState(
-    {
+    [{
         exercise:'',
         workoutType:'',
         sets:0,
@@ -20,7 +21,7 @@ const LogWorkout = (props) => {
         weightUnit:'',
         exerciseList: []
                 
-    });
+    }]);
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setData((prevProps) => ({
@@ -29,9 +30,25 @@ const LogWorkout = (props) => {
         }));
         
       };
-  
+     
+    const handleAdd = () => {
+        const abc = [...val, []];
+        console.log(abc);
+        setVal(abc);
+    }
+    const handleChanges = (onChangeValue,i) => {
+        const inputdata = [...val];
+        inputdata[i] = onChangeValue.target.value;
+        setVal(inputdata);
+    }
+    const handleDelete = (i) => {
+        const deleteVal = [...val];
+        deleteVal.splice(i,1);
+        setVal(deleteVal);
+    }
   
     const sendData = (e) => {
+        //adds exercise to table
         e.preventDefault();
         const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps, weightUsed: data.weightUsed};
         console.log(body);
@@ -57,6 +74,7 @@ const LogWorkout = (props) => {
         console.log('done');
     };
     const handleSubmit = () => {
+        //sends workout to db
         const body = {userId: props.userId, workoutType: data.workoutType, exerciseIds: data.exerciseList, weightUnit:data.weightUnit}
         post('/api/workout', body).then((res)=>console.log(res));
         post('/api/lastworkout', body).then((res)=>console.log(res));
@@ -64,6 +82,9 @@ const LogWorkout = (props) => {
         (navigate('/'));
 
     };
+    const handleExerciseDelete = () => {
+
+    }
     return (
         <div className="LogWorkout-container">
         {props.userId ? 
@@ -72,7 +93,7 @@ const LogWorkout = (props) => {
             <div>
             <div className='category-container'>
 
-            <form onSubmit={sendData}>
+            {/* <form onSubmit={sendData}> */}
 
             
 
@@ -91,14 +112,26 @@ const LogWorkout = (props) => {
                 <p>Sets</p>
                 <input type='number' min='0' name='sets'  value={data.sets} 
                 onChange={handleInputChange}
-                />   
-
+                />
+                
             </div>
 
             <div>
                 <p>Reps</p>
                 <input type='number' min='0' name='reps' value={data.reps}
                 onChange={handleInputChange}/> 
+                <button onClick={()=> handleAdd()}>Add Reps</button>
+                    {val.map((reps,i) => {
+                        return(
+                            <div>
+                                <input type='number' min='0' value={reps} onChange={(e)=>handleChanges(e,i)} />
+                                <button onClick={()=> handleDelete(i)}>x</button>
+                            </div>
+                        )
+                    })
+
+                    }   
+
             </div>
 
             <div>
@@ -114,12 +147,12 @@ const LogWorkout = (props) => {
                 
             </div>
 
-            <button type='submit'>Add to List</button>
+            <button type='submit' onClick={sendData}>Add to List</button>
 
             
             
 
-            </form>
+            {/* </form> */}
             </div>
             
             <div className="table-container">
@@ -134,6 +167,11 @@ const LogWorkout = (props) => {
                             </div>
                         </tr>
                         <tr>
+                            {data.map((arr) => {
+                                <td>arr.exercise</td>
+                                
+
+                            })}
                             {/* <td>{data.exercise}</td>
                             <td>{data.sets}</td>
                             <td>{data.reps}</td>
