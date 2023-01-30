@@ -51,7 +51,7 @@ const CurrentFriends = (props) =>  {
           })}
         </tbody>
       </table>
-      {showForm? <WorkoutRequestForm requester={props.userId} requestee={requestee} setShowForm={setShowForm}/> : <></>}
+      {showForm? <WorkoutRequestForm friendsNumber={props.friendsNumber} setFriendsNumber={props.setFriendsNumber} requester={props.userId} requestee={requestee} setShowForm={setShowForm}/> : <></>}
     </div>
   );
 }
