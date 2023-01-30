@@ -71,8 +71,8 @@ const FriendRequests = (props) => {
                             <button id={person._id} onClick={addFriendship}>Accept</button>
                         </div>)
                 })}
-                {requestingUsers.map((requester) => {
-                    return (<div>
+                {requestingUsers.map((requester, i) => {
+                    return (<div key={i}>
                             Workout Request From: {requester.name} 
                             <button id={requester._id} onClick={openPopup}>Open</button>
                         </div>);

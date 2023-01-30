@@ -19,6 +19,7 @@ const Friendrequest = require("./models/friendrequest");
 const Workoutrequest = require("./models/workoutrequest");
 const LastWorkout = require("./models/lastworkout");
 const Plannedworkout = require("./models/plannedworkout");
+const Routine = require("./models/routine.js");
 
 // import authentication library
 const auth = require("./auth");
@@ -255,8 +256,26 @@ router.get("/streak", (req, res) => {
 });
 
 router.post("/workoutrequest", auth.ensureLoggedIn, (req, res) => {
+  const DAYS_IN_MONTH =[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   const currentTime = new Date();
-  const time = `${currentTime.getFullYear()}-${currentTime.getMonth()}-${currentTime.getDate()}T${req.body.hour}:${req.body.minute}:00`
+  let dayOffset = currentTime.getDate();
+  let monthOffset = currentTime.getMonth() + 1;
+  let yearOffset = currentTime.getFullYear();
+  if(currentTime.getHours() > req.body.hour){
+    dayOffset += 1;
+  } else if(currentTime.getHours() === req.body.hour && currentTime.getMinutes() > req.body.minute){
+    dayOffset += 1;
+  }
+  if(dayOffset > DAYS_IN_MONTH[monthOffset-1]) {
+    monthOffset += 1;
+    dayOffset = 1;
+  }
+  if(monthOffset > 12){
+    yearOffset += 1;
+    monthOffset = 1;
+  }
+
+  const time = `${yearOffset}-${monthOffset}-${dayOffset}T${req.body.hour}:${req.body.minute}:00`
   const newRequest = new Workoutrequest({
     userId: req.body.userId,
     requester : req.body.requester,
@@ -340,7 +359,8 @@ router.post("/routine", auth.ensureLoggedIn, (req, res) => {
 router.get("/routine", (req, res) => {
   Routine.findOne({ userId: req.query.userId}).then((routine) => {
     if (routine === null) {routine = false}
-    res.send(routine);});});
+    res.send(routine);});
+  });
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
