@@ -20,7 +20,7 @@ const WeightChart = (props) => {
         labels: Object.keys(dataPoints),
         datasets: [
           {
-            label: 'Weight (lbs)',
+            label: `Weight`,
             backgroundColor: 'rgba(182, 198, 0, 1)',
             borderColor: 'rgba(182, 198, 0, 1)',
             data: Object.values(dataPoints),
