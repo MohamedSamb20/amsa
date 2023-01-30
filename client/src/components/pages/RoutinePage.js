@@ -77,6 +77,16 @@ const RoutinePage = (props) => {
     }))
   };
 
+  const handleDelete = (event) => {
+    const {name} = event.target;
+    const newOptions = options.filter((option) => (option !== name))
+    setOptions(newOptions);
+    setData((prevProps) => ({
+      ...prevProps,
+      routineOptions: newOptions,
+    }))
+  };
+
   const handleOptionChange = (event) => {
     const {value} = event.target;
     setNewOption(value);
@@ -103,6 +113,16 @@ const RoutinePage = (props) => {
           <button type='submit'>+Add Option</button>
           <input type= "text" placeholder='Specify your Option' onChange={handleOptionChange}/>
       </form>
+      <div>
+        {options.map((option) => {
+          if (option === 'Rest') {return(<p>{option}</p>)};
+          return(
+          <div>
+            <p>{option}</p>
+            <button name={option} onClick={handleDelete}>Delete Option</button>
+          </div>)
+        })}
+      </div>
     </div>
   );
 };
