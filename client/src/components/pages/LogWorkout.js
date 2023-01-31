@@ -10,6 +10,7 @@ const LogWorkout = (props) => {
 
     document.title = 'Log Workout'
     const [val, setVal] = useState([]);
+    const [options, setOptions] = useState([]);
     const [data,setData] = useState(
     {
         exercise:'',
@@ -28,10 +29,20 @@ const LogWorkout = (props) => {
           ...prevProps,
           [name]: value
         }));
-        // alert(data.weightUnit);
+         // alert(options[0]);
         
       };
-     
+    useEffect(() => {
+    get("/api/routine", { userId: props.userId }).then((routine) => {
+        if (routine === false) {
+            routine = {
+            routineOptions: ['Rest', 'Push', 'Pull', 'Legs'],
+            };};
+        const optionsOffered = routine.routineOptions.filter((option) => (option !== 'Rest'));
+        setOptions(optionsOffered);
+        });
+    }, []);
+
     const handleAdd = () => {
         const abc = [...val, []];
         console.log(abc);
@@ -85,11 +96,17 @@ const LogWorkout = (props) => {
 
     };
     const handleExerciseDelete = (i) => {
-        const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps, weightUsed: data.weightUsed}
-        // post('/api/deleteexercise', body).then(()=> data.exerciseList.splice(i,1));
-        setData(data.splice(i,1));
-
+        const newVal = [...data.exerciseList];
+        const newValue = [...allExercises];
+        newVal.splice(i,1);
+        newValue.splice(i,1);
+        setData((prevProps) => ({
+            ...prevProps,
+            exerciseList: newVal
+          }));
+        setExercises(newValue);
     }
+    
     return (
         <div className="LogWorkout-container">
         {props.userId ? 
@@ -103,10 +120,17 @@ const LogWorkout = (props) => {
             
 
         
-            <p>Exercise Type (push,pull, etc)</p>
-            <input type='text' name='workoutType' value={data.workoutType}
-            onChange={handleInputChange}
-            />
+            <p>Workout Type</p>
+            <form onChange={handleInputChange}>
+                {options.map((option) => {
+                    return (
+                        <>
+                            <input type="radio" id={option} name='workoutType' value={option}/>
+                            <label for={option}> {option}</label>
+                        </>
+                    )
+                })}
+            </form>
 
             <p>Enter Exercise</p>
             <input type='text' name='exercise' value={data.exercise}
@@ -180,6 +204,7 @@ const LogWorkout = (props) => {
                                     <td>{arr.sets}</td>
                                     <td>{arr.reps}</td>
                                     <td>{arr.weightUsed}</td>
+                                    <button onClick={(e) => {handleExerciseDelete(i)}} >Delete Exercise</button>
                                 </tr>
                                 /* <button type='submit' onClick={handleExerciseDelete(i)}>Delete Exercise</button> */
                              
