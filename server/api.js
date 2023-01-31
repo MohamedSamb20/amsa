@@ -371,6 +371,13 @@ router.get("/routine", (req, res) => {
     res.send(routine);});
   });
 
+router.get("/userWithUsername", () => {
+  Settings.find({username: req.query.username}).then((users) => {
+    if(users === null) res.send(false);
+    else res.send(true);
+  })
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
