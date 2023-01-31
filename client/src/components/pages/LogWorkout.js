@@ -10,6 +10,7 @@ const LogWorkout = (props) => {
 
     document.title = 'Log Workout'
     const [val, setVal] = useState([]);
+    const [options, setOptions] = useState([]);
     const [data,setData] = useState(
     {
         exercise:'',
@@ -28,10 +29,20 @@ const LogWorkout = (props) => {
           ...prevProps,
           [name]: value
         }));
-        // alert(data.weightUnit);
+         // alert(options[0]);
         
       };
-     
+    useEffect(() => {
+    get("/api/routine", { userId: props.userId }).then((routine) => {
+        if (routine === false) {
+            routine = {
+            routineOptions: ['Rest', 'Push', 'Pull', 'Legs'],
+            };};
+        const optionsOffered = routine.routineOptions.filter((option) => (option !== 'Rest'));
+        setOptions(optionsOffered);
+        });
+    }, []);
+
     const handleAdd = () => {
         const abc = [...val, []];
         console.log(abc);
@@ -104,9 +115,16 @@ const LogWorkout = (props) => {
 
         
             <p>Exercise Type (push,pull, etc)</p>
-            <input type='text' name='workoutType' value={data.workoutType}
-            onChange={handleInputChange}
-            />
+            <form onChange={handleInputChange}>
+                {options.map((option) => {
+                    return (
+                        <>
+                            <input type="radio" id={option} name='workoutType' value={option}/>
+                            <label for={option}> {option}</label>
+                        </>
+                    )
+                })}
+            </form>
 
             <p>Enter Exercise</p>
             <input type='text' name='exercise' value={data.exercise}
