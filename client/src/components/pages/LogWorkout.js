@@ -120,7 +120,7 @@ const LogWorkout = (props) => {
             
 
         
-            <p>Exercise Type (push,pull, etc)</p>
+            <p>Workout Type</p>
             <form onChange={handleInputChange}>
                 {options.map((option) => {
                     return (
