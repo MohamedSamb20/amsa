@@ -65,7 +65,7 @@ const FriendRequests = (props) => {
     }
     return (<div className="FriendRequest-container">
                 <div >Incoming Requests:</div>
-                {friendRequests.map(async (person) => {
+                {friendRequests.map((person) => {
                     return (<div>
                             Friend Request From: 
                             <img className="" src={person.photo} />
