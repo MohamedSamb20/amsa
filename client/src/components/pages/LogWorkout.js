@@ -3,7 +3,6 @@ import { get, post } from "../../utilities";
 import "../../utilities.css";
 import PostLoginNavbar from "../modules/PostLoginNavbar";
 import "./LogWorkout.css"
-import "./HomePage.css"
 import { Link } from "@reach/router";
 import { navigate } from "@reach/router";
 import Table from '../modules/Table.js';
