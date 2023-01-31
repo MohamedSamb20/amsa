@@ -16,7 +16,7 @@ const Bio = (props) =>  {
     heightUnit : '',
     weightUnit : '',
   });
-  const [profilePhoto, setProfilePhoto] = useState('');
+  const [user, setUser] = useState(undefined);
   useEffect(() => {
     get("/api/settings", {userId :props.userId}).then((setting) => {
       if (setting === false) {setting = {
@@ -34,7 +34,7 @@ const Bio = (props) =>  {
       setStreak(user.streak);
     });
     get("/api/user", {userId: props.userId}).then((user) => {
-      setProfilePhoto(user.photo);
+      setUser(user);
     })
   }, []);
 
@@ -43,8 +43,8 @@ const Bio = (props) =>  {
   
   return (
     <>
-      <img className="Bio-profilePhoto" src={profilePhoto} />
-      <h2>Welcome back {settings.username}</h2>
+      <img className="Bio-profilePhoto" src={(user)? user.photo: undefined} />
+      <h2>Welcome back {settings.username ?? user.name}</h2>
       <p> Weight: {settings.weight} {settings.weightUnit}</p>
       <BioHeight unit={settings.heightUnit} height={settings.height} height1={settings.height1} height2={settings.height2}/>
       <p> Your Workout Streak: {streak}</p>
