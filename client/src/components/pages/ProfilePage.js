@@ -8,27 +8,21 @@ import LastWorkout from "../modules/LastWorkout.js"
 const ProfilePage = (props) => {
     document.title = 'Profile'
     return (
+        
         <div className="ProfilePage-container">
-            <div className='columns is-vcentered'>
-                
-                    <div className='column'>
-                        <div className="ProfilePage-chart">
-                            <WeightChart userId = {props.userId}/>
-                        </div>
-                        <div className="ProfilePage-progression">
-                            Last Workout
-                            <LastWorkout userId= {props.userId}/>
-                        </div>
-                    </div>
-                    <div className='column'>
-                        <div className="ProfilePage-bio">
-                            <Bio userId = {props.userId}/>
-                        </div>
-                        <div className="ProfilePage-friends">
-                            <Friends userId = {props.userId} />
-                        </div>
-                    </div>
-                </div>
+            <div className="ProfilePage-chart">
+                <WeightChart userId = {props.userId}/>
+            </div>
+            <div className="ProfilePage-progression">
+                Last Workout
+                <LastWorkout userId= {props.userId}/>
+            </div>
+            <div className="ProfilePage-bio">
+                <Bio userId = {props.userId}/>
+            </div>
+            <div className="ProfilePage-friends">
+                <Friends userId = {props.userId} />
+            </div>
         </div>
     );
 }

@@ -1,8 +1,12 @@
 .Navbar-container {
-    background-color: #0A0A0A;
+    /* background: linear-gradient(180deg, #130E0E 0%, #272727 100%); */
+    background-color: #0A0A0A; ;
     display: flex;
     color: white;
-    border-bottom: 2px yellow;
+    /* background-color: lightgreen; */
+    position: abolute;
+    padding: 0;
+    
 }
 
 .Navbar-image {
@@ -24,23 +28,24 @@
     flex: 3;
     margin: 4px;
     border: none;
-    background-color: #0A0A0A;
+    /* background-color: #0A0A0A; */
     
     color: white;
 
-    margin-top: 10px;
-    font-family: 'Montserrat', sans-serif;
-    font-family: 'Saira', sans-serif;
-font-size: 18px;
+    margin-top: 16px;
+    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Saira', sans-serif; */
+font-size: 16px;
 font-style: normal;
 font-weight: normal;
 letter-spacing: normal;
 
 }
 .Navbar-button:hover{
-    border-bottom: 1px solid lightgoldenrodyellow;
-   
-    color: white;
+    /* border-bottom: 3px solid lightskyblue; */
+    
+    transition: all .2s ease-in;
+    color: #BF1A2F;
 }
 .Navbar-home{
     /* padding: 10px;
@@ -49,13 +54,16 @@ letter-spacing: normal;
     font: Montserrat;
     font-weight: 400;
     font-size: 15px; */
-    font-family: 'Montserrat', sans-serif;
-    font-family: 'Saira', sans-serif;
-font-size: 18px;
+    /* transition-duration: 2s; */
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    justify-content: space-around;
+    /* font-family: 'Saira', sans-serif; */
+font-size: 16px;
 font-style: normal;
 font-weight: normal;
 letter-spacing: normal;
-margin-top: 10px;
+margin-top: 16px;
 margin-left: 50%;
 /* line-height: 156px; */
 /* text-transform: uppercase; */

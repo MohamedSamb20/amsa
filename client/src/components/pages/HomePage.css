@@ -1,11 +1,17 @@
+.HonePage-large-container{
+    display: flex;
+    flex-direction: column;
+    
+}
 .HomePage-container {
-    background-color: #0A0A0A;
+    /* background: linear-gradient(180deg, #130E0E 0%, #272727 100%); */
     /* 0C0C0C */
-    /* background-color: #232528; */
+    background-color: #0A0A0A;
     display: flex;
     padding: 8px;
     height: 95vh;
     overflow: auto;
+    
 }
 
 .HomePage-leftside {
@@ -16,6 +22,7 @@
 }
 
 .HomePage-rightside {
+    margin-top: 6px;
     flex:1;
     display: flex;
     text-decoration: underline;
@@ -45,7 +52,21 @@ text-align: left;
     vertical-align: middle;
     
 }
-.HonePage-motto{
+.HomPage-motto{
     font-size: x-small;
 }
-
+.HomePage-second{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: inherit;
+   
+    
+}
+.HomePage-third{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 92vh;
+    
+}
