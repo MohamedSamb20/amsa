@@ -1,5 +1,5 @@
 .Navbar-container {
-    background-color: rgb(28, 27, 27);
+    background-color: #232528;
     display: flex;
     color: white;
     border-bottom: 2px gray;
@@ -20,7 +20,7 @@
     flex: 3;
     margin: 4px;
     border: none;
-    background-color: rgb(28, 27, 27);
+    background-color: #232528;
     color: white;
 }
 
