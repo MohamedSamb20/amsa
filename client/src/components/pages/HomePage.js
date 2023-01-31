@@ -20,6 +20,7 @@ const HomePage = (props) => {
                     <h2>TAKE CONTROL</h2>
                 </div>
             </div>
+           
         </div>
     );
 }

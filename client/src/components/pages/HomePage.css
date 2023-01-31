@@ -1,9 +1,11 @@
 .HomePage-container {
-    background-color: #232528;
+    background-color: #0A0A0A;
+    /* 0C0C0C */
     /* background-color: #232528; */
     display: flex;
     padding: 8px;
-    height: 92vh;
+    height: 95vh;
+    overflow: auto;
 }
 
 .HomePage-leftside {
@@ -19,6 +21,16 @@
     text-decoration: underline;
     color: white;
     align-items: center;
+    font-size: xx-large;
+
+    font-family: 'Montserrat', sans-serif;
+    
+font-size: 40px;
+font-weight: 700;
+line-height: 49px;
+letter-spacing: 0em;
+text-align: left;
+
     
 }
 
@@ -26,11 +38,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 37.5vw;
-    height: 37.5vw;
+    width: 27.5vw;
+    height: 27.5vw;
     border-radius: 50%;
     background-color: lightgray;
     vertical-align: middle;
     
+}
+.HonePage-motto{
+    font-size: x-small;
 }
 
