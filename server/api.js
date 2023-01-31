@@ -165,6 +165,7 @@ router.post("/settings", auth.ensureLoggedIn, (req, res) => {
       height1: req.body.height1,
       height2: req.body.height2,
       weightHistory: weights,
+      username: req.body.username,
     };
     Setting.findOne({ userId: req.body.userId}).then((setting) =>{
       if (setting === null) {

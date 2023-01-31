@@ -10,6 +10,7 @@ import "./Bio.css"
 const Bio = (props) =>  {
   const [streak, setStreak] = useState(0);
   const [settings, setSettings] = useState({
+    username: 'Loading...',
     weight : 'Loading...',
     height : 'Loading...',
     heightUnit : '',
@@ -24,7 +25,8 @@ const Bio = (props) =>  {
         height2:'',
         height1:'',
         heightUnit : 'Not set',
-        weightUnit : 'Not set'
+        weightUnit : 'Not set',
+        username: ''
       }};
       setSettings(setting);
     });
@@ -42,6 +44,7 @@ const Bio = (props) =>  {
   return (
     <>
       <img className="Bio-profilePhoto" src={profilePhoto} />
+      <h2>Welcome back {settings.username}</h2>
       <p> Weight: {settings.weight} {settings.weightUnit}</p>
       <BioHeight unit={settings.heightUnit} height={settings.height} height1={settings.height1} height2={settings.height2}/>
       <p> Your Workout Streak: {streak}</p>

@@ -8,6 +8,7 @@ import "./FriendSearch.css"
 const FriendSearch = (props) => {
     const [value, setValue] = useState("");
     const [people, setPeople] = useState([]);
+    const [idToUsername, setIdToUsername] = useState({});
     const handleChange = (event) => {
         setValue(event.target.value);
       };
@@ -15,6 +16,13 @@ const FriendSearch = (props) => {
         event.preventDefault();
         const body = {value: value};
         get("/api/people", body).then((searchResult)=>{
+            const IDToUser = {}
+            searchResult.map((user) => {
+                get("/api/settings", {userId: user._id}).then((settings) => {
+                    IDToUser[user._id] = settings.username
+                })
+            })
+            setIdToUsername(IDToUser);
             setPeople(searchResult);
         });
         setValue("");
@@ -32,7 +40,7 @@ const FriendSearch = (props) => {
     return (<div className="FriendSearch-container">
                 <div >Search the site:</div>
                 <input type="text"
-                        placeholder={props.defaultText}
+                        placeholder="Search for a users name"
                         value={value}
                         onChange={handleChange}
                         className="FriendsSearch-input" />
@@ -45,7 +53,7 @@ const FriendSearch = (props) => {
                 {people.filter((person) => person._id !== props.userId).map((person) => {
                     return (<div>
                             <img className="" src={person.photo} />
-                            {person.name}
+                            {person.name} ({idToUsername[person._id]})
                             <button id={person._id} onClick={handleFriendRequest}>Request</button>
                         </div>)
                 })}

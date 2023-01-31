@@ -19,6 +19,7 @@ const Settings = (props) => {
         weightUnit : 'Not set',
         height1: '',
         height2:'',
+        username: '',
       }};
       setData(setting);
       setPrev(setting);
@@ -74,6 +75,9 @@ const Settings = (props) => {
     <div className="HomePage-container">
       <form onSubmit={sendData} onReset = {handleReset}>
         <div className="category-container">
+          <p>Select a Username</p>
+          <input type="text" name ='username' placeholder="Enter a username" value={data.username} onChange={handleInputChange} className="SettingsPage-username" />
+          
           <p>Select Height Unit</p>
           <form onChange={handleInputChange}>
             <input type="radio" id="cm" name="heightUnit" value="cm"/>
