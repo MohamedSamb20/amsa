@@ -29,7 +29,7 @@ const LogWorkout = (props) => {
           ...prevProps,
           [name]: value
         }));
-        alert(data.weightUnit);
+        // alert(data.weightUnit);
         
       };
      
@@ -65,14 +65,14 @@ const LogWorkout = (props) => {
 
         
         e.preventDefault();
-        let template = `<tr>
-                            <td>${data.exercise}</td>
-                            <td>${data.sets}</td>
-                            <td>${data.reps}</td>
-                            <td>${data.weightUsed}</td>
-                        </tr>
-                        `;
-        tbodyEl.innerHTML += template;
+        // let template = `<tr>
+        //                     <td>${data.exercise}</td>
+        //                     <td>${data.sets}</td>
+        //                     <td>${data.reps}</td>
+        //                     <td>${data.weightUsed}</td>
+        //                 </tr>
+        //                 `;
+        // tbodyEl.innerHTML += template;
         
         console.log('done');
     };
@@ -165,25 +165,25 @@ const LogWorkout = (props) => {
                 <table>
                     <tbody>
                         <tr>
-                            <div className='test'>
+                            
                                 <th>Exercise</th>
                                 <th>Sets</th>
                                 <th>Reps</th>
                                 <th>Weight Used ({data.weightUnit}) </th>
-                            </div>
+                            
                         </tr>
-                        <tr>
+                        {/* <tr> */}
                             {allExercises.map((arr,i) => {
                                 return(
-                                <>
+                               
                                 <tr>
                                     <td>{arr.exercise}</td>
                                     <td>{arr.sets}</td>
                                     <td>{arr.reps}</td>
                                     <td>{arr.weightUsed}</td>
                                 </tr>
-                                {/* <button type='submit' onClick={handleExerciseDelete(i)}>Delete Exercise</button> */}
-                                </>
+                                /* <button type='submit' onClick={handleExerciseDelete(i)}>Delete Exercise</button> */
+                             
                           
                                 
                                
@@ -197,7 +197,7 @@ const LogWorkout = (props) => {
                             <td>{data.sets}</td>
                             <td>{data.reps}</td>
                             <td>{data.weightUsed}</td> */}
-                        </tr>
+                        {/* </tr> */}
                     </tbody>
                 </table>
             </div>

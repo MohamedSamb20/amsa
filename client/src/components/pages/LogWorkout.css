@@ -80,3 +80,6 @@ border-radius: 16px; */
     flex-direction: column;
     /* flex-wrap: wrap; */
 }
+.test {
+    width: auto;
+}
