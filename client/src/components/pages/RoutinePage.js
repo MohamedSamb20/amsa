@@ -70,6 +70,11 @@ const RoutinePage = (props) => {
   }
   const handleAbort = (e) => {
     e.preventDefault();
+    if (options.includes(newOption)) {
+      alert('Already there');
+      return('empty')};
+    if (options.length === 8) {alert('You can only have 8 options' );
+  return('')}
     setOptions((options) => options.concat(newOption));
     setData((prevProps) => ({
       ...prevProps,
