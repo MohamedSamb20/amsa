@@ -41,7 +41,7 @@ const Settings = (props) => {
         })
       );
     }else if(name === "username"){
-      get("/api/userWithUsername", {username: value}).then((taken) => {
+      get("/api/userWithUsername", {username: value, userId: props.userId}).then((taken) => {
         setUsernameTaken(taken);
       })
       setData((prevProps) => ({

@@ -371,9 +371,9 @@ router.get("/routine", (req, res) => {
     res.send(routine);});
   });
 
-router.get("/userWithUsername", () => {
-  Settings.find({username: req.query.username}).then((users) => {
-    if(users === null) res.send(false);
+router.get("/userWithUsername", (req, res) => {
+  Setting.findOne({username: req.query.username}).then((setting) => {
+    if(setting === null || setting.userId === req.query.userId) res.send(false);
     else res.send(true);
   })
 });
