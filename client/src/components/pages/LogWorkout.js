@@ -12,22 +12,24 @@ const LogWorkout = (props) => {
     document.title = 'Log Workout'
     const [val, setVal] = useState([]);
     const [data,setData] = useState(
-    [{
+    {
         exercise:'',
         workoutType:'',
         sets:0,
         reps:0,
         weightUsed:0,
-        weightUnit:'',
+        weightUnit:'lbs',
         exerciseList: []
                 
-    }]);
+    });
+    const [allExercises, setExercises] = useState([]);
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setData((prevProps) => ({
           ...prevProps,
           [name]: value
         }));
+        alert(data.weightUnit);
         
       };
      
@@ -52,6 +54,7 @@ const LogWorkout = (props) => {
         e.preventDefault();
         const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps, weightUsed: data.weightUsed};
         console.log(body);
+        setExercises([...allExercises, body]);
       
         post('/api/exercise', body).then((res) => {data.exerciseList.push(res._id)});
      
@@ -84,7 +87,7 @@ const LogWorkout = (props) => {
     };
     const handleExerciseDelete = (i) => {
         const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps, weightUsed: data.weightUsed}
-        post('/api/deleteexercise', body).then(()=> data.exerciseList.splice(i,1));
+        // post('/api/deleteexercise', body).then(()=> data.exerciseList.splice(i,1));
         setData(data.splice(i,1));
 
     }
@@ -170,17 +173,17 @@ const LogWorkout = (props) => {
                             </div>
                         </tr>
                         <tr>
-                            {data.map((arr,i) => {
+                            {allExercises.map((arr,i) => {
                                 return(
-                                <div>
+                                <>
                                 <tr>
-                                    <td>arr.exercise</td>
-                                    <td>arr.sets</td>
-                                    <td>arr.reps</td>
-                                    <td>arr.weightUsed</td>
+                                    <td>{arr.exercise}</td>
+                                    <td>{arr.sets}</td>
+                                    <td>{arr.reps}</td>
+                                    <td>{arr.weightUsed}</td>
                                 </tr>
-                                <button type='submit' onClick={handleExerciseDelete(i)}>Delete Exercise</button>
-                                </div>
+                                {/* <button type='submit' onClick={handleExerciseDelete(i)}>Delete Exercise</button> */}
+                                </>
                           
                                 
                                
