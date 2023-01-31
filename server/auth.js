@@ -27,6 +27,7 @@ function getOrCreateUser(user) {
       name: user.name,
       googleid: user.sub,
       streak:0,
+      photo: user.picture,
     });
 
     return newUser.save();

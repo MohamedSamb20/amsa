@@ -9,6 +9,7 @@ const SettingsSchema = new mongoose.Schema({
   height1: Number|| String,
   height2: Number || String,
   weightHistory: [[String|Number]],
+  username: String,
 });
 
 // compile model from schema

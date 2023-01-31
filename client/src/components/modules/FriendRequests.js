@@ -67,20 +67,26 @@ const FriendRequests = (props) => {
                 <div >Incoming Requests:</div>
                 {friendRequests.map((person) => {
                     return (<div>
-                            Friend Request From: {person.name} 
+                            Friend Request From: 
+                            <img className="" src={person.photo} />
+                            {person.name} 
                             <button id={person._id} onClick={addFriendship}>Accept</button>
                         </div>)
                 })}
                 {requestingUsers.map((requester, i) => {
                     return (<div key={i}>
-                            Workout Request From: {requester.name} 
+                            Workout Request From: 
+                            <img className="" src={requester.photo} /> 
+                            {requester.name} 
                             <button id={requester._id} onClick={openPopup}>Open</button>
                         </div>);
                 })}
                 <div >Pending Requests:</div>
                 {pendingFriendRequests.map((person) => {
                     return (<div>
-                            Friend Request To: {person.name} 
+                            Friend Request To: 
+                            <img className="" src={person.photo} />
+                            {person.name} 
                             <button id={person._id} onClick={deleteRequest}>Cancel</button>
                         </div>)
                 })}
