@@ -44,6 +44,7 @@ const FriendSearch = (props) => {
                 >Search</button>
                 {people.filter((person) => person._id !== props.userId).map((person) => {
                     return (<div>
+                            <img className="" src={person.photo} />
                             {person.name}
                             <button id={person._id} onClick={handleFriendRequest}>Request</button>
                         </div>)

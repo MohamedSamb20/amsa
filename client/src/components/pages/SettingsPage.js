@@ -36,7 +36,7 @@ const Settings = (props) => {
       height1 :'',
       height2: '',
     }));
-  } else {setData((prevProps) => ({
+    }else {setData((prevProps) => ({
       ...prevProps,
       [name]: value,
     }));}
