@@ -3,13 +3,13 @@ import { get, post } from "../../utilities";
 import "../../utilities.css";
 import PostLoginNavbar from "../modules/PostLoginNavbar";
 import "./LogWorkout.css"
-import "./HomePage.css"
 import { Link } from "@reach/router";
 import { navigate } from "@reach/router";
+import Table from '../modules/Table.js';
 const LogWorkout = (props) => {
 
     document.title = 'Log Workout'
- 
+    const [val, setVal] = useState([]);
     const [data,setData] = useState(
     {
         exercise:'',
@@ -17,24 +17,43 @@ const LogWorkout = (props) => {
         sets:0,
         reps:0,
         weightUsed:0,
-        weightUnit:'',
+        weightUnit:'lbs',
         exerciseList: []
                 
     });
+    const [allExercises, setExercises] = useState([]);
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setData((prevProps) => ({
           ...prevProps,
           [name]: value
         }));
+        // alert(data.weightUnit);
         
       };
-  
+     
+    const handleAdd = () => {
+        const abc = [...val, []];
+        console.log(abc);
+        setVal(abc);
+    }
+    const handleChanges = (onChangeValue,i) => {
+        const inputdata = [...val];
+        inputdata[i] = onChangeValue.target.value;
+        setVal(inputdata);
+    }
+    const handleDelete = (i) => {
+        const deleteVal = [...val];
+        deleteVal.splice(i,1);
+        setVal(deleteVal);
+    }
   
     const sendData = (e) => {
+        //adds exercise to table
         e.preventDefault();
         const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps, weightUsed: data.weightUsed};
         console.log(body);
+        setExercises([...allExercises, body]);
       
         post('/api/exercise', body).then((res) => {data.exerciseList.push(res._id)});
      
@@ -45,18 +64,19 @@ const LogWorkout = (props) => {
 
         
         e.preventDefault();
-        let template = `<tr>
-                            <td>${data.exercise}</td>
-                            <td>${data.sets}</td>
-                            <td>${data.reps}</td>
-                            <td>${data.weightUsed}</td>
-                        </tr>
-                        `;
-        tbodyEl.innerHTML += template;
+        // let template = `<tr>
+        //                     <td>${data.exercise}</td>
+        //                     <td>${data.sets}</td>
+        //                     <td>${data.reps}</td>
+        //                     <td>${data.weightUsed}</td>
+        //                 </tr>
+        //                 `;
+        // tbodyEl.innerHTML += template;
         
         console.log('done');
     };
     const handleSubmit = () => {
+        //sends workout to db
         const body = {userId: props.userId, workoutType: data.workoutType, exerciseIds: data.exerciseList, weightUnit:data.weightUnit}
         post('/api/workout', body).then((res)=>console.log(res));
         post('/api/lastworkout', body).then((res)=>console.log(res));
@@ -64,6 +84,12 @@ const LogWorkout = (props) => {
         (navigate('/'));
 
     };
+    const handleExerciseDelete = (i) => {
+        const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps, weightUsed: data.weightUsed}
+        // post('/api/deleteexercise', body).then(()=> data.exerciseList.splice(i,1));
+        setData(data.splice(i,1));
+
+    }
     return (
         <div className="LogWorkout-container">
         {props.userId ? 
@@ -72,7 +98,7 @@ const LogWorkout = (props) => {
             <div>
             <div className='category-container'>
 
-            <form onSubmit={sendData}>
+            {/* <form onSubmit={sendData}> */}
 
             
 
@@ -91,14 +117,26 @@ const LogWorkout = (props) => {
                 <p>Sets</p>
                 <input type='number' min='0' name='sets'  value={data.sets} 
                 onChange={handleInputChange}
-                />   
-
+                />
+                
             </div>
 
             <div>
                 <p>Reps</p>
                 <input type='number' min='0' name='reps' value={data.reps}
                 onChange={handleInputChange}/> 
+                <button onClick={()=> handleAdd()}>Add Reps</button>
+                    {val.map((reps,i) => {
+                        return(
+                            <div>
+                                <input type='number' min='0' value={reps} onChange={(e)=>handleChanges(e,i)} />
+                                <button onClick={()=> handleDelete(i)}>x</button>
+                            </div>
+                        )
+                    })
+
+                    }   
+
             </div>
 
             <div>
@@ -114,31 +152,51 @@ const LogWorkout = (props) => {
                 
             </div>
 
-            <button type='submit'>Add to List</button>
+            <button type='submit' onClick={sendData}>Add to List</button>
 
             
             
 
-            </form>
+            {/* </form> */}
             </div>
             
             <div className="table-container">
                 <table>
                     <tbody>
                         <tr>
-                            <div className='test'>
+                            
                                 <th>Exercise</th>
                                 <th>Sets</th>
                                 <th>Reps</th>
                                 <th>Weight Used ({data.weightUnit}) </th>
-                            </div>
+                            
                         </tr>
-                        <tr>
+                        {/* <tr> */}
+                            {allExercises.map((arr,i) => {
+                                return(
+                               
+                                <tr>
+                                    <td>{arr.exercise}</td>
+                                    <td>{arr.sets}</td>
+                                    <td>{arr.reps}</td>
+                                    <td>{arr.weightUsed}</td>
+                                </tr>
+                                /* <button type='submit' onClick={handleExerciseDelete(i)}>Delete Exercise</button> */
+                             
+                          
+                                
+                               
+                                )
+                                
+                            })}
+                            
+                            
+                            
                             {/* <td>{data.exercise}</td>
                             <td>{data.sets}</td>
                             <td>{data.reps}</td>
                             <td>{data.weightUsed}</td> */}
-                        </tr>
+                        {/* </tr> */}
                     </tbody>
                 </table>
             </div>

@@ -3,6 +3,7 @@
     display: flex;
     color: white;
     border-bottom: 2px gray;
+    height: 8vh;
 }
 
 .Navbar-image {
