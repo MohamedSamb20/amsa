@@ -96,11 +96,17 @@ const LogWorkout = (props) => {
 
     };
     const handleExerciseDelete = (i) => {
-        const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps, weightUsed: data.weightUsed}
-        // post('/api/deleteexercise', body).then(()=> data.exerciseList.splice(i,1));
-        setData(data.splice(i,1));
-
+        const newVal = [...data.exerciseList];
+        const newValue = [...allExercises];
+        newVal.splice(i,1);
+        newValue.splice(i,1);
+        setData((prevProps) => ({
+            ...prevProps,
+            exerciseList: newVal
+          }));
+        setExercises(newValue);
     }
+    
     return (
         <div className="LogWorkout-container">
         {props.userId ? 
@@ -198,6 +204,7 @@ const LogWorkout = (props) => {
                                     <td>{arr.sets}</td>
                                     <td>{arr.reps}</td>
                                     <td>{arr.weightUsed}</td>
+                                    <button onClick={(e) => {handleExerciseDelete(i)}} >Delete Exercise</button>
                                 </tr>
                                 /* <button type='submit' onClick={handleExerciseDelete(i)}>Delete Exercise</button> */
                              
