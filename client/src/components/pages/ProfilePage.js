@@ -9,6 +9,7 @@ import LastWorkout from "../modules/LastWorkout.js"
 const ProfilePage = (props) => {
     document.title = 'Profile'
     return (
+        
         <div className="ProfilePage-container">
             <div className="ProfilePage-chart">
                 <WeightChart userId = {props.userId}/>

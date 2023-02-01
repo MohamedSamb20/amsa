@@ -1,0 +1,51 @@
+.FeaturesPage-container{
+    background-color: #0A0A0A;
+    padding: 8px;
+    height: 100%;
+    min-height: 300vh;
+    color: white;
+    font-size: large;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: -110px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 50px;
+
+
+}
+.allcards{
+    align-content: center;
+}
+a{
+    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Saira', sans-serif; */
+    font-weight: 100;
+    text-align: center;
+    
+}
+h1{
+    color: khaki;
+    text-align: center;
+    
+}
+.lastpage-container{
+    display: flexbox;
+    position: relative;
+    background-color: white;
+    margin-top: 50px;
+    height: 100%;
+    min-height: fit-content;
+    border-top-left-radius: 20px;
+    margin-top: 90px;
+}
+.footer{
+    position: absolute;
+    bottom: 0px;
+    height: 1px;
+    width: 100%;
+    background-color: black;
+    text-align: center;
+    
+}
