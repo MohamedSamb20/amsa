@@ -69,10 +69,11 @@ const Bio = (props) =>  {
       <div className="plannedWorkout">
         <p>Planned workouts:</p>
         {workouts.map((workout) => {
+          if (idToUser[workout.workoutBuddy]) {
           const time = workout.time.slice(-8, -6)+':'+workout.time.slice(-5, -3);
           return (
             <p>{workout.routine} with {idToUser[workout.workoutBuddy]} at {time}</p>)
-        })}
+}})}
       </div>
       {/* <button type='Change' Link = "/settings"> Change Settings </button> */}
     </div>
