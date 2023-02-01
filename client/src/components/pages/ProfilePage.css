@@ -18,7 +18,17 @@
     grid-column: 2;
     grid-row: 1;
 }
-
+.progression-title{
+    text-align: center;
+    font-family: 'Inter';
+    color: white;
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 130%;
+padding-bottom: 30px;
+padding-top: 10px;
+}
 .ProfilePage-bio {
     grid-column: 1;
     grid-row: 1;
@@ -27,7 +37,7 @@
 .ProfilePage-friends {
     grid-column: 2;
     grid-row: 2;
-    background: #1d1c1c;
+    background: #191919;
     /* border-top-left-radius: 20px;
     border-top-right-radius: 20px; */
     border-radius: 20px;
