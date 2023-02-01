@@ -26,6 +26,8 @@ const Friends = (props) =>  {
         <SingleFriend
           userId = {friend._id}
           name = {friend.name}
+          photo = {friend.photo}
+          streak = {friend.streak}
         />
       ));
   } else {
@@ -39,8 +41,6 @@ const Friends = (props) =>  {
       {/* <img className="FriendRequest-image" src={person.photo} /> */}
       <div className='friend-info'> 
       {friendsList}
-      Today's Workout:
-      <p >Streak:</p>
       </div>
       
       
