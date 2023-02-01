@@ -350,6 +350,23 @@ router.post("/plannedworkout", auth.ensureLoggedIn, (req, res) => {
   newRequest.save().then((request) => res.send(request));
 });
 
+router.get("/plannedworkout", (req, res) => {
+  Plannedworkout.find({userId: req.query.userId}).then((workouts) => {
+    const workoutsToSend = []
+    const today = new Date();
+    for(const workout of workouts){
+      workoutTime = new Date(workout.time);
+      if(workoutTime.getTime() < today.getTime()){
+        Plannedworkout.deleteOne({time: workout.time})
+      } else {
+        workoutsToSend.push(workout)
+      }
+    }
+    res.send(workoutsToSend);
+  });
+});
+
+
 router.post("/routine", auth.ensureLoggedIn, (req, res) => {
   console.log(req.body);
   const posted = req.body;
