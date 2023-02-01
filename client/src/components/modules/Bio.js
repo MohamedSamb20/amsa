@@ -9,6 +9,7 @@ import "./Bio.css"
 
 const Bio = (props) =>  {
   const [streak, setStreak] = useState(0);
+  const [idToUser, setIdToUser] = useState({})
   const [workouts, setWorkouts] = useState([])
   const [settings, setSettings] = useState({
     username: 'Loading...',
@@ -40,6 +41,19 @@ const Bio = (props) =>  {
     get("/api/plannedworkout", {userId: props.userId}).then((workouts) => {
       setWorkouts(workouts);
     });
+
+    get("/api/friends", {userId: props.userId}).then((friendList)=>{
+      return friendList.map(async (friendship) => {
+          return get("/api/user", {userId: friendship.friendId}).then((settings) => [friendship.friendId, settings.name])
+      })
+  }).then(async (prePairing) => {
+      const IDToUser = {};
+      const pairing = await Promise.all(prePairing);
+      for(const pair of pairing){
+          IDToUser[pair[0]] = pair[1];
+      }
+      setIdToUser(IDToUser);
+  });
   }, []);
 
 
@@ -57,7 +71,7 @@ const Bio = (props) =>  {
         {workouts.map((workout) => {
           const time = workout.time.slice(-8, -6)+':'+workout.time.slice(-5, -3);
           return (
-            <p>{workout.routine} with someone at {time}</p>)
+            <p>{workout.routine} with {idToUser[workout.workoutBuddy]} at {time}</p>)
         })}
       </div>
       {/* <button type='Change' Link = "/settings"> Change Settings </button> */}
