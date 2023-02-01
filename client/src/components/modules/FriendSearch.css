@@ -1,3 +1,8 @@
 .FriendSearch-container {
     color: white;
 }
+
+.FriendSearch-image {
+    width: 25px;
+    border-radius: 50%;
+}

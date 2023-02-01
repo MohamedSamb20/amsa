@@ -52,7 +52,7 @@ const FriendSearch = (props) => {
                 >Search</button>
                 {people.filter((person) => person._id !== props.userId).map((person) => {
                     return (<div>
-                            <img className="" src={person.photo} />
+                            <img className="FriendSearch-image" src={person.photo} />
                             {person.name} {(idToUsername[person._id])? `(${idToUsername[person._id]})` : ''}
                             <button id={person._id} onClick={handleFriendRequest}>Request</button>
                         </div>)

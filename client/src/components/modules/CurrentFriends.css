@@ -1,3 +1,8 @@
 .CurrentFriends-container {
     color: white;
 }
+
+.CurrentFriends-image {
+    width: 25px;
+    border-radius: 50%;
+}
