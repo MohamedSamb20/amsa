@@ -1,0 +1,81 @@
+.RoutinePage-submit {
+    background-color: green;
+    color: white;
+    border-radius: 10%;
+    border: none;
+    margin: 2px;
+    font-size: medium;
+}
+
+.RoutinePage-submit:hover {
+    background-color: lightgreen;
+}
+
+.RoutinePage-reset {
+    background-color: red;
+    color: white;
+    border-radius: 10%;
+    border: none;
+    margin: 2px;
+    font-size: medium;
+}
+
+.RoutinePage-reset:hover {
+    background-color: lightcoral;
+}
+
+.RoutinePage-container {
+    background-color: #232528;
+    /* background-color: #232528; */
+    display: flex;
+    padding: 8px;
+    height: 92vh;
+    color: white;
+}
+
+.RoutinePage-options {
+    display:flex
+}
+
+.RoutinePage-deleteoptions {
+    margin: 4px;
+    background-color: red;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 20%;
+    border: none;
+    font-size: medium;
+}
+
+.RoutinePage-addoptions {
+    margin: 4px;
+    background-color: green;
+    color: white;
+    width: 48px;
+    height: 32px;
+    border-radius: 20%;
+    border: none;
+    font-size: large;
+    padding: 1px;
+}
+
+.RoutinePage-addoptions:hover {
+    background-color: lightgreen;
+}
+
+.RoutinePage-optionsinput {
+    vertical-align: middle;
+}
+
+.RoutinePage-deleteoptions:hover {
+    background-color: lightcoral;
+}
+
+.RoutinePage-formcontainer {
+    flex: 1;
+}
+
+.RoutinePage-optioncontainer {
+    flex: 1;
+}
