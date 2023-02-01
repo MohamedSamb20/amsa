@@ -11,19 +11,26 @@ const ProfilePage = (props) => {
     return (
         
         <div className="ProfilePage-container">
-            <div className="ProfilePage-chart">
-                <WeightChart userId = {props.userId}/>
-            </div>
-            <div className="ProfilePage-progression">
-                Last Workout
-                <LastWorkout userId= {props.userId}/>
-            </div>
-            <div className="ProfilePage-bio">
-                <Bio userId = {props.userId}/>
-            </div>
-            <div className="ProfilePage-friends">
-                <Friends userId = {props.userId} />
-            </div>
+            
+                <div className="ProfilePage-chart">
+                    <WeightChart userId = {props.userId}/>
+                </div>
+                <div className="ProfilePage-progression">
+                    Last Workout
+                    <LastWorkout userId= {props.userId}/>
+                </div>
+                <div className="ProfilePage-bio">
+                    <Bio userId = {props.userId}/>
+                </div>
+                <div className='outershell'>
+                    <div className="ProfilePage-friends">
+                        <Friends userId = {props.userId} />
+                    
+                    </div>
+                    <a style={{color:'white', fontWeight:'600', fontFamily:'Montserrat', textDecoration:'underline'}} >Manage Friends </a>
+                </div>
+                
+               
         </div>
     );
 }

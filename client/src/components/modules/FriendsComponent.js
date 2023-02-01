@@ -33,7 +33,9 @@ const Friends = (props) =>  {
   }
   return (
     <>
-      <> Friends: </>
+      <center><h2 
+      className='has-text-weight-bold has-text-white is-large'
+      > Friends </h2> </center>
       {friendsList}
       {/* <button type='Add'>+Add Friend</button> */}
     </>
