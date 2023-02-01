@@ -60,22 +60,23 @@ const Bio = (props) =>  {
 
   
   return (
-    <>
-      <img className="Bio-profilePhoto" src={(user)? user.photo: undefined} />
-      <h2>Welcome back {settings.username ?? user.name}</h2>
+    <div className='bio-container'>
+      <img style={{borderRadius:'50%'}}className="Bio-profilePhoto" src={(user)? user.photo: undefined} />
+      <p style={{fontSize:'40px', fontFamily: 'Monteserrat', fontWeight:'200px'}}>Welcome back {settings.username ?? user.name}</p>
       <p> Weight: {settings.weight} {settings.weightUnit}</p>
       <BioHeight unit={settings.heightUnit} height={settings.height} height1={settings.height1} height2={settings.height2}/>
       <p> Your Workout Streak: {streak}</p>
       <div className="plannedWorkout">
         <p>Planned workouts:</p>
         {workouts.map((workout) => {
+          if (idToUser[workout.workoutBuddy]) {
           const time = workout.time.slice(-8, -6)+':'+workout.time.slice(-5, -3);
           return (
             <p>{workout.routine} with {idToUser[workout.workoutBuddy]} at {time}</p>)
-        })}
+}})}
       </div>
       {/* <button type='Change' Link = "/settings"> Change Settings </button> */}
-    </>
+    </div>
   );
 }
 

@@ -140,7 +140,7 @@ const RoutinePage = (props) => {
           <input className="RoutinePage-optionsinput" type= "text" placeholder='Specify your Option' value={newOption} onChange={handleOptionChange}/>
         </form>
         {options.map((option) => {
-          if (option === 'Rest') {return(<p>{option}</p>)};
+          if (option === 'Rest') {return(<p></p>)};
           return(
           <div className="RoutinePage-options">
             <button className="RoutinePage-deleteoptions" name={option} onClick={handleDelete}><RiDeleteBin6Line/></button>

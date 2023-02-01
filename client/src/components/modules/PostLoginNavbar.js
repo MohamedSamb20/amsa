@@ -13,15 +13,13 @@ const PostLoginNavbar = (props) => {
             <div className="Navbar-post-name">amsa</div>
             <Link className="Navbar-post-button" to={`/`}>Profile</Link>
             <Link className="Navbar-post-button" to="/logworkout">Log Workout</Link>
-
             <Link className="Navbar-post-button" to="/history">History</Link>
-
             <Link className="Navbar-post-button" to="/routine">Routine</Link>
-
             <Link className="Navbar-post-button" to="/settings">Settings</Link>
             <Link className="Navbar-post-button" to="/friends">Friends</Link>
             <Link className="Navbar-post-button" to="/about">About</Link>
-            <button className="Navbar-logout" to="/" onClick={() => {
+            <button style={{margin:'13px',padding:'10px'}}className="button is-danger is-outlined is-rounded is-small" to="/" onClick={() => {
+
                 googleLogout();
                 props.handleLogout();
             }}>Logout</button>

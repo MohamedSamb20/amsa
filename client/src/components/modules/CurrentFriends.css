@@ -18,6 +18,9 @@
     vertical-align: middle;
     border-radius: 5%;
 }
+.CurrentFriends-delete:hover {
+    background-color: lightcoral;
+}
 
 .CurrentFriends-request {
     height: 40px;
@@ -28,4 +31,7 @@
     color: white;
     vertical-align: middle;
     border-radius: 5%;
+}
+.CurrentFriends-request:hover {
+    background-color: lightgreen;
 }

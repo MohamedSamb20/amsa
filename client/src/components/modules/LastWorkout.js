@@ -13,8 +13,6 @@ const LastWorkout = (props) => {
     });
     useEffect(() => {
         get('/api/workout', {userId: props.userId}).then((ex) => {
-            console.log('here');
-            console.log(ex);
             const exercise = {
                 exercises: ex.exerciseIds,
                 workoutType: ex.workoutType,
@@ -28,9 +26,10 @@ const LastWorkout = (props) => {
    
 
     return (
-        <div>
+        <div >
            
         <Table data={exercises.exercises} unit={exercises.weights}/>
+        <a href='/history' style={{color:'white', fontWeight:'600', fontFamily:'Montserrat', textDecoration:'underline', textAlign: 'center'}} >Previous Workouts </a>
         </div>
     );
 

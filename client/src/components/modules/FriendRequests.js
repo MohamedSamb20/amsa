@@ -13,7 +13,8 @@ const FriendRequests = (props) => {
     const [pendingWorkoutRequests, setPendingWorkoutRequests] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
     const [data, setData] = useState({});
-    const [requestingUsers, setRequestingUsers] = useState([])
+    const [requestingUsers, setRequestingUsers] = useState([]);
+    const [requestedToUsers, setRequestedToUsers] = useState([]);
     const [popupUser, setPopupUser] = useState({})
     useEffect(() => {
         get("/api/friendrequests", {userId: props.userId})
@@ -22,6 +23,7 @@ const FriendRequests = (props) => {
             const requestingUsers = await Promise.all(users);
             setFriendRequests( requestingUsers);
         });
+
         get("/api/workoutrequests", {userId: props.userId})
         .then((requests) => {
             setWorkoutRequests(requests)
@@ -32,12 +34,24 @@ const FriendRequests = (props) => {
             const requestingUsers = await Promise.all(users);
             setRequestingUsers( requestingUsers);
         });
+
         get("/api/outgoingrequests", {userId: props.userId})
         .then((requestsList) => requestsList.map((request) => get("/api/user", {userId: request.userId})))
         .then(async (users) => {
             const requestingUsers = await Promise.all(users);
             setPendingFriendRequests( requestingUsers);
         });
+        get("/api/outgoingworkoutrequests", {userId: props.userId})
+        .then((requests) => {
+            setPendingWorkoutRequests(requests)
+            return requests
+        })
+        .then((requestsList) => requestsList.map((request) => get("/api/user", {userId: request.userId})))
+        .then(async (users) => {
+            const requestingUsers = await Promise.all(users);
+            setRequestedToUsers( requestingUsers);
+        });
+
     }, [props.friendsNumber]);
     const addFriendship = (event) => {
         const promise1 = post("/api/friend", { userId: props.userId, friendId: event.target.id});
@@ -53,7 +67,13 @@ const FriendRequests = (props) => {
         Promise.all([promise1]).then(() => {
             props.setFriendsNumber((prevFriendsNumber) => prevFriendsNumber + 1);
         });
-    }
+    };
+    const deleteWorkoutRequest = (i) =>{
+        const body = pendingWorkoutRequests[i];
+        post("api/removeworkoutrequest", body).then(() => {
+            props.setFriendsNumber((prevFriendsNumber) => prevFriendsNumber + 1);
+        });
+    };
     const openPopup = (event) => {
         const requestToOpen = workoutRequests.find((request) => request.requester === event.target.id);
         const user = requestingUsers.find((user) => user._id === event.target.id);
@@ -68,7 +88,7 @@ const FriendRequests = (props) => {
                 {friendRequests.map((person) => {
                     return (<div>
                             Friend Request From: 
-                            <img className="" src={person.photo} />
+                            <img className="FriendRequest-image" src={person.photo} />
                             {person.name} 
                             <button id={person._id} onClick={addFriendship}>Accept</button>
                         </div>)
@@ -89,6 +109,14 @@ const FriendRequests = (props) => {
                             {person.name} 
                             <button id={person._id} onClick={deleteRequest}>Cancel</button>
                         </div>)
+                })}
+                {requestedToUsers.map((requester, i) => {
+                    return (<div key={i}>
+                            Workout Request To: 
+                            <img className="FriendRequest-image" src={requester.photo} /> 
+                            {requester.name} 
+                            <button id={requester._id} onClick={(e) => {deleteWorkoutRequest(i)}}>Cancel</button>
+                        </div>);
                 })}
                 {showPopup? <WorkoutRequestPopup setFriendsNumber={props.setFriendsNumber} userId={props.userId} requesterName={popupUser.name} requester={data.requester} time={data.time} routine={data.routine} notes={data.notes} setShowPopup={setShowPopup}/>: <></>}
         </div>
