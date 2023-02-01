@@ -60,9 +60,9 @@ const Bio = (props) =>  {
 
   
   return (
-    <>
-      <img className="Bio-profilePhoto" src={(user)? user.photo: undefined} />
-      <h2>Welcome back {settings.username ?? user.name}</h2>
+    <div className='bio-container'>
+      <img style={{borderRadius:'50%'}}className="Bio-profilePhoto" src={(user)? user.photo: undefined} />
+      <p style={{fontSize:'40px', fontFamily: 'Monteserrat', fontWeight:'200px'}}>Welcome back {settings.username ?? user.name}</p>
       <p> Weight: {settings.weight} {settings.weightUnit}</p>
       <BioHeight unit={settings.heightUnit} height={settings.height} height1={settings.height1} height2={settings.height2}/>
       <p> Your Workout Streak: {streak}</p>
@@ -75,7 +75,7 @@ const Bio = (props) =>  {
         })}
       </div>
       {/* <button type='Change' Link = "/settings"> Change Settings </button> */}
-    </>
+    </div>
   );
 }
 

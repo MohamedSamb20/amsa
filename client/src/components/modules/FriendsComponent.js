@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
 import "../../utilities.css";
 import SingleFriend from "./SingleFriend.js"
-
+import "./FriendsComponent.css";
 
 const Friends = (props) =>  {
     const [friends, setFriends] = useState([]);
@@ -32,11 +32,21 @@ const Friends = (props) =>  {
     friendsList = <div>You have no friends!</div>;
   }
   return (
-    <>
-      <> Friends: </>
+    <div className='has-text-white'>
+      <center><div 
+      className='friends'
+      > Friends </div> </center>
+      {/* <img className="FriendRequest-image" src={person.photo} /> */}
+      <div className='friend-info'> 
       {friendsList}
+      Today's Workout:
+      <p >Streak:</p>
+      </div>
+      
+      
+
       {/* <button type='Add'>+Add Friend</button> */}
-    </>
+    </div>
   );
 }
 

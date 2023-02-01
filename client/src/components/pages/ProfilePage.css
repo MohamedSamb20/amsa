@@ -10,21 +10,53 @@
 
 .ProfilePage-chart {
     grid-column: 1;
-    grid-row: 1;
+    grid-row: 2;
     padding: 8px;
 }
 
 .ProfilePage-progression {
-    grid-column: 1;
-    grid-row: 2;
-}
-
-.ProfilePage-bio {
     grid-column: 2;
+    grid-row: 1;
+}
+.progression-title{
+    text-align: center;
+    font-family: 'Inter';
+    color: white;
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 130%;
+padding-bottom: 30px;
+padding-top: 10px;
+}
+.ProfilePage-bio {
+    grid-column: 1;
     grid-row: 1;
 }
 
 .ProfilePage-friends {
     grid-column: 2;
     grid-row: 2;
+    background: #191919;
+    /* border-top-left-radius: 20px;
+    border-top-right-radius: 20px; */
+    border-radius: 20px;
+    height: 280px;
+    margin-right: 10px;
+    /* text-align: right; */
+}
+.outer-shell{
+   text-align: right;
+    right: 20px;
+    font-family: 'Montserrat';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 15px;
+
+color: #FFFFFF;
+
+border: 1px solid #E9E9E9;
+   
+    
 }
