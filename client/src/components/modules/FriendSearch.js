@@ -55,7 +55,7 @@ const FriendSearch = (props) => {
                             <img className="FriendSearch-image" src={person.photo} />
                             {person.name} {(idToUsername[person._id])? `(${idToUsername[person._id]})` : ''}
                             <button className="FriendSearch-request" id={person._id} onClick={handleFriendRequest}>
-                                <MdPersonAddAlt />
+                                +Add
                             </button>
                         </div>)
                 })}
