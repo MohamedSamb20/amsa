@@ -1,5 +1,5 @@
 h2{
-    text-align: center;
+    text-align: left;
     color: white;
 }
 .friends{
@@ -12,5 +12,5 @@ line-height: 39px;
 .friend-info{
     /* text-align: center; */
     flex-direction: row;
-    padding-top: 4px;
+    padding-top: 10px;
 }

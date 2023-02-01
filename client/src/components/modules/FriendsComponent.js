@@ -33,9 +33,9 @@ const Friends = (props) =>  {
   }
   return (
     <div className='has-text-white'>
-      <center><div 
+      <div 
       className='friends'
-      > Friends </div> </center>
+      > Friends </div> 
       {/* <img className="FriendRequest-image" src={person.photo} /> */}
       <div className='friend-info'> 
       {friendsList}
