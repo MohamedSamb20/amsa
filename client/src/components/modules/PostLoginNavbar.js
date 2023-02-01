@@ -8,19 +8,19 @@ import "./PostLoginNavbar.css"
 
 const PostLoginNavbar = (props) => {
     return (
-        <nav className="Navbar-container">
-            <img className="Navbar-image" src={logo}/>
-            <div className="Navbar-name">amsa</div>
-            <Link className="Navbar-button" to={`/`}>Profile</Link>
-            <Link className="Navbar-button" to="/logworkout">Log Workout</Link>
+        <nav className="Navbar-post-container">
+            <img className="Navbar-post-image" src={logo}/>
+            <div className="Navbar-post-name">amsa</div>
+            <Link className="Navbar-post-button" to={`/`}>Profile</Link>
+            <Link className="Navbar-post-button" to="/logworkout">Log Workout</Link>
 
-            <Link className="Navbar-button" to="/history">History</Link>
+            <Link className="Navbar-post-button" to="/history">History</Link>
 
-            <Link className="Navbar-button" to="/routine">Routine</Link>
+            <Link className="Navbar-post-button" to="/routine">Routine</Link>
 
-            <Link className="Navbar-button" to="/settings">Settings</Link>
-            <Link className="Navbar-button" to="/friends">Friends</Link>
-            <Link className="Navbar-button" to="/about">About</Link>
+            <Link className="Navbar-post-button" to="/settings">Settings</Link>
+            <Link className="Navbar-post-button" to="/friends">Friends</Link>
+            <Link className="Navbar-post-button" to="/about">About</Link>
             <button className="Navbar-logout" to="/" onClick={() => {
                 googleLogout();
                 props.handleLogout();

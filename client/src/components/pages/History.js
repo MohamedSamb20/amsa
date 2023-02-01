@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { get, post } from "../../utilities";
 import "../../utilities.css";
-import PostLoginNavbar from "../modules/PostLoginNavbar";
-import "./LogWorkout.css"
-import "./HomePage.css"
+import "./History.css"
 import { Link } from "@reach/router";
 import { navigate } from "@reach/router";
 import Table from '../modules/Table.js';
@@ -40,7 +38,7 @@ const History = (props) => {
     },[props.userId])
     return (
 
-        <div className="HomePage-container">
+        <div className="HistoryPage-container">
             All previous workouts will appear here
           
             <div className='rows'>

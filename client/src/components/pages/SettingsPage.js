@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
 import "../../utilities.css";
-import "./HomePage.css";
+import "./SettingsPage.css";
 import SettingBox from '../modules/SettingBox.js';
 
 const Settings = (props) => {
@@ -104,7 +104,7 @@ const Settings = (props) => {
     setMessage('Saved!');
   };
   return (
-    <div className="HomePage-container">
+    <div className="SettingsPage-container">
       <form onSubmit={sendData} onReset = {handleReset}>
         <div className="category-container">
           <p>Select a Username</p>
