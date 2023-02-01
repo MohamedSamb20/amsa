@@ -8,7 +8,7 @@
 
 .Navbar-post-image {
     flex: 1;
-    background-image: url("../../public/logo.png");
+    width: 40px;
 }
 
 .Navbar-post-name {
