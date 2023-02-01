@@ -67,7 +67,13 @@ const FriendRequests = (props) => {
         Promise.all([promise1]).then(() => {
             props.setFriendsNumber((prevFriendsNumber) => prevFriendsNumber + 1);
         });
-    }
+    };
+    const deleteWorkoutRequest = (i) =>{
+        const body = pendingWorkoutRequests[i];
+        post("api/removeworkoutrequest", body).then(() => {
+            props.setFriendsNumber((prevFriendsNumber) => prevFriendsNumber + 1);
+        });
+    };
     const openPopup = (event) => {
         const requestToOpen = workoutRequests.find((request) => request.requester === event.target.id);
         const user = requestingUsers.find((user) => user._id === event.target.id);
@@ -109,7 +115,7 @@ const FriendRequests = (props) => {
                             Workout Request To: 
                             <img className="FriendRequest-image" src={requester.photo} /> 
                             {requester.name} 
-                            <button id={requester._id}>Cancel</button>
+                            <button id={requester._id} onClick={(e) => {deleteWorkoutRequest(i)}}>Cancel</button>
                         </div>);
                 })}
                 {showPopup? <WorkoutRequestPopup setFriendsNumber={props.setFriendsNumber} userId={props.userId} requesterName={popupUser.name} requester={data.requester} time={data.time} routine={data.routine} notes={data.notes} setShowPopup={setShowPopup}/>: <></>}
