@@ -7,7 +7,8 @@ import "./AboutPage.css";
 const AboutPage = (props) => {
     document.title = 'About'
     return (<div className="AboutPage-container">
-            <h4 style={{fontSize: '80px', position: 'relative', left: '800 px'}}>The Problem</h4>
+            <h4 style={{fontSize: '80px', position: 'relative', left: '800 px'}}>Why amsa</h4>
+            <br></br>
             <div className='first-paragraph'>Working out is an experience that requires consistency, and for many people, that consistency 
                 comes from our peers. Working out with friends provides us with accountability to complete our 
                 routines and motivates us to maximize our workouts. Life is unpredictable though, and being unable 

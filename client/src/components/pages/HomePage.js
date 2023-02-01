@@ -6,11 +6,14 @@ import "./HomePage.css"
 import logo from "../../public/logo.png";
 import AboutPage from "./AboutPage.js";
 import FeaturesPage from "./FeaturesPage";
-
+import PreLoginNavbar from "../modules/PreLoginNavbar";
 const HomePage = (props) => {
     document.title = 'AMSA';
     return props.userId? (<Redirect to={`/profile/${props.userId}`} noThrow/>) : (
         <div className='HomePage-large-container'>
+            {/* <div>
+            <PreLoginNavbar handleLogin={props.handleLogin}/>
+            </div> */}
             <div className="HomePage-container">
                 <div className="HomePage-leftside">
                     <div className="HomePage-circle">
