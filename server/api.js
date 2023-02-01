@@ -242,7 +242,7 @@ router.post("/removefriendrequest", auth.ensureLoggedIn, (req, res) => {
 router.post("/removefriend", auth.ensureLoggedIn, (req, res) => {
   Friendship.deleteOne({
     userId: req.body.userId,
-    requester: req.body.requester,
+    friendId: req.body.friendId,
   }).then((response) => res.send(response));
 });
 
