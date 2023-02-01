@@ -1,30 +1,30 @@
-.Navbar-container {
-    background-color: rgb(28, 27, 27);
+.Navbar-post-container {
+    background-color: #232528;
     display: flex;
     color: white;
-    border-bottom: 2px gray;
+    border-bottom: 2px yellow;
     height: 8vh;
 }
 
-.Navbar-image {
+.Navbar-post-image {
     flex: 1;
     background-image: url("../../public/logo.png");
 }
 
-.Navbar-name {
+.Navbar-post-name {
     flex: 3;
     align-self: center;
 }
 
-.Navbar-button {
+.Navbar-post-button {
     flex: 3;
     margin: 4px;
     border: none;
-    background-color: rgb(28, 27, 27);
+    background-color: #232528;
     color: white;
 }
 
-.Navbar-logout {
+.Navbar-post-logout {
     flex: 3;
     margin: 8px 64px;
     border: none;
