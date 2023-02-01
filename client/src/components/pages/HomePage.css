@@ -1,9 +1,17 @@
+.HonePage-large-container{
+    display: flex;
+    flex-direction: column;
+    
+}
 .HomePage-container {
-    background-color: #232528;
-    /* background-color: #232528; */
+    /* background: linear-gradient(180deg, #130E0E 0%, #272727 100%); */
+    /* 0C0C0C */
+    background-color: #0A0A0A;
     display: flex;
     padding: 8px;
-    height: 92vh;
+    height: 95vh;
+    overflow: auto;
+    
 }
 
 .HomePage-leftside {
@@ -14,11 +22,22 @@
 }
 
 .HomePage-rightside {
+    margin-top: 6px;
     flex:1;
     display: flex;
     text-decoration: underline;
     color: white;
     align-items: center;
+    font-size: xx-large;
+
+    font-family: 'Montserrat', sans-serif;
+    
+font-size: 40px;
+font-weight: 700;
+line-height: 49px;
+letter-spacing: 0em;
+text-align: left;
+
     
 }
 
@@ -26,11 +45,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 37.5vw;
-    height: 37.5vw;
+    width: 27.5vw;
+    height: 27.5vw;
     border-radius: 50%;
     background-color: lightgray;
     vertical-align: middle;
     
 }
-
+.HomPage-motto{
+    font-size: x-small;
+}
+.HomePage-second{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: inherit;
+   
+    
+}
+.HomePage-third{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 92vh;
+    
+}
+.HomePage-fourth{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 92vh;
+    background: #0A0A0A;
+    
+}

@@ -12,6 +12,7 @@ const History = (props) => {
     document.title = 'History'
     const [allworkouts, setWorkouts] = useState([]);
     const [allDates, setDate] = useState([]);
+    const [allUnits, setUnits] = useState([]);
     
     useEffect(()=>{
         let promises = [];
@@ -23,8 +24,11 @@ const History = (props) => {
                 setWorkouts(arr.map((obj) => {
                     return obj.exerciseIds;
                 }));
-                setDate(arr.map((obj) => {
+                setUnits(arr.map((obj) => {
                     return obj.weightUnit; //change
+                }));
+                setDate(arr.map((obj) => {
+                    return obj.timestamp; //change
                 }));
                 console.log('allworkouts', allworkouts);
             })
@@ -42,11 +46,12 @@ const History = (props) => {
             <div className='rows'>
 
                 {allworkouts.map((workout,i) => {
-                    
+                    const date = `${allDates[i]}`
+
                     return (
                     <div key={i}>
-                        
-                        <Table data={workout} unit={allDates[i]}/>
+                        <p>{date.slice(0,10)}</p>
+                        <Table data={workout} unit={allUnits[i]}/>
                     </div>
                         
                         );

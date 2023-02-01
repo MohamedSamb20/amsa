@@ -112,10 +112,12 @@ const Settings = (props) => {
           
           <p>Select Height Unit</p>
           <form onChange={handleInputChange}>
-            <input type="radio" id="cm" name="heightUnit" value="cm"/>
-            <label for="html">cm</label>
-            <input type="radio" id="ft" name="heightUnit" value="ft"/>
-            <label for="ft">ft</label>
+            <div className='control'>
+              <input type="radio" id="cm" name="heightUnit" value="cm"/>
+              <label for="html">cm</label>
+              <input type="radio" id="ft" name="heightUnit" value="ft"/>
+              <label for="ft">ft</label>
+            </div>
           </form>
 
           <SettingBox name ='height' unit={data.heightUnit} data={data} handleInputChange={handleInputChange}/>

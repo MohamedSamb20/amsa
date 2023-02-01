@@ -16,7 +16,7 @@ import FriendsPage from "./pages/FriendsPage.js";
 import History from './pages/History.js'
 
 import RoutinePage from "./pages/RoutinePage.js";
-
+import 'bulma/css/bulma.min.css';
 
 import "../utilities.css";
 

@@ -1,6 +1,32 @@
 .AboutPage-container {
-    background-image: linear-gradient(#1e1e1e, gray);
+    /* background-image: linear-gradient(#1e1e1e, gray); */
+    /* background: linear-gradient(180deg, #130E0E 0%, #272727 100%); */
+    background-color: #090446;
     padding: 8px;
-    height: 92vh;
+    height: 100vh;
     color: white;
+    font-size: large;
+    font-family: 'Montserrat', sans-serif;
+    padding-left: 50px;
+}
+.first-paragraph{
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+font-family: 'Saira', sans-serif;
+font-weight: 200;
+
+
+}
+.second-paragraph{
+    font-family: 'Montserrat', sans-serif;
+font-family: 'Saira', sans-serif;
+font-weight: 200;
+margin-top: 50px;
+margin-right: 60px;
+
+}
+.column:hover{
+    transition-duration: .5s;
+    transition-delay: all .03s ease-out;
+    scale: 1.1;
 }
