@@ -80,7 +80,8 @@ const RoutinePage = (props) => {
       ...prevProps,
       routineOptions: prevProps.routineOptions.concat(newOption),
     }))
-    setMessage('Option added!')
+    setNewOption('');
+    setMessage('Option added!');
   };
 
   const handleDelete = (event) => {
@@ -127,7 +128,7 @@ const RoutinePage = (props) => {
       </form>
       <form onSubmit={handleAbort}>
           <button type='submit'>+Add Option</button>
-          <input type= "text" placeholder='Specify your Option' onChange={handleOptionChange}/>
+          <input type= "text" placeholder='Specify your Option' value={newOption} onChange={handleOptionChange}/>
       </form>
       <div>
         {options.map((option) => {
