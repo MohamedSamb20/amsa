@@ -85,7 +85,7 @@ const FriendRequests = (props) => {
                 {pendingFriendRequests.map((person) => {
                     return (<div>
                             Friend Request To: 
-                            <img className="" src={person.photo} />
+                            <img className="FriendRequest-image" src={person.photo} />
                             {person.name} 
                             <button id={person._id} onClick={deleteRequest}>Cancel</button>
                         </div>)

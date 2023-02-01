@@ -43,7 +43,7 @@ const CurrentFriends = (props) =>  {
           </tr>
           {friends.map(person => {
             return <tr>
-                <td><img className="" src={person.photo} /> {person.name}</td>
+                <td><img className="CurrentFriends-image" src={person.photo} /> {person.name}</td>
                 <td>{person.streak}</td>
                 <button id ={person._id} onClick={openRequestBox}>Request Workout</button>
                 <button id ={person._id} onClick={deleteFriendship}>Delete Friend </button>
