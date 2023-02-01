@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 
 import { get, post } from "../../utilities";
+import {RiUserSearchLine} from 'react-icons/ri';
+import {MdPersonAddAlt} from 'react-icons/md';
 
 import "../../utilities.css";
 import "./FriendSearch.css"
@@ -16,14 +18,17 @@ const FriendSearch = (props) => {
         event.preventDefault();
         const body = {value: value};
         get("/api/people", body).then((searchResult)=>{
-            const IDToUser = {}
-            searchResult.map((user) => {
-                get("/api/settings", {userId: user._id}).then((settings) => {
-                    IDToUser[user._id] = settings.username
-                })
-            })
-            setIdToUsername(IDToUser);
             setPeople(searchResult);
+            return searchResult.map((user) => {
+                return get("/api/settings", {userId: user._id}).then((settings) => [user._id, settings.username])
+            })
+        }).then(async (prePairing) => {
+            const IDToUser = {};
+            const pairing = await Promise.all(prePairing);
+            for(const pair of pairing){
+                IDToUser[pair[0]] = pair[1];
+            }
+            setIdToUsername(IDToUser);
         });
         setValue("");
       };
@@ -39,22 +44,19 @@ const FriendSearch = (props) => {
 
     return (<div className="FriendSearch-container">
                 <div >Search the site:</div>
-                <input type="text"
-                        placeholder="Search for a users name"
-                        value={value}
-                        onChange={handleChange}
-                        className="FriendsSearch-input" />
-                <button
-                    type="submit"
-                    className="NewPostInput-button u-pointer"
-                    value="Submit"
-                    onClick={handleSubmit}
-                >Search</button>
+                <div className="FriendSearch-searchbar">
+                    <input type="text" placeholder="Search for a users name" value={value} onChange={handleChange} className="FriendSearch-input" />
+                    <button type="submit" className="FriendSearch-button u-pointer" value="Submit" onClick={handleSubmit}>
+                        <RiUserSearchLine />
+                    </button>
+                </div>
                 {people.filter((person) => person._id !== props.userId).map((person) => {
                     return (<div>
-                            <img className="" src={person.photo} />
+                            <img className="FriendSearch-image" src={person.photo} />
                             {person.name} {(idToUsername[person._id])? `(${idToUsername[person._id]})` : ''}
-                            <button id={person._id} onClick={handleFriendRequest}>Request</button>
+                            <button className="FriendSearch-request" id={person._id} onClick={handleFriendRequest}>
+                                <MdPersonAddAlt />
+                            </button>
                         </div>)
                 })}
         </div>

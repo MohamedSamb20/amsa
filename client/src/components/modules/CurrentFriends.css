@@ -1,3 +1,31 @@
 .CurrentFriends-container {
     color: white;
 }
+
+.CurrentFriends-image {
+    width: 25px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.CurrentFriends-delete {
+    height: 40px;
+    width: 64px;
+    border: none;
+    margin: 2px;
+    background-color: red;
+    color: white;
+    vertical-align: middle;
+    border-radius: 5%;
+}
+
+.CurrentFriends-request {
+    height: 40px;
+    width: 64px;
+    border: none;
+    margin: 2px;
+    background-color: green;
+    color: white;
+    vertical-align: middle;
+    border-radius: 5%;
+}

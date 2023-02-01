@@ -6,3 +6,35 @@
     visibility: visible;
     padding: 4px;
 }
+
+.WorkoutRequestForm-close {
+    width: 48px;
+    height: 48px;
+    background-color: red;
+    color: white;
+    border-radius: 10%;
+    border: none;
+    margin: 4px;
+    font-size: large;
+}
+
+.WorkoutRequestForm-submit {
+    width: 72px;
+    height: 48px;
+    background-color: green;
+    color: white;
+    border-radius: 10%;
+    border: none;
+    margin: 4px;
+    font-size: medium;
+}
+
+.WorkoutRequestForm-hourinput {
+    width: 72px;
+    margin: 2px;
+}
+
+.WorkoutRequestForm-minuteinput {
+    width: 72px;
+    margin: 2px;
+}

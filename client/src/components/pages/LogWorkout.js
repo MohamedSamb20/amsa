@@ -62,7 +62,27 @@ const LogWorkout = (props) => {
     const sendData = (e) => {
         //adds exercise to table
         e.preventDefault();
+        if (data.exercise === '') {
+            alert('Enter the exercise name');
+            return ('')
+        };
+        if (data.sets === 0) {
+            alert('Enter the number of sets')
+            return('')
+        };
+        if (data.reps === 0) {
+            alert('Enter the number of reps')
+            return('')
+        };
         const body = {userId: props.userId, exercise: data.exercise, sets: data.sets, reps:data.reps, weightUsed: data.weightUsed};
+        setData((prevProps) => ({
+            ...prevProps,
+            sets: 0,
+            reps: 0,
+            weightUsed:0,
+            exercise:'',
+          })
+        );
         console.log(body);
         setExercises([...allExercises, body]);
       
@@ -88,6 +108,10 @@ const LogWorkout = (props) => {
     };
     const handleSubmit = () => {
         //sends workout to db
+        if (data.workoutType === '') {
+            alert('Specify the workout type')
+            return ('')
+        };
         const body = {userId: props.userId, workoutType: data.workoutType, exerciseIds: data.exerciseList, weightUnit:data.weightUnit}
         post('/api/workout', body).then((res)=>console.log(res));
         post('/api/lastworkout', body).then((res)=>console.log(res));
@@ -132,8 +156,8 @@ const LogWorkout = (props) => {
                 })}
             </form>
 
-            <p>Enter Exercise</p>
-            <input type='text' name='exercise' value={data.exercise}
+            <p>Exercise</p>
+            <input type='text' placeholder ='Enter exercise' name='exercise' value={data.exercise}
             onChange={handleInputChange}
             />
 

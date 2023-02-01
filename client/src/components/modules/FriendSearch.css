@@ -1,3 +1,41 @@
 .FriendSearch-container {
     color: white;
 }
+
+.FriendSearch-image {
+    width: 25px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 4px;
+}
+
+.FriendSearch-button {
+    height: 24px;
+    width: 48px;
+    border-radius: 5%;
+    border: none;
+    margin: 2px;
+    padding: 2px;
+    vertical-align: middle;
+    background-color: lightblue;
+}
+
+.FriendSearch-searchbar {
+    margin: 2px;
+}
+
+.FriendSearch-request {
+    margin: 8px;
+    height: 32px;
+    width: 64px;
+    background-color: green;
+    color: white;
+    border-radius: 5%;
+    border: none;
+    vertical-align: middle;
+    font-size: medium;
+}
+
+.FriendSearch-input {
+    border: none;
+}

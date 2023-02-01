@@ -9,6 +9,8 @@ import "./Bio.css"
 
 const Bio = (props) =>  {
   const [streak, setStreak] = useState(0);
+  const [idToUser, setIdToUser] = useState({})
+  const [workouts, setWorkouts] = useState([])
   const [settings, setSettings] = useState({
     username: 'Loading...',
     weight : 'Loading...',
@@ -35,7 +37,23 @@ const Bio = (props) =>  {
     });
     get("/api/user", {userId: props.userId}).then((user) => {
       setUser(user);
-    })
+    });
+    get("/api/plannedworkout", {userId: props.userId}).then((workouts) => {
+      setWorkouts(workouts);
+    });
+
+    get("/api/friends", {userId: props.userId}).then((friendList)=>{
+      return friendList.map(async (friendship) => {
+          return get("/api/user", {userId: friendship.friendId}).then((settings) => [friendship.friendId, settings.name])
+      })
+  }).then(async (prePairing) => {
+      const IDToUser = {};
+      const pairing = await Promise.all(prePairing);
+      for(const pair of pairing){
+          IDToUser[pair[0]] = pair[1];
+      }
+      setIdToUser(IDToUser);
+  });
   }, []);
 
 
@@ -48,6 +66,14 @@ const Bio = (props) =>  {
       <p> Weight: {settings.weight} {settings.weightUnit}</p>
       <BioHeight unit={settings.heightUnit} height={settings.height} height1={settings.height1} height2={settings.height2}/>
       <p> Your Workout Streak: {streak}</p>
+      <div className="plannedWorkout">
+        <p>Planned workouts:</p>
+        {workouts.map((workout) => {
+          const time = workout.time.slice(-8, -6)+':'+workout.time.slice(-5, -3);
+          return (
+            <p>{workout.routine} with {idToUser[workout.workoutBuddy]} at {time}</p>)
+        })}
+      </div>
       {/* <button type='Change' Link = "/settings"> Change Settings </button> */}
     </>
   );

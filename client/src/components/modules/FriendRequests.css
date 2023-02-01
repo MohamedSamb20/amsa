@@ -1,3 +1,8 @@
 .FriendRequest-container {
     color: white;
 }
+
+.FriendRequest-image {
+    width: 25px;
+    border-radius: 50%;
+}

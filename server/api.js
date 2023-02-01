@@ -158,8 +158,10 @@ router.post("/settings", auth.ensureLoggedIn, (req, res) => {
   Setting.findOne({ userId: req.body.userId}).then((set) => {
     weights = (set === null)? []: set.weightHistory;
     const currentDate = new Date();
+    let weightPushed = req.body.weight;
+    if (req.body.weightUnit === 'lbs') {weightPushed = Math.floor(weightPushed / 2.2)}
     const dateInString = `${MONTHS[currentDate.getMonth()]} ${currentDate.getDate()}`;
-    weights.push([dateInString, req.body.weight]);
+    weights.push([dateInString, weightPushed]);
     const posted = {
       userId: req.body.userId,
       weightUnit: req.body.weightUnit,
@@ -349,6 +351,23 @@ router.post("/plannedworkout", auth.ensureLoggedIn, (req, res) => {
 
   newRequest.save().then((request) => res.send(request));
 });
+
+router.get("/plannedworkout", (req, res) => {
+  Plannedworkout.find({userId: req.query.userId}).then((workouts) => {
+    const workoutsToSend = []
+    const today = new Date();
+    for(const workout of workouts){
+      workoutTime = new Date(workout.time);
+      if(workoutTime.getTime() < today.getTime()){
+        Plannedworkout.deleteOne({time: workout.time})
+      } else {
+        workoutsToSend.push(workout)
+      }
+    }
+    res.send(workoutsToSend);
+  });
+});
+
 
 router.post("/routine", auth.ensureLoggedIn, (req, res) => {
   console.log(req.body);

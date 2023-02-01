@@ -49,7 +49,16 @@ const Settings = (props) => {
           [name]: value,
         })
       );
-    }else {
+    }else if (name ==="weightUnit"){
+      const multiplier = value === 'lbs'? 2.2:1/2.2;
+      setData((prevProps) => ({
+        ...prevProps,
+        [name]: value,
+        weight: Math.floor(prevProps.weight*multiplier)
+      })
+    );
+    } 
+    else{
       setData((prevProps) => ({
           ...prevProps,
           [name]: value,
