@@ -8,7 +8,8 @@ const Settings = (props) => {
   document.title = 'Settings';
   const [message, setMessage] = useState('');
   const [data, setData] = useState('');
-  const [prev, setPrev] = useState('')
+  const [prev, setPrev] = useState('');
+  const [usernameTaken, setUsernameTaken] = useState(false);
   useEffect(() => {
     get("/api/settings", {userId :props.userId}).then((setting) => {
       if (setting === false) {setting = {
@@ -19,6 +20,7 @@ const Settings = (props) => {
         weightUnit : 'Not set',
         height1: '',
         height2:'',
+        username: '',
       }};
       setData(setting);
       setPrev(setting);
@@ -29,17 +31,31 @@ const Settings = (props) => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (name === 'heightUnit') {setData((prevProps) => ({
-      ...prevProps,
-      [name]: value,
-      height : '',
-      height1 :'',
-      height2: '',
-    }));
-  } else {setData((prevProps) => ({
-      ...prevProps,
-      [name]: value,
-    }));}
+    if (name === 'heightUnit') {
+      setData((prevProps) => ({
+          ...prevProps,
+          [name]: value,
+          height : '',
+          height1 :'',
+          height2: '',
+        })
+      );
+    }else if(name === "username"){
+      get("/api/userWithUsername", {username: value, userId: props.userId}).then((taken) => {
+        setUsernameTaken(taken);
+      })
+      setData((prevProps) => ({
+          ...prevProps,
+          [name]: value,
+        })
+      );
+    }else {
+      setData((prevProps) => ({
+          ...prevProps,
+          [name]: value,
+        })
+      );
+    }
   };
 
   const handleReset = (event) => {
@@ -58,6 +74,14 @@ const Settings = (props) => {
       alert('Specify your height');
       return('');
     };
+    if (data.username === ''){
+      alert('Input a username');
+      return('');
+    }
+    if(usernameTaken){
+      alert("Username is already used by another user, please select another username");
+      return('');
+    }
     if (data.heightUnit==='cm'){
       if (data.height === ''){
       alert('Specify your height');
@@ -74,6 +98,9 @@ const Settings = (props) => {
     <div className="HomePage-container">
       <form onSubmit={sendData} onReset = {handleReset}>
         <div className="category-container">
+          <p>Select a Username</p>
+          <input type="text" name ='username' placeholder="Enter a username" value={data.username} onChange={handleInputChange} className="SettingsPage-username" />
+          
           <p>Select Height Unit</p>
           <form onChange={handleInputChange}>
             <input type="radio" id="cm" name="heightUnit" value="cm"/>

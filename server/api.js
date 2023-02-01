@@ -169,6 +169,7 @@ router.post("/settings", auth.ensureLoggedIn, (req, res) => {
       height1: req.body.height1,
       height2: req.body.height2,
       weightHistory: weights,
+      username: req.body.username,
     };
     Setting.findOne({ userId: req.body.userId}).then((setting) =>{
       if (setting === null) {
@@ -369,6 +370,13 @@ router.get("/routine", (req, res) => {
     if (routine === null) {routine = false}
     res.send(routine);});
   });
+
+router.get("/userWithUsername", (req, res) => {
+  Setting.findOne({username: req.query.username}).then((setting) => {
+    if(setting === null || setting.userId === req.query.userId) res.send(false);
+    else res.send(true);
+  })
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
