@@ -6,6 +6,7 @@ import "./HomePage.css"
 import logo from "../../public/logo.png";
 import AboutPage from "./AboutPage.js";
 import FeaturesPage from "./FeaturesPage";
+
 const HomePage = (props) => {
     document.title = 'AMSA';
     return props.userId? (<Redirect to={`/profile/${props.userId}`} noThrow/>) : (
