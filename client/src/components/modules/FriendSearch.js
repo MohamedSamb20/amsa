@@ -16,14 +16,17 @@ const FriendSearch = (props) => {
         event.preventDefault();
         const body = {value: value};
         get("/api/people", body).then((searchResult)=>{
-            const IDToUser = {}
-            searchResult.map((user) => {
-                get("/api/settings", {userId: user._id}).then((settings) => {
-                    IDToUser[user._id] = settings.username
-                })
-            })
-            setIdToUsername(IDToUser);
             setPeople(searchResult);
+            return searchResult.map((user) => {
+                return get("/api/settings", {userId: user._id}).then((settings) => [user._id, settings.username])
+            })
+        }).then(async (prePairing) => {
+            const IDToUser = {};
+            const pairing = await Promise.all(prePairing);
+            for(const pair of pairing){
+                IDToUser[pair[0]] = pair[1];
+            }
+            setIdToUsername(IDToUser);
         });
         setValue("");
       };
