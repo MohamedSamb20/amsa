@@ -159,7 +159,7 @@ router.post("/settings", auth.ensureLoggedIn, (req, res) => {
     weights = (set === null)? []: set.weightHistory;
     const currentDate = new Date();
     let weightPushed = req.body.weight;
-    if (req.body.weightUnit === 'lbs') {weightPushed = weightPushed / 2.2}
+    if (req.body.weightUnit === 'lbs') {weightPushed = Math.floor(weightPushed / 2.2)}
     const dateInString = `${MONTHS[currentDate.getMonth()]} ${currentDate.getDate()}`;
     weights.push([dateInString, weightPushed]);
     const posted = {
