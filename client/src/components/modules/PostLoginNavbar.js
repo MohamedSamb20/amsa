@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "@reach/router";
 import {googleLogout } from "@react-oauth/google";
+import logo from "../../public/logo.png";
+
 import "../../utilities.css";
 import "./PostLoginNavbar.css"
 
 const PostLoginNavbar = (props) => {
     return (
         <nav className="Navbar-container">
-            <img className="Navbar-image"/>
+            <img className="Navbar-image" src={logo}/>
             <div className="Navbar-name">amsa</div>
             <Link className="Navbar-button" to={`/`}>Profile</Link>
             <Link className="Navbar-button" to="/logworkout">Log Workout</Link>
