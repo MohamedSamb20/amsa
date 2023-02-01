@@ -70,3 +70,11 @@ text-align: left;
     height: 92vh;
     
 }
+.HomePage-fourth{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 92vh;
+    background: #0A0A0A;
+    
+}

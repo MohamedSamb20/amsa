@@ -6,6 +6,7 @@ import "./HomePage.css"
 import logo from "../../public/logo.png";
 import AboutPage from "./AboutPage.js";
 import FeaturesPage from "./FeaturesPage";
+import LastPage from "./LastPage";
 import PreLoginNavbar from "../modules/PreLoginNavbar";
 const HomePage = (props) => {
     document.title = 'AMSA';
@@ -36,6 +37,10 @@ const HomePage = (props) => {
             <div className='HomePage-third'>
                 <FeaturesPage />
             </div>
+            {/* <div className='HomePage-fourth'>
+                <LastPage />
+            </div> */}
+
         </div>
         
     );
