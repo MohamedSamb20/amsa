@@ -156,8 +156,8 @@ const LogWorkout = (props) => {
                 })}
             </form>
 
-            <p>Enter Exercise</p>
-            <input type='text' name='exercise' value={data.exercise}
+            <p>Exercise</p>
+            <input type='text' placeholder ='Enter exercise' name='exercise' value={data.exercise}
             onChange={handleInputChange}
             />
 
