@@ -54,7 +54,7 @@ const Settings = (props) => {
       setData((prevProps) => ({
         ...prevProps,
         [name]: value,
-        weight: prevProps.weight*multiplier
+        weight: Math.floor(prevProps.weight*multiplier)
       })
     );
     } 
