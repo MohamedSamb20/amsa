@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 
 import { get, post } from "../../utilities";
+import {MdOutlineCancelPresentation} from "react-icons/md";
+import {IoSend} from "react-icons/io5";
 import "../../utilities.css";
 import "./WorkoutRequestForm.css"
 
@@ -38,15 +40,15 @@ const WorkoutRequestForm = (props) =>  {
           <input type="text" name="workoutRoutine" placeholder='Enter a Workout Routine' value={data.workoutRoutine} onChange={handleInputChange}/>
           <div className="second-box">
             <p>Requested time</p>
-            <input type="number" name="workoutHour" placeholder='Hour (24HR)' value={data.workoutTime} onChange={handleInputChange}/>:
-            <input type="number" name="workoutMinute" placeholder='Minute' value={data.workoutMinute} onChange={handleInputChange}/>
+            <input className="WorkoutRequestForm-hourinput" type="number" min={0} max={23} name="workoutHour" placeholder='Hr (24)' value={data.workoutTime} onChange={handleInputChange}/>:
+            <input className="WorkoutRequestForm-minuteinput" type="number" min={0} max={59} name="workoutMinute" placeholder='Min' value={data.workoutMinute} onChange={handleInputChange}/>
           </div>
           <div>
             <p>Notes?</p>
             <input type="text" name="notes" placeholder='Enter additional information' value={data.notes} onChange={handleInputChange}/>
           </div>
-          <button type="submit">Submit</button>
-          <button type='reset'>Close</button>
+          <button className="WorkoutRequestForm-submit" type="submit"><IoSend /></button>
+          <button className="WorkoutRequestForm-close" type='reset'><MdOutlineCancelPresentation /></button>
         </div>
       </form>
     </div>
