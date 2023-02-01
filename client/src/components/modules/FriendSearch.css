@@ -36,6 +36,9 @@
     font-size: medium;
 }
 
+.FriendSearch-request:hover {
+    background-color: lightgreen;
+}
 .FriendSearch-input {
     border: none;
 }

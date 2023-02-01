@@ -1,0 +1,16 @@
+h2{
+    text-align: left;
+    color: white;
+}
+.friends{
+    font-family: 'Open Sans';
+font-style: normal;
+font-weight: 700;
+font-size: 32px;
+line-height: 39px;
+}
+.friend-info{
+    /* text-align: center; */
+    flex-direction: row;
+    padding-top: 10px;
+}

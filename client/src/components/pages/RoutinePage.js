@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
+import {RiSaveFill, RiDeleteBin6Line} from "react-icons/ri";
+import {RxReset} from "react-icons/rx";
+import {IoIosAddCircle} from "react-icons/io"
+
+import Routine from "../modules/RoutineComponent.js";
+
 import { get, post } from "../../utilities";
 import "../../utilities.css";
-import "./AboutPage.css";
-import Routine from "../modules/RoutineComponent.js";
+import "./RoutinePage.css";
 
 const RoutinePage = (props) => {
   document.title = "Routine";
@@ -45,6 +50,7 @@ const RoutinePage = (props) => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    console.log(`${name} corresponds to ${value}`);
     setData((prevProps) => ({
       ...prevProps,
       [name]: value,
@@ -110,33 +116,35 @@ const RoutinePage = (props) => {
   }
 
   return (
-    <div className="HomePage-container">
-      <form onSubmit={sendData} onReset={handleReset} onAbort={handleAbort} >
-        <div className="category-container">
-          {weekDays.map((day) => {
-            return (
-              <Routine 
-              options = {options}
-              day={day} 
-              handleInputChange={handleInputChange}/>
-            );
-          })}
-          <button type="submit">Save</button>
-          <button type="reset">Reset</button>
-          {message}
-        </div>
-      </form>
-      <form onSubmit={handleAbort}>
-          <button type='submit'>+Add Option</button>
-          <input type= "text" placeholder='Specify your Option' value={newOption} onChange={handleOptionChange}/>
-      </form>
-      <div>
+    <div className="RoutinePage-container">
+      <div className="RoutinePage-formcontainer">
+        <form onSubmit={sendData} onReset={handleReset} onAbort={handleAbort} >
+          <div className="category-container">
+            {weekDays.map((day) => {
+              return (
+                <Routine 
+                options = {options}
+                day={day} 
+                handleInputChange={handleInputChange}/>
+              );
+            })}
+            <button className="RoutinePage-submit" type="submit"><RiSaveFill /></button>
+            <button className="RoutinePage-reset" type="reset"><RxReset /></button>
+            {message}
+          </div>
+        </form>
+      </div>
+      <div className="RoutinePage-optioncontainer">
+        <form onSubmit={handleAbort}>
+          <button className="RoutinePage-addoptions" type='submit'><IoIosAddCircle /></button>
+          <input className="RoutinePage-optionsinput" type= "text" placeholder='Specify your Option' value={newOption} onChange={handleOptionChange}/>
+        </form>
         {options.map((option) => {
-          if (option === 'Rest') {return(<p>{option}</p>)};
+          if (option === 'Rest') {return(<p></p>)};
           return(
-          <div>
+          <div className="RoutinePage-options">
+            <button className="RoutinePage-deleteoptions" name={option} onClick={handleDelete}><RiDeleteBin6Line/></button>
             <p>{option}</p>
-            <button name={option} onClick={handleDelete}>Delete Option</button>
           </div>)
         })}
       </div>

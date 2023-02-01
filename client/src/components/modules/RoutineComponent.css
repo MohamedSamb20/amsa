@@ -1,0 +1,12 @@
+.RoutineComponent-container {
+    display: flex;
+    margin: 8px;
+}
+
+.RoutineComponent-label {
+    flex: 1;
+}
+
+.RoutineComponent-dropdown {
+    flex: 4;
+}

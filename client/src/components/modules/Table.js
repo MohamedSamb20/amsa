@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
 import "../../utilities.css";
-import "../pages/LogWorkout.css"
+import "./Table.css"
 
 const Table = (props) => {
 
@@ -20,27 +20,26 @@ const Table = (props) => {
     }, [props])
     
     return (
-        <div className='table-container'>
-        
-        <table>
-                    <tbody>
-                        <tr>
-                            
-                                <th>Exercise</th>
-                                <th>Sets</th>
-                                <th>Reps</th>
-                                <th>Weight Used ({props.unit})</th>
-                            
-                        </tr>
-                        {exercises.map(element => {
-                            return <tr><td>{element.exercise}</td>
-            <td>{element.sets}</td>
-            <td>{element.reps}</td>
-            <td>{element.weightUsed}</td></tr>
+        <div className='Table-container'>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Exercise</th>
+                        <th>Sets</th>
+                        <th>Reps</th>
+                        <th>Weight Used ({props.unit})</th>
+                    </tr>
+                    {exercises.map(element => {
+                            return <tr>
+                                <td >{element.exercise}</td>
+                                <td>{element.sets}</td>
+                                <td>{element.reps}</td>
+                                <td>{element.weightUsed}</td>
+                            </tr>
             })}
-                    </tbody>
-                </table>
-                </div>
+                </tbody>
+            </table>
+        </div>
     );
 
 }

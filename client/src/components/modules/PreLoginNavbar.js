@@ -4,15 +4,15 @@ import { Link } from "@reach/router";
 import "../../utilities.css";
 import "./PreLoginNavbar.css"
 import logo from "../../public/logo.png";
+import { navigate } from "@reach/router";
 const PreLoginNavbar = (props) => {
+    const goToHomePage = (event) => {
+        navigate("/");
+    }
     return (
         <nav className="Navbar-container">
-            {/* <img className="Navbar-image" src={logo}/> make img smaller */}
-            <div className="Navbar-name">amsa
-            {/* <div className="subtitle">
-                fitness
-                </div> */}
-            </div>
+            <img className="Navbar-image" src={logo}/>
+            <div className="Navbar-name" onClick={goToHomePage}>amsa</div>
             
             <Link className="Navbar-home Navbar-button" to="/">Home</Link>
             <Link className="Navbar-about Navbar-button" to="/about">About</Link>
