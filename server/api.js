@@ -158,8 +158,10 @@ router.post("/settings", auth.ensureLoggedIn, (req, res) => {
   Setting.findOne({ userId: req.body.userId}).then((set) => {
     weights = (set === null)? []: set.weightHistory;
     const currentDate = new Date();
+    let weightPushed = req.body.weight;
+    if (req.body.weightUnit === 'lbs') {weightPushed = weightPushed / 2.2}
     const dateInString = `${MONTHS[currentDate.getMonth()]} ${currentDate.getDate()}`;
-    weights.push([dateInString, req.body.weight]);
+    weights.push([dateInString, weightPushed]);
     const posted = {
       userId: req.body.userId,
       weightUnit: req.body.weightUnit,

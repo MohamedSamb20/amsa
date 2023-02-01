@@ -11,8 +11,9 @@ const WeightChart = (props) => {
     const [dataPoints, setDataPoints] = useState({})
     get("/api/settings", {userId: props.userId}).then((settings)=>{
         const newData = {}
+        const multiplier = settings.weightUnit === 'kg'? 1:2.2;
         for(const setting of settings.weightHistory){
-            newData[setting[0]] = setting[1];
+            newData[setting[0]] = setting[1]*multiplier;
         }
         setDataPoints(newData);
     })
