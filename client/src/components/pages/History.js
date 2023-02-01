@@ -41,7 +41,7 @@ const History = (props) => {
         <div className="HistoryPage-container">
             All previous workouts will appear here
           
-            <div className='rows'>
+            <div className='HistoryPage-rows'>
 
                 {allworkouts.map((workout,i) => {
                     const date = `${allDates[i]}`
